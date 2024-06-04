@@ -6,6 +6,7 @@
     import AppWindow from "./window.svelte";
     import About from "./windows/About.svelte";
     import Projects from "./windows/Projects.svelte";
+    import Email from './windows/email.svelte';
 
     var audio: any = null;
 
@@ -23,29 +24,29 @@
     let windows: any = {
         about: {
             open: false,
-            posX: 100,
+            posX: 200,
             posY: 100,
             posZ: 0,
             onOpen: () => {}
         },
         projects: {
             open: false,
-            posX: 120,
+            posX: 220,
             posY: 120,
             posZ: 0,
             onOpen: () => {}
         },
         email: {
             open: false,
-            posX: 130,
-            posY: 130,
+            posX: 240,
+            posY: 140,
             posZ: 0,
             onOpen: () => {}
         },
         terminal: {
             open: false,
-            posX: 140,
-            posY: 140,
+            posX: 260,
+            posY: 160,
             posZ: 0,
             onOpen: () => {}
         }
@@ -229,12 +230,12 @@
                 <p>projects</p>
             </button>
 
-            <button class="flex flex-col items-center justify-center max-w-16 max-h-24" on:click={() => notify("E-Mail")}>
+            <button class="flex flex-col items-center justify-center max-w-16 max-h-24" on:click={() => windows.email.onOpen()}>
                 <img src="/Email.png" alt="" class="w-16" draggable="false">
                 <p>contact</p>
             </button>
 
-            <button class="flex flex-col items-center justify-center max-w-16 max-h-24" on:click={() => notify("Terminal")}>
+            <button class="flex flex-col items-center justify-center max-w-16 max-h-24" on:click={() => windows.terminal.onOpen()}>
                 <img src="/Terminal.png" alt="" class="w-16" draggable="false" >
                 <p>terminal</p>
             </button>
@@ -276,3 +277,11 @@
 <AppWindow name="Projects" bind:self={windows.projects} bind:windows={windows}>
     <Projects />
 </AppWindow>
+
+<AppWindow name="Xel's E-Mail Client" bind:self={windows.email} bind:windows={windows}>
+    <Email />
+</AppWindow>
+
+<AppWindow name="Terminal" bind:self={windows.terminal} bind:windows={windows}>
+</AppWindow>
+

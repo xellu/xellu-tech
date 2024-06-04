@@ -4,7 +4,7 @@
     import { onMount, onDestroy } from 'svelte';
     import { notifications } from "$lib/notifications.ts";
 
-    import { slide } from 'svelte/transition';
+    import { fade, slide } from 'svelte/transition';
 
     let currentNotification: any = null
     let notificationQueue: any = []
@@ -77,7 +77,7 @@
 </script>
 
 {#if currentNotification}
-<div class="w-screen h-screen flex items-center justify-center fixed left-0 top-0" style="z-index: 999999999999999999999;"> 
+<div class="w-screen h-screen flex items-center justify-center fixed left-0 top-0 bg-black/50" style="z-index: 999999999999999999999;" transition:fade> 
     <div class="min-w-56 max-w-96 backdrop-blur-sm" transition:slide style="border: 1px solid rgb({colors[currentNotification.type]});">
         <div class="px-2 flex items-center justify-between select-none"
           style="background-color: rgba({colors[currentNotification.type]}, .8);">
