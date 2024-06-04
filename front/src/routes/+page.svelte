@@ -4,8 +4,8 @@
     import { fade } from 'svelte/transition';
 
     import AppWindow from "./window.svelte";
-    import About from "./windows/About.svelte";
-    import Projects from "./windows/Projects.svelte";
+    import About from "./windows/about.svelte";
+    import Projects from "./windows/projects.svelte";
     import Email from './windows/email.svelte';
     import Terminal from './windows/terminal.svelte';
 
