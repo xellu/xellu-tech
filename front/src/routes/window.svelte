@@ -81,7 +81,7 @@
 </script>
 
 {#if self.open}
-<div class="bg-surface-500/50 border {active ? 'border-primary-900' : 'border-primary-900/50'} max-w-3xl min-w-56 fixed backdrop-blur-md duration-300 text-left"
+<div class="bg-surface-500/50 border {active ? 'border-primary-900' : 'border-primary-900/50'} max-w-3xl min-w-56 fixed backdrop-blur-md duration-300 text-left crt"
     id="{pageId}" style="left: {self.posX}px; top: {self.posY}px; z-index: {self.posZ};"
     on:click={() => promoteToTop()} on:keydown={null} role="checkbox" tabindex="0" aria-checked
     transition:scale>

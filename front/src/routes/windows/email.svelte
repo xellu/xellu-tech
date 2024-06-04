@@ -10,6 +10,7 @@
         </button>
 
         <div class="flex-grow"></div>
+        <p class="animate-text-flashing text-center">NOTICE: out of order</p>
         <div class="bg-primary-900/5 p-2">
             <p>Welcome %user%</p>
         </div>
