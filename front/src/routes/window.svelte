@@ -76,15 +76,15 @@
             if (self.posX > window.innerWidth - width) { self.posX = window.innerWidth - width - 5 }
             if (self.posY > window.innerHeight - height - 64) { self.posY = window.innerHeight - height - 69 }
 
-        }, 500)
+        }, 200)
     })
 </script>
 
 {#if self.open}
-<div class="bg-surface-500 border {active ? 'border-primary-900' : 'border-primary-900/50'} max-w-xl w-full fixed backdrop-blur-sm" id="{pageId}" style="left: {self.posX}px; top: {self.posY}px;" transition:scale>
-    <button class="flex justify-between items-center px-2 {active ? 'bg-primary-500/10' : 'bg-primary-500/5'} text-lg w-full" draggable="true" on:click={() => promoteToTop()} on:mousedown={() => promoteToTop()} on:dragstart={(e) => saveToTemp(e)} on:dragend={(e) => handleDrag(e)}> 
-        <p class="text-primary-500 flex-grow text-left h4">{name}</p>
-        <button class="text-primary-500 p-1 text-xl" on:click={() => self.open = false}>X</button>
+<div class="bg-surface-500 border {active ? 'border-primary-900' : 'border-primary-900/50'} max-w-xl w-full fixed backdrop-blur-sm duration-300" id="{pageId}" style="left: {self.posX}px; top: {self.posY}px; z-index: {self.posZ};" transition:scale>
+    <button class="flex justify-between items-center px-2 {active ? 'bg-primary-500/10 text-primary-500' : 'bg-primary-500/5 text-primary-300'} text-lg w-full duration-300" draggable="true" on:click={() => promoteToTop()} on:mousedown={() => promoteToTop()} on:dragstart={(e) => saveToTemp(e)} on:dragend={(e) => handleDrag(e)}> 
+        <p class="flex-grow text-left h4">{name}</p>
+        <button class="p-1 text-xl" on:click={() => self.open = false}>X</button>
     </button>
 
     <div class="max-h-96 overflow-y-scroll">
