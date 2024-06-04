@@ -1,6 +1,6 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import { scale } from "svelte/transition";
+    import { scale, slide } from "svelte/transition";
 
     export let self: any = {
         open: false,
@@ -81,13 +81,17 @@
 </script>
 
 {#if self.open}
-<div class="bg-surface-500 border {active ? 'border-primary-900' : 'border-primary-900/50'} max-w-xl w-full fixed backdrop-blur-sm duration-300" id="{pageId}" style="left: {self.posX}px; top: {self.posY}px; z-index: {self.posZ};" transition:scale>
-    <button class="flex justify-between items-center px-2 {active ? 'bg-primary-500/10 text-primary-500' : 'bg-primary-500/5 text-primary-300'} text-lg w-full duration-300" draggable="true" on:click={() => promoteToTop()} on:mousedown={() => promoteToTop()} on:dragstart={(e) => saveToTemp(e)} on:dragend={(e) => handleDrag(e)}> 
+<div class="bg-surface-500/50 border {active ? 'border-primary-900' : 'border-primary-900/50'} max-w-3xl min-w-56 fixed backdrop-blur-md duration-300 text-left"
+    id="{pageId}" style="left: {self.posX}px; top: {self.posY}px; z-index: {self.posZ};"
+    on:click={() => promoteToTop()} on:keydown={null} role="checkbox" tabindex="0" aria-checked
+    transition:scale>
+
+<button class="flex justify-between items-center px-2 {active ? 'bg-primary-500/10 text-primary-500' : 'bg-primary-500/5 text-primary-300'} text-lg w-full duration-300" draggable="true"  on:dragstart={(e) => saveToTemp(e)} on:dragend={(e) => handleDrag(e)}> 
         <p class="flex-grow text-left h4">{name}</p>
         <button class="p-1 text-xl" on:click={() => self.open = false}>X</button>
     </button>
 
-    <div class="max-h-96 overflow-y-scroll">
+    <div class="overflow-y-scroll" style="max-height: 30rem;" transition:slide>
         <slot />
     </div>
 </div>

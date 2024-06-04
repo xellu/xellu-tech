@@ -2,7 +2,7 @@
     import { socials } from '$lib/socials';
 </script>
 
-<div class="p-3">
+<div class="p-3 max-w-xl">
     <h4 class="h4 text-primary-300">Something about myself</h4>
     <p>
         Hello, I go by the alias 'Xellu', and I'm a full-stack developer based in Novosibirsk, Russia.
