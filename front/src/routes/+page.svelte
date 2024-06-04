@@ -221,11 +221,6 @@
                 <img src="/Terminal.png" alt="" class="w-16" draggable="false" >
                 <p>terminal</p>
             </button>
-
-            <button class="flex flex-col items-center justify-center max-w-16 max-h-24" on:click={() => notify("Music Player")}>
-                <img src="/Music.png" alt="" class="w-16" draggable="false" >
-                <p>music</p>
-            </button>
             
         </div>
 

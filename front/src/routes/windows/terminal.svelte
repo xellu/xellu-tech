@@ -36,30 +36,43 @@
                 let path: string[] = pwd
                 let dir: any = null;
 
+                console.log(pwd)
+
                 if (_path) {
-                    if (_path.startsWith("/")) {
+                    if (_path == "/") {
+                        let output: string[] = []
+                        Object.keys(directories).forEach((key) => {
+                            if (key.startsWith("_")) return
+                            output.push(directories[key]._type == "dir" ? `<span class="text-secondary-500">${key}/</span>` : key)
+                        })
+
+                        return [output.join("   ")]
+                    } else if (_path.startsWith("/")) {
                         path = _path.split("/").filter((p) => p != "")
                     } else {
                         path = [...pwd, ..._path.split("/").filter((p) => p != "")]
                     }
                 }
 
-                console.log(path)
-
+                let failed: boolean = false
                 path.forEach((p :string) => {
                     if (dir == null) {
                         dir = directories[p]
                         if (!dir) {
-                            return ["<span class='text-warning-500'>Directory not found</span>"]
+                            failed = true
                         }
                     } else {
                         if (!dir[p]) {
-                            return ["<span class='text-warning-500'>Directory not found</span>"]
+                            failed = true
                         }
 
                         dir = dir[p]
                     }
                 })
+
+                if (typeof(dir) != "object" || failed) {
+                    return ["<span class='text-warning-500'>Directory not found</span>"]
+                }
 
                 let output: string[] = []
                 Object.keys(dir).forEach((key) => {
@@ -69,7 +82,7 @@
 
                 return [output.join("   ")]
             } catch (e) {
-                return ["<span class='text-warning-500'>Directory not found</span>"]
+                return [`<span class='text-error-500'>Unable to list directory: ${e}</span>`]
             }
         },
         cd: (dir: string) => {
@@ -78,21 +91,32 @@
                     pwd = pwd.slice(0, pwd.length - 1)
                 }
             } else {
+                if (dir == "/") {
+                    return ["<span class='text-error-500'>Root access denied</span>"]
+                } else if (dir.startsWith("/")) {
+                    pwd = dir.split("/").filter((p) => p != "")
+                    return []
+                }
+
                 let path = [...pwd, ...dir.split("/").filter((p) => p != "")]
                 let _dir = directories
+                let failed: boolean = false
 
                 path.forEach((p :string) => {
                     if (_dir == null) {
-                        return ["<span class='text-warning-500'>Directory not found</span>"]
+                        failed = true
                     }
 
-                    if (!_dir[p]) {
-                        return ["<span class='text-warning-500'>Directory not found</span>"]
+                    if (_dir[p] == undefined) {
+                        failed = true
                     }
-
+                    
                     _dir = _dir[p]
                 })
 
+                if (failed) {
+                    return ["<span class='text-warning-500'>Directory not found</span>"]
+                }
                 pwd = path
             }
 
@@ -211,7 +235,7 @@
         <div class="flex text-surface-400 w-full">
             <p class="whitespace-nowrap pr-1">/{pwd.join("/")}&gt</p>
             <div class="w-full">
-                <input type="text" class="border-none outline-none input !bg-transparent w-full"
+                <input type="text" class="outline-none !bg-transparent w-full border-b border-b-surface-400"
                     on:keydown={handleInput} bind:value={input} />
             </div>
         </div>
