@@ -7,6 +7,7 @@
     import About from "./windows/About.svelte";
     import Projects from "./windows/Projects.svelte";
     import Email from './windows/email.svelte';
+    import Terminal from './windows/terminal.svelte';
 
     var audio: any = null;
 
@@ -117,25 +118,6 @@
             clearInterval(intervals[key])
         })
     })
-
-    function playNoise() {
-        // play noise sounds
-        if (!audio) {
-            audio = new Audio('/noise.mp3');
-        }
-
-        audio.loop = true;
-        audio.volume = 0.05;
-        audio.play();
-    }
-
-    function stopNoise() {
-        // stop noise sounds
-        if (audio) {
-            audio.pause();
-            audio.currentTime = 0;
-        }
-    }
 
     function imageFlicker() {
         if (photosensitiveWarning) return;
@@ -258,7 +240,6 @@
             <div class="flex items-center justify-center gap-5">
                 <button on:click={() => {
                     tray.volume = !tray.volume;
-                    tray.volume ? playNoise() : stopNoise();
                 }}>
                     <img src="/{tray.volume ? 'Volume' : 'VolumeMuted'}.png" alt="VOLUME" class="w-6">
                 </button>
@@ -283,5 +264,6 @@
 </AppWindow>
 
 <AppWindow name="Terminal" bind:self={windows.terminal} bind:windows={windows}>
+    <Terminal bind:self={windows.terminal} bind:windows={windows} />
 </AppWindow>
 
