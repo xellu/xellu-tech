@@ -3,6 +3,8 @@
     import { onMount } from 'svelte';
     import { fade } from 'svelte/transition';
 
+    var audio: any = null;
+
     let photosensitiveWarning: boolean = false
     let transitionDelay = {
         state: true,
@@ -34,6 +36,11 @@
         }
     }
 
+    let tray: {time: string, volume: boolean} = {
+        time: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
+        volume: false
+    }
+
     onMount(() => {
         // flashing lights warning
         if (localStorage.getItem('photosensitiveWarning') == undefined) {
@@ -51,12 +58,67 @@
         }
         
         // preload assets
-        const images = ['/icon.png', '/AboutMe.png', '/Projects.png', '/Email.png', '/Terminal.png'];
+        const images = ['/icon.png', '/AboutMe.png', '/Projects.png', '/Email.png', '/Terminal.png', '/User.png', '/Volume.png', '/VolumeMuted.png',
+            '/Music.png', '/WarningSign.png', '/rotate.gif'];
+        
         images.forEach(image => {
             const img = new Image();
             img.src = image;
-        });
+        });   
+
+        setInterval(() => {
+            imageFlicker()
+        }, 5000)
+
+        // update time
+        setInterval(() => {
+            tray.time = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+        }, 1000)
     })
+
+    function playNoise() {
+        // play noise sounds
+        if (!audio) {
+            audio = new Audio('/noise.mp3');
+        }
+
+        audio.loop = true;
+        audio.volume = 0.05;
+        audio.play();
+    }
+
+    function stopNoise() {
+        // stop noise sounds
+        if (audio) {
+            audio.pause();
+            audio.currentTime = 0;
+        }
+    }
+
+    function imageFlicker() {
+        const images = document.querySelectorAll('img');
+
+        const randomImages = [];
+        for (let i = 0; i < 3; i++) {
+            const random = Math.floor(Math.random() * images.length);
+            randomImages.push(images[random]);
+        }
+
+        randomImages.forEach(img => {
+            img.style.opacity = "0";
+            setTimeout(() => {
+                img.style.opacity = "1";
+                if (Math.floor(Math.random() * 2) == 1) {
+                    setTimeout(() => {
+                        img.style.opacity = "0";
+                        setTimeout(() => {
+                            img.style.opacity = "1";
+                        }, Math.floor(Math.random() * 100))
+                    }, Math.floor(Math.random() * 100))
+                }
+            }, Math.floor(Math.random() * 100))
+        })
+    }
     
 </script>
 
@@ -90,9 +152,8 @@
 
             localStorage.setItem('photosensitiveWarning', 'set')
 
-            setTimeout(
-                () => {
-                    transitionDelay.state = false;
+            setTimeout(() => {
+                transitionDelay.state = false;
             }, 1000)
         }}>Proceed</button>
     </div>
@@ -111,29 +172,56 @@
 </div>
 
 <div class="crt tv-start w-screen h-screen" transition:fade>
-    <!-- make a pc desktop with icons (aka apps) -->
-    <div class="w-screen h-screen flex flex-col flex-wrap gap-5 p-5 lg:p-16 select-none">
+    <div class="h-screen w-screen flex flex-col">
+        <!-- desktop -->
+        <div class="w-full flex-grow flex flex-col flex-wrap gap-5 p-5 lg:p-16 select-none">
 
-        <button class="flex flex-col items-center justify-center max-w-16 max-h-24" on:click={() => notify("About Me")}>
-            <img src="/AboutMe.png" alt="" class="w-16" draggable="false">
-            <p>about me</p>
-        </button>
+            <button class="flex flex-col items-center justify-center max-w-16 max-h-24" on:click={() => notify("About Me")}>
+                <img src="/AboutMe.png" alt="" class="w-16" draggable="false">
+                <p>about me</p>
+            </button>
 
-        <button class="flex flex-col items-center justify-center max-w-16 max-h-24" on:click={() => notify("Projects")}>
-            <img src="/Projects.png" alt="" class="w-16" draggable="false">
-            <p>projects</p>
-        </button>
+            <button class="flex flex-col items-center justify-center max-w-16 max-h-24" on:click={() => notify("Projects")}>
+                <img src="/Projects.png" alt="" class="w-16" draggable="false">
+                <p>projects</p>
+            </button>
 
-        <button class="flex flex-col items-center justify-center max-w-16 max-h-24" on:click={() => notify("E-Mail")}>
-            <img src="/Email.png" alt="" class="w-16" draggable="false">
-            <p>contact</p>
-        </button>
+            <button class="flex flex-col items-center justify-center max-w-16 max-h-24" on:click={() => notify("E-Mail")}>
+                <img src="/Email.png" alt="" class="w-16" draggable="false">
+                <p>contact</p>
+            </button>
 
-        <button class="flex flex-col items-center justify-center max-w-16 max-h-24" on:click={() => notify("Terminal")}>
-            <img src="/Terminal.png" alt="" class="w-16" draggable="false" >
-            <p>terminal</p>
-        </button>
-        
+            <button class="flex flex-col items-center justify-center max-w-16 max-h-24" on:click={() => notify("Terminal")}>
+                <img src="/Terminal.png" alt="" class="w-16" draggable="false" >
+                <p>terminal</p>
+            </button>
+
+            <button class="flex flex-col items-center justify-center max-w-16 max-h-24" on:click={() => notify("Music Player")}>
+                <img src="/Music.png" alt="" class="w-16" draggable="false" >
+                <p>music</p>
+            </button>
+            
+        </div>
+
+        <div class="bg-primary-900/10 flex items-center justify-between p-3 px-5 w-full h-16">
+            <!-- user -->
+            <button class="flex items-center justify-between gap-3" on:click={() => { notify("FATAL SYSTEM FAILURE: auth.service is not responding", "error") }}>
+                <img src="/User.png" alt="USER" class="w-6 rounded-full border border-primary-500 p-1">
+                <p class="text-primary-500 text-xl">null</p>
+            </button>
+
+            <!-- time & tray -->
+            <div class="flex items-center justify-center gap-5">
+                <button on:click={() => {
+                    tray.volume = !tray.volume;
+                    tray.volume ? playNoise() : stopNoise();
+                }}>
+                    <img src="/{tray.volume ? 'Volume' : 'VolumeMuted'}.png" alt="VOLUME" class="w-6">
+                </button>
+
+                <p class="text-xl text-primary-500">{tray.time}</p>
+            </div>
+        </div>
     </div>
 </div>
 {/if}
