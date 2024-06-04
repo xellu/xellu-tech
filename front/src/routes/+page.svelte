@@ -1,7 +1,7 @@
 <script lang="ts">
     import { notify } from '$lib/notifications';
     import { onMount } from 'svelte';
-    import { fade, slide } from 'svelte/transition';
+    import { fade } from 'svelte/transition';
 
     let photosensitiveWarning: boolean = false
     let transitionDelay = {
@@ -11,12 +11,37 @@
 
     let mobileWarning: boolean = false
 
+    let windows: any = {
+        about: {
+            open: false,
+            posX: 0,
+            posY: 0
+        },
+        projects: {
+            open: false,
+            posX: 0,
+            posY: 0
+        },
+        email: {
+            open: false,
+            posX: 0,
+            posY: 0
+        },
+        terminal: {
+            open: false,
+            posX: 0,
+            posY: 0
+        }
+    }
+
     onMount(() => {
+        // flashing lights warning
         if (localStorage.getItem('photosensitiveWarning') == undefined) {
             photosensitiveWarning = true
         }
         transitionDelay.state = false
 
+        // mobile device warning
         if (window.innerWidth < 1024) {
             mobileWarning = true
 
@@ -24,6 +49,13 @@
                 mobileWarning = false
             }, 3000)
         }
+        
+        // preload assets
+        const images = ['/icon.png', '/AboutMe.png', '/Projects.png', '/Email.png', '/Terminal.png'];
+        images.forEach(image => {
+            const img = new Image();
+            img.src = image;
+        });
     })
     
 </script>
@@ -36,6 +68,7 @@
 <div class="w-screen h-screen flex items-center justify-center gap-3 flex-col bg-surface-900/90" transition:fade>
     <img src="/rotate.gif" alt="" class="w-32">
     <p class="px-5 text-center">Please rotate your mobile device sideways for better experience</p>
+    <p class="px-5 text-center mt-10 text-secondary-500">We advise using a desktop for the best experience</p>
 </div>
 {/if}
 
@@ -73,12 +106,33 @@
 
 <div class="crt-line"></div>
 
-<div class="fixed top-0 left-0 w-screen h-screen select-none -z-50 flex items-center justify-center opacity-10">
-    <img src="/icon.png" alt="" draggable="false" class="max-w-xl w-full p-5">
+<div class="fixed top-0 left-0 w-screen h-screen select-none -z-50 flex items-center justify-center opacity-10" transition:fade>
+    <img src="/icon.png" alt="" draggable="false" class="max-w-xl w-full p-5 animate-pulse">
 </div>
 
-<div class="crt tv-start min-h-screen" transition:fade>
-    <div class="flex flex-row gap-3 flex-wrap min-h-screen">
+<div class="crt tv-start w-screen h-screen" transition:fade>
+    <!-- make a pc desktop with icons (aka apps) -->
+    <div class="w-screen h-screen flex flex-col flex-wrap gap-5 p-5 lg:p-16 select-none">
+
+        <button class="flex flex-col items-center justify-center max-w-16 max-h-24" on:click={() => notify("About Me")}>
+            <img src="/AboutMe.png" alt="" class="w-16" draggable="false">
+            <p>about me</p>
+        </button>
+
+        <button class="flex flex-col items-center justify-center max-w-16 max-h-24" on:click={() => notify("Projects")}>
+            <img src="/Projects.png" alt="" class="w-16" draggable="false">
+            <p>projects</p>
+        </button>
+
+        <button class="flex flex-col items-center justify-center max-w-16 max-h-24" on:click={() => notify("E-Mail")}>
+            <img src="/Email.png" alt="" class="w-16" draggable="false">
+            <p>contact</p>
+        </button>
+
+        <button class="flex flex-col items-center justify-center max-w-16 max-h-24" on:click={() => notify("Terminal")}>
+            <img src="/Terminal.png" alt="" class="w-16" draggable="false" >
+            <p>terminal</p>
+        </button>
         
     </div>
 </div>

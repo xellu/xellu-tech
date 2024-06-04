@@ -24,7 +24,7 @@
         success: "0, 125, 0",
         error: "125, 0, 0",
         warning: "125, 125, 0",
-        primary: "0, 125, 0",
+        primary: "0, 50, 0",
     }
 
     let queueManagerInstance: any = null
