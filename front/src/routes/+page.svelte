@@ -1,6 +1,7 @@
 <script lang="ts">
+    import { notify } from '$lib/notifications';
     import { onMount } from 'svelte';
-    import { fade, scale } from 'svelte/transition';
+    import { fade, slide } from 'svelte/transition';
 
     let photosensitiveWarning: boolean = false
     let transitionDelay = {
@@ -42,7 +43,8 @@
             setTimeout(
                 () => {
                     transitionDelay.state = false;
-                }, 1000) }}>Proceed</button>
+            }, 1000)
+        }}>Proceed</button>
     </div>
 </div>
 
@@ -54,10 +56,28 @@
 <div class="crt-line"></div>
 
 <div class="fixed top-0 left-0 w-screen h-screen select-none -z-50 flex items-center justify-center opacity-10">
-    <img src="/icon.png" alt="" draggable="false">
+    <img src="/icon.png" alt="" draggable="false" class="max-w-xl w-full p-5">
 </div>
 
-<div class="crt tv-start p-5" transition:fade>
-    <p>Hello World!</p>
+<div class="crt tv-start min-h-screen" transition:fade>
+    <div class="flex flex-row gap-3 flex-wrap min-h-screen">
+        <div class="w-96 flex-grow p-5">
+            <p>Hello World</p>
+        </div>
+
+        <div class="w-96 flex-grow h-screen overflow-y-scroll flex flex-col p-5" transition:slide>
+            <div class="flex flex-row gap-3 px-3">
+                <button class="btn variant-filled-surface" on:click={() => {
+                    notify('Hello World', 'error')
+                    notify('Hello World', 'primary')
+                }}>
+                    Hello WOrld
+                </button>
+            </div>
+            <div class="bg-primary-900/10 border border-primary-900/20 flex-grow">
+
+            </div>
+        </div>
+    </div>
 </div>
 {/if}
