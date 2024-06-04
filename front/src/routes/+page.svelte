@@ -10,6 +10,9 @@
     var audio: any = null;
 
     let photosensitiveWarning: boolean = false
+    let photosensitiveExpire: number = Date.now() + 10000
+    let photosensitiveRemaining: string = "10s"
+
     let transitionDelay = {
         state: true,
         crt: false
@@ -62,6 +65,18 @@
         // flashing lights warning
         if (localStorage.getItem('photosensitiveWarning') == undefined) {
             photosensitiveWarning = true
+
+            setTimeout(() => {
+                photosensitiveWarning = false
+                transitionDelay.state = true
+                transitionDelay.crt = true
+
+                localStorage.setItem('photosensitiveWarning', 'set')
+
+                setTimeout(() => {
+                    transitionDelay.state = false;
+                }, 1000)
+            }, photosensitiveExpire - Date.now())
         }
         transitionDelay.state = false
 
@@ -89,6 +104,8 @@
 
         // update time
         intervals.time = setInterval(() => {
+            photosensitiveRemaining = ((photosensitiveExpire - Date.now()) / 1000).toFixed(0) + "s"
+
             tray.time = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
         }, 1000)
     })
@@ -165,7 +182,7 @@
 <div class="w-screen h-screen flex items-center justify-center flex-wrap gap-10" transition:fade>
     <img src="/WarningSign.png" alt="">
     <div class="flex justify-center flex-col gap-3 p-5">
-        <h1 class="h1 font-black text-warning-500 max-w-xl w-full">ATTENTION</h1>
+        <h1 class="h1 font-black text-warning-500 max-w-xl w-full">ATTENTION ({photosensitiveRemaining})</h1>
         <p class="max-w-xl w-full text-lg">
             This page contains flashing lights that may trigger seizures in small percentage of people, even without prior history of photosensitive epilepsy.
         </p>
