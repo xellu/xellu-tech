@@ -77,7 +77,7 @@
 </script>
 
 {#if currentNotification}
-<div class="w-screen h-screen flex items-center justify-center z-20 fixed left-0 top-0"> 
+<div class="w-screen h-screen flex items-center justify-center fixed left-0 top-0" style="z-index: 999999999999999999999;"> 
     <div class="min-w-56 max-w-96 backdrop-blur-sm" transition:slide style="border: 1px solid rgb({colors[currentNotification.type]});">
         <div class="px-2 flex items-center justify-between select-none"
           style="background-color: rgba({colors[currentNotification.type]}, .8);">

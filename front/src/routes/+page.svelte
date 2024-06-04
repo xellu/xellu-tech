@@ -1,7 +1,11 @@
 <script lang="ts">
     import { notify } from '$lib/notifications';
-    import { onMount } from 'svelte';
+    import { onMount, onDestroy } from 'svelte';
     import { fade } from 'svelte/transition';
+
+    import AppWindow from "./window.svelte";
+    import About from "./windows/About.svelte";
+    import Projects from "./windows/Projects.svelte";
 
     var audio: any = null;
 
@@ -16,29 +20,42 @@
     let windows: any = {
         about: {
             open: false,
-            posX: 0,
-            posY: 0
+            posX: 100,
+            posY: 100,
+            posZ: 0,
+            onOpen: () => {}
         },
         projects: {
             open: false,
-            posX: 0,
-            posY: 0
+            posX: 120,
+            posY: 120,
+            posZ: 0,
+            onOpen: () => {}
         },
         email: {
             open: false,
-            posX: 0,
-            posY: 0
+            posX: 130,
+            posY: 130,
+            posZ: 0,
+            onOpen: () => {}
         },
         terminal: {
             open: false,
-            posX: 0,
-            posY: 0
+            posX: 140,
+            posY: 140,
+            posZ: 0,
+            onOpen: () => {}
         }
     }
 
     let tray: {time: string, volume: boolean} = {
         time: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
         volume: false
+    }
+
+    let intervals: any = {
+        time: null,
+        flicker: null
     }
 
     onMount(() => {
@@ -66,14 +83,21 @@
             img.src = image;
         });   
 
-        setInterval(() => {
+        intervals.flicker = setInterval(() => {
             imageFlicker()
         }, 5000)
 
         // update time
-        setInterval(() => {
+        intervals.time = setInterval(() => {
             tray.time = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
         }, 1000)
+    })
+
+    onDestroy(() => {
+        console.info("Unloading page")
+        Object.keys(intervals).forEach(key => {
+            clearInterval(intervals[key])
+        })
     })
 
     function playNoise() {
@@ -96,6 +120,8 @@
     }
 
     function imageFlicker() {
+        if (photosensitiveWarning) return;
+
         const images = document.querySelectorAll('img');
 
         const randomImages = [];
@@ -160,12 +186,12 @@
 </div>
 
 {:else if transitionDelay.state}
-<div class="crt-line"></div>
+<!-- <div class="crt-line"></div> -->
 
 <div class="{transitionDelay.crt ? 'crt' : ''}"></div>
 {:else}
 
-<div class="crt-line"></div>
+<!-- <div class="crt-line"></div> -->
 
 <div class="fixed top-0 left-0 w-screen h-screen select-none -z-50 flex items-center justify-center opacity-10" transition:fade>
     <img src="/icon.png" alt="" draggable="false" class="max-w-xl w-full p-5 animate-pulse">
@@ -176,12 +202,12 @@
         <!-- desktop -->
         <div class="w-full flex-grow flex flex-col flex-wrap gap-5 p-5 lg:p-16 select-none">
 
-            <button class="flex flex-col items-center justify-center max-w-16 max-h-24" on:click={() => notify("About Me")}>
+            <button class="flex flex-col items-center justify-center max-w-16 max-h-24" on:click={() => windows.about.onOpen()}>
                 <img src="/AboutMe.png" alt="" class="w-16" draggable="false">
                 <p>about me</p>
             </button>
 
-            <button class="flex flex-col items-center justify-center max-w-16 max-h-24" on:click={() => notify("Projects")}>
+            <button class="flex flex-col items-center justify-center max-w-16 max-h-24" on:click={() => windows.projects.onOpen()}>
                 <img src="/Projects.png" alt="" class="w-16" draggable="false">
                 <p>projects</p>
             </button>
@@ -203,11 +229,11 @@
             
         </div>
 
-        <div class="bg-primary-900/10 flex items-center justify-between p-3 px-5 w-full h-16">
+        <div class="bg-surface-500 flex items-center justify-between p-3 px-5 w-full h-16">
             <!-- user -->
             <button class="flex items-center justify-between gap-3" on:click={() => { notify("FATAL SYSTEM FAILURE: auth.service is not responding", "error") }}>
                 <img src="/User.png" alt="USER" class="w-6 rounded-full border border-primary-500 p-1">
-                <p class="text-primary-500 text-xl">null</p>
+                <p class="text-primary-500 text-xl">%user%</p>
             </button>
 
             <!-- time & tray -->
@@ -225,3 +251,11 @@
     </div>
 </div>
 {/if}
+
+<AppWindow name="About Me" bind:self={windows.about} bind:windows={windows}>
+    <About />
+</AppWindow>
+
+<AppWindow name="Projects" bind:self={windows.projects} bind:windows={windows}>
+    <Projects />
+</AppWindow>
