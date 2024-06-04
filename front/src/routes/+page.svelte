@@ -9,11 +9,21 @@
         crt: false
     }
 
+    let mobileWarning: boolean = false
+
     onMount(() => {
         if (localStorage.getItem('photosensitiveWarning') == undefined) {
             photosensitiveWarning = true
         }
         transitionDelay.state = false
+
+        if (window.innerWidth < 1024) {
+            mobileWarning = true
+
+            setTimeout(() => {
+                mobileWarning = false
+            }, 3000)
+        }
     })
     
 </script>
@@ -21,6 +31,13 @@
 <svelte:head>
     <title>Xel Lu</title>
 </svelte:head>
+
+{#if mobileWarning}
+<div class="w-screen h-screen flex items-center justify-center gap-3 flex-col bg-surface-900/90" transition:fade>
+    <img src="/rotate.gif" alt="" class="w-32">
+    <p class="px-5 text-center">Please rotate your mobile device sideways for better experience</p>
+</div>
+{/if}
 
 {#if photosensitiveWarning}
 
@@ -53,6 +70,7 @@
 
 <div class="{transitionDelay.crt ? 'crt' : ''}"></div>
 {:else}
+
 <div class="crt-line"></div>
 
 <div class="fixed top-0 left-0 w-screen h-screen select-none -z-50 flex items-center justify-center opacity-10">
@@ -61,23 +79,7 @@
 
 <div class="crt tv-start min-h-screen" transition:fade>
     <div class="flex flex-row gap-3 flex-wrap min-h-screen">
-        <div class="w-96 flex-grow p-5">
-            <p>Hello World</p>
-        </div>
-
-        <div class="w-96 flex-grow h-screen overflow-y-scroll flex flex-col p-5" transition:slide>
-            <div class="flex flex-row gap-3 px-3">
-                <button class="btn variant-filled-surface" on:click={() => {
-                    notify('Hello World', 'error')
-                    notify('Hello World', 'primary')
-                }}>
-                    Hello WOrld
-                </button>
-            </div>
-            <div class="bg-primary-900/10 border border-primary-900/20 flex-grow">
-
-            </div>
-        </div>
+        
     </div>
 </div>
 {/if}
