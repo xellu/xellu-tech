@@ -3,7 +3,9 @@
     import { directories } from '$lib/directories';
 
     import { notify } from '$lib/notifications';
+    import { contacts } from '$lib/contacts';
 
+    export let inbox: any[] = []
     export let self: any = {
         open: false
     }
@@ -155,6 +157,19 @@
                 if (!tasks[_dir._achievement].completed) {
                     tasks[_dir._achievement].completed = true
                     setTimeout(() => { notify("Task completed", "success", 5000) }, 2000)
+
+                    if (_dir._achievement == "readAbout") {
+                            setTimeout(() => {
+                            inbox = inbox.concat({
+                                title: "What was that?",
+                                message: "You did not see that! Who put that there? Doesn't matter, just ignore it, okay? It isn't anything important.",
+                                author: contacts[1],
+                                unread: true
+                            })
+                            notify("You've got mail!")
+                            directories.user.default.home.company["about.txt"].content = ["THEY ARE COMING"]
+                        }, 10000)
+                    }
                 } 
             }
 

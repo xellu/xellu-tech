@@ -3,6 +3,7 @@
     import { onMount, onDestroy } from 'svelte';
     import { fade } from 'svelte/transition';
     import { playSound } from '$lib/sounds';
+    import { contacts } from '$lib/contacts';
 
     import AppWindow from "./window.svelte";
     import About from "./windows/about.svelte";
@@ -97,6 +98,8 @@
         flicker: null
     }
 
+    let inbox: {title: string, message: string, author: {name: string, online: boolean, send: Function}, unread: boolean}[] = []
+
     onMount(() => {
 
         windows.todo.posX = window.innerWidth - 350
@@ -131,7 +134,7 @@
         
         // preload assets
         const images = ['/icon.png', '/AboutMe.png', '/Projects.png', '/Email.png', '/Terminal.png', '/User.png', '/Volume.png', '/VolumeMuted.png',
-            '/Music.png', '/WarningSign.png', '/rotate.gif'];
+            '/Music.png', '/WarningSign.png', '/rotate.gif', "/Files.png", "/File.png", "/Folder.png", "/Tasks.png"];
         
         images.forEach(image => {
             const img = new Image();
@@ -148,6 +151,16 @@
 
             tray.time = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
         }, 1000)
+
+        setTimeout(() => {
+            inbox = inbox.concat({
+                title: "Welcome to the company!",
+                message: "We're glad to have you on board! Please take a look on the top right corner for your tasks. If you have any questions, feel free to ask!",
+                author: contacts[1],
+                unread: true
+            })
+            notify("You've got mail!")
+        }, photosensitiveWarning ? 20000 : 10000)
     })
 
     onDestroy(() => {
@@ -283,7 +296,7 @@
 
                     <button class="flex flex-col items-center justify-center max-w-16 max-h-24" on:click={() => windows.email.onOpen()}>
                         <img src="/Email.png" alt="" class="w-16" draggable="false">
-                        <p>contact</p>
+                        <p>e-mail</p>
                     </button>
 
                     <button class="flex flex-col items-center justify-center max-w-16 max-h-24" on:click={() => windows.terminal.onOpen()}>
@@ -340,20 +353,20 @@
         <Projects />
     </AppWindow>
 
-    <AppWindow name="Xel's E-Mail Client" bind:self={windows.email} bind:windows={windows} bind:tray={tray}>
-        <Email bind:tasks={tasks} />
+    <AppWindow name="E-Mail" bind:self={windows.email} bind:windows={windows} bind:tray={tray}>
+        <Email bind:inbox={inbox} />
     </AppWindow>
 
     <AppWindow name="Terminal" bind:self={windows.terminal} bind:windows={windows} bind:tray={tray}>
-        <Terminal bind:self={windows.terminal} bind:windows={windows} bind:tasks={tasks} />
+        <Terminal bind:self={windows.terminal} bind:windows={windows} bind:tasks={tasks} bind:inbox={inbox} />
     </AppWindow>
 
-    <AppWindow name="Tasks" bind:self={windows.todo} bind:windows={windows} bind:tray={tray}>
+    <AppWindow name="Tasks" bind:self={windows.todo} bind:windows={windows} bind:tray={tray} locked={true}>
         <Tasks bind:tasks={tasks} />
     </AppWindow>
 
     <AppWindow name="File Browser" bind:self={windows.files} bind:windows={windows} bind:tray={tray}>
-        <Files bind:windows={windows} bind:tasks={tasks} />
+        <Files bind:windows={windows} bind:tasks={tasks} bind:inbox={inbox} />
     </AppWindow>
 
     <AppWindow name="Notepad" bind:self={windows.fileDisplay} bind:windows={windows} bind:tray={tray}>
