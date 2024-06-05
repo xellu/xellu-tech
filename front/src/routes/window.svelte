@@ -2,6 +2,8 @@
     import { onMount } from "svelte";
     import { scale, slide } from "svelte/transition";
 
+    import { playSound } from "$lib/sounds";
+
     export let self: any = {
         open: false,
         posX: 0,
@@ -12,6 +14,9 @@
 
     export let windows: any = null;
     export let name: string = "Window";
+    export let tray: any = {
+        volume: false
+    }
 
     let pageId: string = Math.random().toString(36).substring(7);
 
@@ -54,6 +59,7 @@
 
     function promoteToTop() {
         self.posZ = getHighestZ() + 1;
+        if (tray.volume) { playSound("window-open.mp3", 0.01) }
     }
 
     self.onOpen = () => {
@@ -83,7 +89,7 @@
 {#if self.open}
 <div class="bg-surface-500/50 border {active ? 'border-primary-900' : 'border-primary-900/50'} max-w-3xl min-w-56 fixed backdrop-blur-md duration-300 text-left crt"
     id="{pageId}" style="left: {self.posX}px; top: {self.posY}px; z-index: {self.posZ};"
-    on:click={() => promoteToTop()} on:keydown={null} role="checkbox" tabindex="0" aria-checked
+    on:click={() => { if (!isTop()) { promoteToTop() } }} on:keydown={null} role="checkbox" tabindex="0" aria-checked
     transition:scale>
 
 <button class="flex justify-between items-center px-2 {active ? 'bg-primary-500/10 text-primary-500' : 'bg-primary-500/5 text-primary-300'} text-lg w-full duration-300" draggable="true"  on:dragstart={(e) => saveToTemp(e)} on:dragend={(e) => handleDrag(e)}> 

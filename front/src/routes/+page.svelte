@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { notify } from '$lib/notifications';
+    import { notify, pingState } from '$lib/notifications';
     import { onMount, onDestroy } from 'svelte';
     import { fade } from 'svelte/transition';
 
@@ -134,6 +134,8 @@
         audio.loop = true;
         audio.volume = 0.05;
         audio.play();
+
+        pingState.set(true)
     }
 
     function stopNoise() {
@@ -141,6 +143,8 @@
             audio.pause();
             audio.currentTime = 0;
         }
+
+        pingState.set(false)
     }
 
     function imageFlicker() {
@@ -272,19 +276,19 @@
     </div>
     {/if}
 
-    <AppWindow name="About Me" bind:self={windows.about} bind:windows={windows}>
+    <AppWindow name="About Me" bind:self={windows.about} bind:windows={windows} bind:tray={tray}>
         <About />
     </AppWindow>
 
-    <AppWindow name="Projects" bind:self={windows.projects} bind:windows={windows}>
+    <AppWindow name="Projects" bind:self={windows.projects} bind:windows={windows} bind:tray={tray}>
         <Projects />
     </AppWindow>
 
-    <AppWindow name="Xel's E-Mail Client" bind:self={windows.email} bind:windows={windows}>
+    <AppWindow name="Xel's E-Mail Client" bind:self={windows.email} bind:windows={windows} bind:tray={tray}>
         <Email />
     </AppWindow>
 
-    <AppWindow name="Terminal" bind:self={windows.terminal} bind:windows={windows}>
+    <AppWindow name="Terminal" bind:self={windows.terminal} bind:windows={windows} bind:tray={tray}>
         <Terminal bind:self={windows.terminal} bind:windows={windows} />
     </AppWindow>
 </div>

@@ -38,7 +38,11 @@
 
     let selectedContact: any = null
     
-    let inbox: any[] = []
+    let inbox: {title: string, message: string, author: {name: string, online: boolean, send: Function}}[] = [{
+        title: "Hello there!",
+        message: "Hey, how are you doing?",
+        author: contacts[0]
+    }]
     let selectedMessage: any = null
 
     let message: string = ""
@@ -66,22 +70,23 @@
         {/each}
 
         <div class="flex-grow"></div>
-        <p class="animate-text-flashing text-center">NOTICE: out of order</p>
         <div class="bg-primary-900/20 p-2">
             <p>Welcome %user%</p>
         </div>
     </div>
 
-    <div class="w-96 flex-grow p-3 flex flex-col">
+    <div class="w-96 flex-grow p-3 flex flex-col overflow-y-scroll">
         {#if selectedContact == null}
             {#if inbox.length == 0}
                 <p>No mail here! You're caught up!</p>
+            {:else}
+                <h4 class="h4">Inbox</h4>
             {/if}
             
             {#each inbox as mail}
-                <div class="m-1 bg-primary-500/10">
-                    <h6 class="h6">{mail.title}</h6>
-                    <p>From {mail.author}</p>
+                <div class="m-1 p-2 bg-primary-500/10">
+                    <h6 class="h6"><span class="animate-text-flashing">NEW</span> {mail.title}</h6>
+                    <p>From {mail.author.name}</p>
                 </div>
             {/each}
         {:else}

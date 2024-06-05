@@ -52,7 +52,7 @@
     <h4 class="h4 text-primary-300 mt-3">What's all this about?</h4>
     <p>
         I made this website to showcase my skills and projects, as well as to have fun with the design.
-        I've always been a fan of the retro aesthetic its eerie vibes. I hope you enjoy your stay!
+        I've always been a fan of the retro aesthetic & its eerie vibes. I hope you enjoy your stay!
         <br><br>
         Also turn on the Volume for better immersion.
     </p>
