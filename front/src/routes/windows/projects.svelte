@@ -22,7 +22,7 @@
             <div class="flex flex-col">
                 <div class="flex gap-3 items-center justify-between">
                     <h4 class="h4 text-tertiary-500">{project.title}</h4>
-                    <a href={project.url ? '#' : project.url} target="_blank" class="select-none text-lg {project.url ? 'text-secondary-500' : 'text-warning-500'} hover:underline">
+                    <a href={project.url == null ? '#' : project.url} target="_blank" class="select-none text-lg {project.url ? 'text-secondary-500' : 'text-warning-500'} hover:underline">
                         [ {project.url ? 'View' : 'Not Available'} ]
                     </a>
                 </div>

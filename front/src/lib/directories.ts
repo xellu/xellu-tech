@@ -17,6 +17,10 @@ export const directories: any = {
             _type: "file",
             content: ["<span class='text-warning-500'>Unable to display contents</span>"]
         },
+        "todo.app": {
+            _type: "file",
+            content: ["<span class='text-warning-500'>Unable to display contents</span>"]
+        }
         
     },
     user: {
@@ -46,26 +50,27 @@ export const directories: any = {
                             "For more information, visit our website at www.limecorp.com", "",
                             "- James Roberts, 12th of April, 1982"
                         ]
-                    },
-                    lime: {
-                        _type: "dir",
-                        "about.txt": {
-                            _type: "file",
-                            content: [
-                                "LIME Corporation is a multinational technology company that specializes in researching and developing new technologies for the U.S. government.",
-                                "The company was founded in the post-war era by a group of scientists and engineers who had worked on the Manhattan Project.", "",
-                                "While the company is best known for its work in the defense industry, it has also made significant contributions to the fields of computer science, telecommunications, and space exploration.",
-                                "", "- Rachel Johnson, 3rd of May, 1983", "", "", "", "", "DO NOT TRUST THEM!", "THE OASIS PROJECT IS REAL!", "It is believed that the real reason why the Space Exploration programme (Oasis) was shut down was because of the discovery of a new planet, which was kept secret from the public.",
-                                "The planet was named 'NG-1' and was said to be the first planet discovered outside of our solar system. It was said to be habitable and was believed to be the key to the future of humanity.",
-                                "However, after the 1st manned mission to the planet, the crew was never heard from again. The mission was said to be a failure and the planet was deemed uninhabitable.",
-                                "The truth is that the crew discovered that the planet was already inhabited by an advanced civilization. The crew was captured and taken prisoner by the inhabitants of the planet.",
-                                "The crew was never heard from again and the planet was declared off-limits by the U.S. government. The Oasis project was shut down and all records of the mission were destroyed.",
-                                "The truth about the planet and the crew was kept secret from the public and the crew was declared missing in action. The crew was never officially declared dead and their families were never told the truth about what happened to them.",
-                                "Everyone who worked on the Oasis project was sworn to secrecy and the truth about the planet and the crew was never revealed to the public.",
-                                "<span class='text-error-500'>THEY'RE COMING FOR US</span>"
-                            ]
-                        },
                     }
+                },
+                company: {
+                    _type: "dir",
+                    "about.txt": {
+                        _achievement: "readAbout",
+                        _type: "file",
+                        content: [
+                            "LIME Corporation is a multinational technology company that specializes in researching and developing new technologies for the U.S. government.",
+                            "The company was founded in the post-war era by a group of scientists and engineers who had worked on the Manhattan Project.", "",
+                            "While the company is best known for its work in the defense industry, it has also made significant contributions to the fields of computer science, telecommunications, and space exploration.",
+                            "", "- Rachel Johnson, 3rd of May, 1983", "", "", "", "", "DO NOT TRUST THEM!", "THE OASIS PROJECT IS REAL!", "It is believed that the real reason why the Space Exploration programme (Oasis) was shut down was because of the discovery of a new planet, which was kept secret from the public.",
+                            "The planet was named 'NG-1' and was said to be the first planet discovered outside of our solar system. It was said to be habitable and was believed to be the key to the future of humanity.",
+                            "However, after the 1st manned mission to the planet, the crew was never heard from again. The mission was said to be a failure and the planet was deemed uninhabitable.",
+                            "The truth is that the crew discovered that the planet was already inhabited by an advanced civilization. The crew was captured and taken prisoner by the inhabitants of the planet.",
+                            "The crew was never heard from again and the planet was declared off-limits by the U.S. government. The Oasis project was shut down and all records of the mission were destroyed.",
+                            "The truth about the planet and the crew was kept secret from the public and the crew was declared missing in action. The crew was never officially declared dead and their families were never told the truth about what happened to them.",
+                            "Everyone who worked on the Oasis project was sworn to secrecy and the truth about the planet and the crew was never revealed to the public.",
+                            "<span class='text-error-500'>THEY'RE COMING FOR US</span>"
+                        ]
+                    },
                 }
             }
         }

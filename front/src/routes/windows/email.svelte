@@ -36,6 +36,8 @@
         }
     ]
 
+    export let tasks: any = {}
+
     let selectedContact: any = null
     
     let inbox: {title: string, message: string, author: {name: string, online: boolean, send: Function}}[] = [{

@@ -2,12 +2,16 @@
     import { notify, pingState } from '$lib/notifications';
     import { onMount, onDestroy } from 'svelte';
     import { fade } from 'svelte/transition';
+    import { playSound } from '$lib/sounds';
 
     import AppWindow from "./window.svelte";
     import About from "./windows/about.svelte";
     import Projects from "./windows/projects.svelte";
     import Email from './windows/email.svelte';
     import Terminal from './windows/terminal.svelte';
+    import Tasks from './windows/tasks.svelte';
+    import Files from './windows/files.svelte';
+    import FileDisplay from './windows/filedisplay.svelte';
 
     var audio: any = null;
 
@@ -23,6 +27,13 @@
     let mobileWarning: boolean = false
 
     let windows: any = {
+        todo: {
+            open: true,
+            posX: 400,
+            posY: 200,
+            posZ: 1,
+            onOpen: () => {}
+        },
         about: {
             open: false,
             posX: 200,
@@ -50,6 +61,29 @@
             posY: 160,
             posZ: 0,
             onOpen: () => {}
+        },
+        files: {
+            open: false,
+            posX: 280,
+            posY: 180,
+            posZ: 0,
+            onOpen: () => {}
+        },
+        fileDisplay: {
+            open: false,
+            posX: 300,
+            posY: 200,
+            posZ: 0,
+            content: [],
+            onOpen: () => {}
+        }
+    }
+
+    let tasks: any = {
+        readAbout: {
+            title: "Read About the Company",
+            description: "Take a look at what We've accomplished!",
+            completed: false
         }
     }
 
@@ -64,6 +98,10 @@
     }
 
     onMount(() => {
+
+        windows.todo.posX = window.innerWidth - 350
+        windows.todo.posY = 50
+
         // flashing lights warning
         if (localStorage.getItem('photosensitiveWarning') == undefined) {
             photosensitiveWarning = true
@@ -132,7 +170,7 @@
 
         audio = new Audio('/noise.mp3');
         audio.loop = true;
-        audio.volume = 0.05;
+        audio.volume = 0.02;
         audio.play();
 
         pingState.set(true)
@@ -161,16 +199,18 @@
         randomImages.forEach(img => {
             img.style.opacity = "0";
             setTimeout(() => {
+                if (tray.volume) playSound("flicker.mp3", 0.1)
                 img.style.opacity = "1";
                 if (Math.floor(Math.random() * 2) == 1) {
                     setTimeout(() => {
                         img.style.opacity = "0";
                         setTimeout(() => {
                             img.style.opacity = "1";
-                        }, Math.floor(Math.random() * 100))
-                    }, Math.floor(Math.random() * 100))
+                            if (tray.volume) playSound("flicker.mp3", 0.1)
+                        }, Math.floor(Math.random() * 200))
+                    }, Math.floor(Math.random() * 200))
                 }
-            }, Math.floor(Math.random() * 100))
+            }, Math.floor(Math.random() * 200))
         })
     }
     
@@ -229,27 +269,41 @@
     <div class="tv-start w-screen h-screen" transition:fade>
         <div class="h-screen w-screen flex flex-col">
             <!-- desktop -->
-            <div class="w-full flex-grow flex flex-col flex-wrap gap-5 p-5 lg:p-16 select-none">
+            <div class="w-full flex-grow flex flex-wrap gap-7 p-5 lg:p-16 select-none">
+                <div class="flex flex-col gap-5">                    
+                    <button class="flex flex-col items-center justify-center max-w-16 max-h-24" on:click={() => windows.about.onOpen()}>
+                        <img src="/AboutMe.png" alt="" class="w-16" draggable="false">
+                        <p>about me</p>
+                    </button>
 
-                <button class="flex flex-col items-center justify-center max-w-16 max-h-24" on:click={() => windows.about.onOpen()}>
-                    <img src="/AboutMe.png" alt="" class="w-16" draggable="false">
-                    <p>about me</p>
-                </button>
+                    <button class="flex flex-col items-center justify-center max-w-16 max-h-24" on:click={() => windows.projects.onOpen()}>
+                        <img src="/Projects.png" alt="" class="w-16" draggable="false">
+                        <p>projects</p>
+                    </button>
 
-                <button class="flex flex-col items-center justify-center max-w-16 max-h-24" on:click={() => windows.projects.onOpen()}>
-                    <img src="/Projects.png" alt="" class="w-16" draggable="false">
-                    <p>projects</p>
-                </button>
+                    <button class="flex flex-col items-center justify-center max-w-16 max-h-24" on:click={() => windows.email.onOpen()}>
+                        <img src="/Email.png" alt="" class="w-16" draggable="false">
+                        <p>contact</p>
+                    </button>
 
-                <button class="flex flex-col items-center justify-center max-w-16 max-h-24" on:click={() => windows.email.onOpen()}>
-                    <img src="/Email.png" alt="" class="w-16" draggable="false">
-                    <p>contact</p>
-                </button>
+                    <button class="flex flex-col items-center justify-center max-w-16 max-h-24" on:click={() => windows.terminal.onOpen()}>
+                        <img src="/Terminal.png" alt="" class="w-16" draggable="false" >
+                        <p>terminal</p>
+                    </button>
 
-                <button class="flex flex-col items-center justify-center max-w-16 max-h-24" on:click={() => windows.terminal.onOpen()}>
-                    <img src="/Terminal.png" alt="" class="w-16" draggable="false" >
-                    <p>terminal</p>
-                </button>
+                    <button class="flex flex-col items-center justify-center max-w-16 max-h-24" on:click={() => windows.files.onOpen()}>
+                        <img src="/Files.png" alt="" class="w-16" draggable="false" >
+                        <p>files</p>
+                    </button>                
+
+                </div>
+                
+                <div class="flex flex-col gap-5"> 
+                    <button class="flex flex-col items-center justify-center max-w-16 max-h-24" on:click={() => windows.todo.onOpen()}>
+                        <img src="/Tasks.png" alt="" class="w-16" draggable="false" >
+                        <p>tasks</p>
+                    </button>
+                </div>
                 
             </div>
 
@@ -276,6 +330,8 @@
     </div>
     {/if}
 
+    {#if !photosensitiveWarning && !mobileWarning && !transitionDelay.state}
+
     <AppWindow name="About Me" bind:self={windows.about} bind:windows={windows} bind:tray={tray}>
         <About />
     </AppWindow>
@@ -285,10 +341,26 @@
     </AppWindow>
 
     <AppWindow name="Xel's E-Mail Client" bind:self={windows.email} bind:windows={windows} bind:tray={tray}>
-        <Email />
+        <Email bind:tasks={tasks} />
     </AppWindow>
 
     <AppWindow name="Terminal" bind:self={windows.terminal} bind:windows={windows} bind:tray={tray}>
-        <Terminal bind:self={windows.terminal} bind:windows={windows} />
+        <Terminal bind:self={windows.terminal} bind:windows={windows} bind:tasks={tasks} />
     </AppWindow>
+
+    <AppWindow name="Tasks" bind:self={windows.todo} bind:windows={windows} bind:tray={tray}>
+        <Tasks bind:tasks={tasks} />
+    </AppWindow>
+
+    <AppWindow name="File Browser" bind:self={windows.files} bind:windows={windows} bind:tray={tray}>
+        <Files bind:windows={windows} bind:tasks={tasks} />
+    </AppWindow>
+
+    <AppWindow name="Notepad" bind:self={windows.fileDisplay} bind:windows={windows} bind:tray={tray}>
+        <FileDisplay bind:content={windows.fileDisplay.content} />
+    </AppWindow>
+    
+    {/if}
+
+    
 </div>

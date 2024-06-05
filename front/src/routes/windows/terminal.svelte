@@ -9,6 +9,7 @@
     }
 
     export let windows: any = null
+    export let tasks: any = {}
 
     const default_message = ["Running XelOS [Build 4-6-1984/f6eb9a3]", "(c) LIME Corporation, All Rights Reserved"]
     let history = default_message
@@ -148,6 +149,13 @@
 
             if (_dir._type != "file") {
                 return ["<span class='text-warning-500'>File not found</span>"]
+            }
+
+            if (_dir._achievement) {
+                if (!tasks[_dir._achievement].completed) {
+                    tasks[_dir._achievement].completed = true
+                    setTimeout(() => { notify("Task completed", "success", 5000) }, 2000)
+                } 
             }
 
             return _dir.content
