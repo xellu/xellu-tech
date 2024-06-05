@@ -193,7 +193,7 @@
 
     function handleInput(event: KeyboardEvent) {
         if (event.key === "Enter") {
-            history = [...history, `<span class='text-surface-400'>/${pwd.join("/")}> ${input}</span>`];
+            history = [...history, `/${pwd.join("/")}> ${input}`];
             processCommand(input);
             input = "";
 
@@ -232,10 +232,10 @@
             {/if}
         </div>
         {/each}
-        <div class="flex text-surface-400 w-full">
+        <div class="flex w-full">
             <p class="whitespace-nowrap pr-1">/{pwd.join("/")}&gt</p>
             <div class="w-full">
-                <input type="text" class="outline-none !bg-transparent w-full border-b border-b-surface-400"
+                <input type="text" class="outline-none !bg-transparent w-full border-b"
                     on:keydown={handleInput} bind:value={input} />
             </div>
         </div>

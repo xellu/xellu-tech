@@ -62,7 +62,7 @@ export const directories: any = {
                                 "The crew was never heard from again and the planet was declared off-limits by the U.S. government. The Oasis project was shut down and all records of the mission were destroyed.",
                                 "The truth about the planet and the crew was kept secret from the public and the crew was declared missing in action. The crew was never officially declared dead and their families were never told the truth about what happened to them.",
                                 "Everyone who worked on the Oasis project was sworn to secrecy and the truth about the planet and the crew was never revealed to the public.",
-                                "THEY'RE COMING FOR US"
+                                "<span class='text-error-500'>THEY'RE COMING FOR US</span>"
                             ]
                         },
                     }

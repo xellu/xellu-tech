@@ -152,113 +152,114 @@
     <title>Xel Lu</title>
 </svelte:head>
 
-{#if mobileWarning}
-<div class="w-screen h-screen flex items-center justify-center gap-3 flex-col bg-surface-900/90" transition:fade>
-    <img src="/rotate.gif" alt="" class="w-32">
-    <p class="px-5 text-center">Please rotate your mobile device sideways for better experience</p>
-    <p class="px-5 text-center mt-10 text-secondary-500">We advise using a desktop for the best experience</p>
-</div>
-{/if}
-
-{#if photosensitiveWarning}
-
-<div class="w-screen h-screen flex items-center justify-center flex-wrap gap-10" transition:fade>
-    <img src="/WarningSign.png" alt="">
-    <div class="flex justify-center flex-col gap-3 p-5">
-        <h1 class="h1 font-black text-warning-500 max-w-xl w-full">ATTENTION ({photosensitiveRemaining})</h1>
-        <p class="max-w-xl w-full text-lg">
-            This page contains flashing lights that may trigger seizures in small percentage of people, even without prior history of photosensitive epilepsy.
-        </p>
-        <p class="text-warning-900">If you continue, we will not prompt you again</p>
-
-        <button class="btn variant-filled-warning max-w-56 text-2xl font-bold" on:click={() => {
-            photosensitiveWarning = false;
-            transitionDelay.state = true
-            transitionDelay.crt = true
-
-            localStorage.setItem('photosensitiveWarning', 'set')
-
-            setTimeout(() => {
-                transitionDelay.state = false;
-            }, 1000)
-        }}>Proceed</button>
+<div class="{photosensitiveWarning ? '' : 'crt'}">
+    {#if mobileWarning}
+    <div class="w-screen h-screen flex items-center justify-center gap-3 flex-col bg-surface-900/90" transition:fade>
+        <img src="/rotate.gif" alt="" class="w-32">
+        <p class="px-5 text-center">Please rotate your mobile device sideways for better experience</p>
+        <p class="px-5 text-center mt-10 text-secondary-500">We advise using a desktop for the best experience</p>
     </div>
-</div>
+    {/if}
 
-{:else if transitionDelay.state}
-<!-- <div class="crt-line"></div> -->
+    {#if photosensitiveWarning}
 
-<div class="{transitionDelay.crt ? 'crt' : ''}"></div>
-{:else}
+    <div class="w-screen h-screen flex items-center justify-center flex-wrap gap-10" transition:fade>
+        <img src="/WarningSign.png" alt="">
+        <div class="flex justify-center flex-col gap-3 p-5">
+            <h1 class="h1 font-black text-warning-500 max-w-xl w-full">ATTENTION ({photosensitiveRemaining})</h1>
+            <p class="max-w-xl w-full text-lg">
+                This page contains flashing lights that may trigger seizures in small percentage of people, even without prior history of photosensitive epilepsy.
+            </p>
+            <p class="text-warning-900">If you continue, we will not prompt you again</p>
 
-<!-- <div class="crt-line"></div> -->
+            <button class="btn variant-filled-warning max-w-56 text-2xl font-bold" on:click={() => {
+                photosensitiveWarning = false;
+                transitionDelay.state = true
+                transitionDelay.crt = true
 
-<div class="fixed top-0 left-0 w-screen h-screen select-none -z-50 flex items-center justify-center opacity-10" transition:fade>
-    <img src="/icon.png" alt="" draggable="false" class="max-w-xl w-full p-5 animate-pulse">
-</div>
+                localStorage.setItem('photosensitiveWarning', 'set')
 
-<div class="crt tv-start w-screen h-screen" transition:fade>
-    <div class="h-screen w-screen flex flex-col">
-        <!-- desktop -->
-        <div class="w-full flex-grow flex flex-col flex-wrap gap-5 p-5 lg:p-16 select-none">
-
-            <button class="flex flex-col items-center justify-center max-w-16 max-h-24" on:click={() => windows.about.onOpen()}>
-                <img src="/AboutMe.png" alt="" class="w-16" draggable="false">
-                <p>about me</p>
-            </button>
-
-            <button class="flex flex-col items-center justify-center max-w-16 max-h-24" on:click={() => windows.projects.onOpen()}>
-                <img src="/Projects.png" alt="" class="w-16" draggable="false">
-                <p>projects</p>
-            </button>
-
-            <button class="flex flex-col items-center justify-center max-w-16 max-h-24" on:click={() => windows.email.onOpen()}>
-                <img src="/Email.png" alt="" class="w-16" draggable="false">
-                <p>contact</p>
-            </button>
-
-            <button class="flex flex-col items-center justify-center max-w-16 max-h-24" on:click={() => windows.terminal.onOpen()}>
-                <img src="/Terminal.png" alt="" class="w-16" draggable="false" >
-                <p>terminal</p>
-            </button>
-            
+                setTimeout(() => {
+                    transitionDelay.state = false;
+                }, 1000)
+            }}>Proceed</button>
         </div>
+    </div>
 
-        <div class="bg-surface-500 flex items-center justify-between p-3 px-5 w-full h-16">
-            <!-- user -->
-            <button class="flex items-center justify-between gap-3" on:click={() => { notify("FATAL SYSTEM FAILURE: auth.service is not responding", "error") }}>
-                <img src="/User.png" alt="USER" class="w-6 rounded-full border border-primary-500 p-1">
-                <p class="text-primary-500 text-xl">%user%</p>
-            </button>
+    {:else if transitionDelay.state}
+    <!-- <div class="crt-line"></div> -->
 
-            <!-- time & tray -->
-            <div class="flex items-center justify-center gap-5">
-                <button on:click={() => {
-                    tray.volume = !tray.volume;
-                }}>
-                    <img src="/{tray.volume ? 'Volume' : 'VolumeMuted'}.png" alt="VOLUME" class="w-6">
+    <div class="w-screen h-screen"></div>
+    {:else}
+
+    <!-- <div class="crt-line"></div> -->
+
+    <div class="fixed top-0 left-0 w-screen h-screen select-none -z-50 flex items-center justify-center opacity-10" transition:fade>
+        <img src="/icon.png" alt="" draggable="false" class="max-w-xl w-full p-5 animate-pulse">
+    </div>
+
+    <div class="tv-start w-screen h-screen" transition:fade>
+        <div class="h-screen w-screen flex flex-col">
+            <!-- desktop -->
+            <div class="w-full flex-grow flex flex-col flex-wrap gap-5 p-5 lg:p-16 select-none">
+
+                <button class="flex flex-col items-center justify-center max-w-16 max-h-24" on:click={() => windows.about.onOpen()}>
+                    <img src="/AboutMe.png" alt="" class="w-16" draggable="false">
+                    <p>about me</p>
                 </button>
 
-                <p class="text-xl text-primary-500">{tray.time}</p>
+                <button class="flex flex-col items-center justify-center max-w-16 max-h-24" on:click={() => windows.projects.onOpen()}>
+                    <img src="/Projects.png" alt="" class="w-16" draggable="false">
+                    <p>projects</p>
+                </button>
+
+                <button class="flex flex-col items-center justify-center max-w-16 max-h-24" on:click={() => windows.email.onOpen()}>
+                    <img src="/Email.png" alt="" class="w-16" draggable="false">
+                    <p>contact</p>
+                </button>
+
+                <button class="flex flex-col items-center justify-center max-w-16 max-h-24" on:click={() => windows.terminal.onOpen()}>
+                    <img src="/Terminal.png" alt="" class="w-16" draggable="false" >
+                    <p>terminal</p>
+                </button>
+                
+            </div>
+
+            <div class="bg-surface-500 flex items-center justify-between p-3 px-5 w-full h-16">
+                <!-- user -->
+                <button class="flex items-center justify-between gap-3" on:click={() => { notify("FATAL SYSTEM FAILURE: auth.service is not responding", "error") }}>
+                    <img src="/User.png" alt="USER" class="w-6 rounded-full border border-primary-500 p-1">
+                    <p class="text-primary-500 text-xl">%user%</p>
+                </button>
+
+                <!-- time & tray -->
+                <div class="flex items-center justify-center gap-5">
+                    <button on:click={() => {
+                        tray.volume = !tray.volume;
+                    }}>
+                        <img src="/{tray.volume ? 'Volume' : 'VolumeMuted'}.png" alt="VOLUME" class="w-6">
+                    </button>
+
+                    <p class="text-xl text-primary-500">{tray.time}</p>
+                </div>
             </div>
         </div>
     </div>
+    {/if}
+
+    <AppWindow name="About Me" bind:self={windows.about} bind:windows={windows}>
+        <About />
+    </AppWindow>
+
+    <AppWindow name="Projects" bind:self={windows.projects} bind:windows={windows}>
+        <Projects />
+    </AppWindow>
+
+    <AppWindow name="Xel's E-Mail Client" bind:self={windows.email} bind:windows={windows}>
+        <Email />
+    </AppWindow>
+
+    <AppWindow name="Terminal" bind:self={windows.terminal} bind:windows={windows}>
+        <Terminal bind:self={windows.terminal} bind:windows={windows} />
+    </AppWindow>
 </div>
-{/if}
-
-<AppWindow name="About Me" bind:self={windows.about} bind:windows={windows}>
-    <About />
-</AppWindow>
-
-<AppWindow name="Projects" bind:self={windows.projects} bind:windows={windows}>
-    <Projects />
-</AppWindow>
-
-<AppWindow name="Xel's E-Mail Client" bind:self={windows.email} bind:windows={windows}>
-    <Email />
-</AppWindow>
-
-<AppWindow name="Terminal" bind:self={windows.terminal} bind:windows={windows}>
-    <Terminal bind:self={windows.terminal} bind:windows={windows} />
-</AppWindow>
-
