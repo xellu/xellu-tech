@@ -37,7 +37,7 @@
         <img src="/techstack/html.png" alt="" class="w-8">
         <img src="/techstack/python.png" alt="" class="w-8">
         
-        <p class="text-surface-400">and more..</p>
+        <p>and more..</p>
     </div>
 
     <h4 class="h4 text-primary-300 mt-3">Get in Touch</h4>
@@ -48,5 +48,24 @@
         <li class="text-secondary-500 hover:underline">&gt <a href="{socials.email}" target="_blank">E-Mail</a> </li>
         
     </ul>
+
+    <h4 class="h4 text-primary-300 mt-3">What's all this about?</h4>
+    <p>
+        I made this website to showcase my skills and projects, as well as to have fun with the design.
+        I've always been a fan of the retro aesthetic its eerie vibes. I hope you enjoy your stay!
+        <br><br>
+        Also turn on the Volume for better immersion.
+    </p>
+
+    <h4 class="h4 text-primary-300 mt-3">First Day on the Job</h4>
+    <p>
+        <span class="text-tertiary-500">[Winter, 1983]</span> <br>
+        You've been recently hired by the LIME Corporation in the Computer Science department. This is your first day at work.
+        You've been given a computer with Xel OS installed,  which was developed by the company in late 1970s.
+        <br><br>
+        There is a terminal on your desktop, you can use it to navigate the system and access various applications.
+        <br><br>
+        Good luck!
+    </p>
     
 </div>

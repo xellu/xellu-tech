@@ -31,7 +31,7 @@ export const directories: any = {
                         _type: "file",
                         content: [
                             "This is a guide to XelOS, the operating system that powers LIME Corporation's devices.", 
-                            "XelOS is a proprietary operating system developed by LIME Corp. in early 1960's.", "",
+                            "XelOS is a proprietary operating system developed by LIME Corp. in late 1970's.", "",
                             "The system was designed to be optimized for the company's hardware, and is not available for public use.", "",
                             "To get started, type 'help' to see a list of available commands.",
                             "For more information, visit our website at www.limecorp.com", "",

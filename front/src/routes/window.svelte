@@ -87,7 +87,7 @@
     transition:scale>
 
 <button class="flex justify-between items-center px-2 {active ? 'bg-primary-500/10 text-primary-500' : 'bg-primary-500/5 text-primary-300'} text-lg w-full duration-300" draggable="true"  on:dragstart={(e) => saveToTemp(e)} on:dragend={(e) => handleDrag(e)}> 
-        <p class="flex-grow text-left h4">{name}</p>
+        <p class="flex-grow text-left h4">❏ {name}</p>
         <button class="p-1 text-xl" on:click={() => self.open = false}>X</button>
     </button>
 

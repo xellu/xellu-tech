@@ -6,12 +6,9 @@
 
     import { fade, slide } from 'svelte/transition';
 
-    let currentNotification: any = null
     let notificationQueue: any = []
-    let remaining: number = 0;
 
     let notificationDisplayed: string[] = []
-    let notificationBlock: boolean = false
 
     const stateMessages: any = {
         success: "Success",
@@ -33,7 +30,7 @@
         notifications.subscribe((notifications: any) => {
             notifications.forEach((notification: any) => {
                 if (!notificationDisplayed.includes(notification.id)) {
-                    notificationQueue.push(notification);
+                    notificationQueue = [...notificationQueue, notification];
                     notificationDisplayed.push(notification.id)
 
                     console.info(`Queued notification: [${notification.type}] ${notification.id}`)
@@ -49,50 +46,36 @@
     })
 
     function queueManager() {
-        if (currentNotification != null)
-            remaining = Math.floor((currentNotification.expire - Date.now()) / 1000) + 1;
-
-        notificationQueue.forEach((notification: any) => {
-            if (currentNotification == null && !notificationBlock) {
-                currentNotification = notification;
-                currentNotification.expire = Date.now() + notification.timeout;
-            }
-
-            if (currentNotification != null && Date.now() > currentNotification.expire) {
-                removeNotification(notification.id);
+        notificationQueue.forEach((notif: any) => {
+            if (notif.expire < Date.now()) {
+                removeNotification(notif.id)
             }
         })
     }
 
     function removeNotification(notifId: string) {
         notificationQueue = notificationQueue.filter((n: any) => n.id != notifId)
-        currentNotification = null;
-
-        notificationBlock = true;
-        setTimeout(() => {
-            notificationBlock = false;
-        }, 500)
     }
 
 </script>
 
-{#if currentNotification}
-<div class="w-screen h-screen flex items-center justify-center fixed left-0 top-0 bg-black/50" style="z-index: 999999999999999999999;" transition:fade> 
-    <div class="min-w-56 max-w-96 backdrop-blur-sm" transition:slide style="border: 1px solid rgb({colors[currentNotification.type]});">
+<div class="fixed bottom-16 right-0 flex flex-col m-5" style="z-index: 999999999999999999999;" transition:fade>  
+{#each notificationQueue as notif}
+    <div class="w-64 backdrop-blur-sm mt-3 crt" transition:slide style="border: 1px solid rgb({colors[notif.type] || colors['primary']});">
         <div class="px-2 flex items-center justify-between select-none"
-          style="background-color: rgba({colors[currentNotification.type]}, .8);">
+          style="background-color: rgba({colors[notif.type] || colors['primary']}, .8);">
         
-            <h1 class="text-lg font-black text-surface-100">{stateMessages[currentNotification.state] || 'Notification'} ({remaining}s)</h1>
+            <h1 class="text-lg font-black text-surface-100">{stateMessages[notif.type] || 'Notification'}</h1>
             <button class="text-2xl" on:click={() => {
-                removeNotification(currentNotification.id)
+                removeNotification(notif.id)
             }}>x</button>
         </div>
-        <div class="p-2 px-3" style="background-color: rgba({colors[currentNotification.type]}, .5);">
+        <div class="p-2 px-3" style="background-color: rgba({colors[notif.type] || colors['primary']}, .5);">
         
-            <p>{currentNotification.message}</p>
+            <p>{notif.message}</p>
         </div>
     </div>
+{/each}
 </div>
-{/if}
 
 <slot />

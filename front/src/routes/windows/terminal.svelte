@@ -2,6 +2,8 @@
     import { onDestroy, onMount } from 'svelte';
     import { directories } from '$lib/directories';
 
+    import { notify } from '$lib/notifications';
+
     export let self: any = {
         open: false
     }
@@ -16,7 +18,7 @@
         help: () => {
             return [
                 "",
-                "Available commands:",
+                "<span class='text-secondary-500'>Available commands:</span>",
                 "-  help - Display this help message",
                 "-  ls - List files and directories",
                 "-  cd &ltdir&gt - Change directory",
@@ -24,7 +26,9 @@
                 "-  clear - Clear the terminal screen",
                 "-  about - Display information about XelOS",
                 "-  license - Display the XelOS license agreement",
+                "-  notify &lttype&gt &lt*msg&gt - Trigger a notification",
                 "-  start &ltapp&gt - Start an application",
+                "-  reboot - Reboot the system",
                 "-  exit - Exit the terminal"
             ]
         },
@@ -164,8 +168,19 @@
             } else {
                 return ["<span class='text-error-500'>Application not found</span>"]
             }
+        },
+        notify: (type: "primary" | "success" | "warning" | "error" | "help", ...msg: string[]) => {
+            if (type == "help") {
+                return ["<span class='text-secondary-500'>Available types: primary, success, warning, error</span>"]
+            }
+
+            notify(msg.join(" "), type, 5000)
+            return ["Message broadcasted"]
+        },
+        reboot: () => {
+            window.location.reload()
         }
-        
+
     }
 
 
@@ -235,8 +250,8 @@
         <div class="flex w-full">
             <p class="whitespace-nowrap pr-1">/{pwd.join("/")}&gt</p>
             <div class="w-full">
-                <input type="text" class="outline-none !bg-transparent w-full border-b"
-                    on:keydown={handleInput} bind:value={input} />
+                <input type="text" class="outline-none !bg-transparent w-full"
+                    on:keydown={handleInput} bind:value={input} placeholder="__________"/>
             </div>
         </div>
         

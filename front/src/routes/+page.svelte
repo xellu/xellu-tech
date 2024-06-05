@@ -117,7 +117,31 @@
         Object.keys(intervals).forEach(key => {
             clearInterval(intervals[key])
         })
+
+        if (audio) {
+            audio.pause();
+            audio.currentTime = 0;
+        }
     })
+
+    function playNoise() {
+        if (audio) {
+            audio.pause();
+            audio.currentTime = 0;
+        }
+
+        audio = new Audio('/noise.mp3');
+        audio.loop = true;
+        audio.volume = 0.05;
+        audio.play();
+    }
+
+    function stopNoise() {
+        if (audio) {
+            audio.pause();
+            audio.currentTime = 0;
+        }
+    }
 
     function imageFlicker() {
         if (photosensitiveWarning) return;
@@ -236,6 +260,7 @@
                 <div class="flex items-center justify-center gap-5">
                     <button on:click={() => {
                         tray.volume = !tray.volume;
+                        tray.volume ? playNoise() : stopNoise();
                     }}>
                         <img src="/{tray.volume ? 'Volume' : 'VolumeMuted'}.png" alt="VOLUME" class="w-6">
                     </button>
