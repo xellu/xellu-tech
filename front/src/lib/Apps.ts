@@ -1,4 +1,5 @@
-import AboutMe from "./components/AboutMe.svelte"
+import AboutMe from "./components/apps/AboutMe.svelte"
+import Projects from "./components/apps/Projects.svelte"
 
 export const apps: {about: App, projects: App, email: App} | any = { //had to add 'any' to stop vscode from bitching
     about: {
@@ -9,7 +10,7 @@ export const apps: {about: App, projects: App, email: App} | any = { //had to ad
     projects: {
         title: "Projects",
         icon: "/Projects.png",
-        component: null,
+        component: Projects,
     },
     email: {
         title: "E-Mail",

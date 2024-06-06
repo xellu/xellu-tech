@@ -13,6 +13,7 @@
 
     let randomId = Math.random().toString(36).substring(7);
     let visible = false
+    let visibleLock = false
 
     onMount(() => {
         eventLoopThread = setInterval(eventLoop, 100)
@@ -27,7 +28,9 @@
     function eventLoop() {
         active = isTop(self.appId);
 
-        visible = self.visible;
+        if (!visibleLock) {
+            visible = self.visible;
+        }
 
         let win = document.getElementById(randomId);
         if (win) {
@@ -73,7 +76,7 @@
 </script>
 
 {#if visible}
-<div class="bg-surface-500/50 border {active ? 'border-primary-900' : 'border-primary-900/50'} {self.visible ? 'fixed' : 'hidden'} duration-300 max-w-3xl min-w-56 backdrop-blur-md text-left crt"
+<div class="bg-surface-500/50 border {active ? 'border-primary-900' : 'border-primary-900/50'} {self.visible ? 'fixed' : 'hidden'} duration-300 max-w-3xl min-w-56 backdrop-blur-lg text-left crt"
     id="{randomId}" style="left: {self.posX}px; top: {self.posY}px; z-index: {self.posZ};"
     on:click={() => { if (!isTop(self.appId)) { promoteWindow(self) } }} on:keydown={null} role="checkbox" tabindex="0" aria-checked
     transition:scale
@@ -82,11 +85,26 @@
 <button class="flex justify-between items-center px-2 {active ? 'bg-primary-500/10 text-primary-500' : 'bg-primary-500/5 text-primary-300'} text-lg w-full duration-300" draggable="true"  on:dragstart={(e) => saveToTemp(e)} on:dragend={(e) => handleDrag(e)}> 
         <p class="flex-grow text-left h4">❏ {apps[self.appId].title}</p>
         <div class="flex">
-            <button class="p-1 text-xl" on:click={() => { self.visible = false; visible = false }}>[-]</button>
+            <button class="p-1 text-xl" on:click={() => { 
+                setTimeout(() => {
+                    visible = false
+                    self.visible = false
+                    visibleLock = true
+                    setTimeout(() => { 
+                        visibleLock = false
+                    }, 500)
+                }, 100)
+            }}>[-]</button>
             <button class="p-1 text-xl" on:click={() => { if (!self.meta.locked) {
-                self.visible = false
-                visible = false
-                setTimeout(() => { closeWindow(self) }, 500)
+                setTimeout(() => {
+                    visible = false
+                    self.visible = false
+                    visibleLock = true
+                    setTimeout(() => { 
+                        closeWindow(self)
+                        visibleLock = false
+                    }, 500)
+                }, 100)
             }}}>[x]</button>
         </div>
     </button>

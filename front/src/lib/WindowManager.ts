@@ -38,7 +38,7 @@ export function getMaxZ() {
 export function isTop(appId: string) {
     let top = 0;
     windows.forEach(win => {
-        if (win.appId == appId && win.posZ > top) {
+        if (win.appId == appId && win.posZ > top && win.visible) {
             top = win.posZ;
         }
     })
@@ -47,7 +47,7 @@ export function isTop(appId: string) {
 }
 
 export function promoteWindow(win: Window) {
-    win.posZ = getMaxZ() + 1;
+    openWindow(win.appId, win.meta);
 }
 
 export function closeWindow(win: Window) {

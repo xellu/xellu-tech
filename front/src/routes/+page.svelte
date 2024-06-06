@@ -140,12 +140,12 @@
 <div class="w-screen h-screen flex flex-col gap-5 flex-wrap p-5 xl:p-10 crt select-none" transition:fade>
     {#each Object.keys(apps) as app}
         {#if !apps[app].hidden}
-            <button class="w-20 h-24" on:click={() => {
+            <div class="w-20 h-24" on:click={() => {
                 openWindow(app)
-            }}>
+            }} on:keydown={null} role="checkbox" tabindex="0" aria-checked>
                 <img src="{apps[app].icon}" alt="" class="h-20" draggable="false">
                 <p class="lowercase text-center">{apps[app].title}</p>
-            </button>
+            </div>
         {/if}
     {/each}
 </div>
