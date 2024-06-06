@@ -2,6 +2,7 @@
     import { type Window } from "$lib/WindowManager";
     import { type Email, type Contact } from "$lib/Email";
     import { emailInbox, contacts } from "$lib/Email";
+    import { notify } from "$lib/Notifications";
 
     export let self: Window;
     self
@@ -41,6 +42,13 @@
             <h3 class="h3 px-2">Inbox</h3>
         {:else if page == "compose"}
             <h3 class="h3 px-2">Compose</h3>
+            <button on:click={() => {
+                setTimeout(() => {
+                    notify("Domain resolution failure", "error")
+                }, 500)
+            }}>
+                Send
+            </button>
         {:else}
             <h3 class="h3 px-2">404 Not Found</h3>
             <p class="px-2">Requested page was not found</p>

@@ -56,6 +56,8 @@
     });
 
     function flicker(img: HTMLImageElement, disableRecursion: boolean = false) {
+        if (img.className.includes("no-flicker")) { return }
+        
         let randomDelay = Math.floor(Math.random() * 200) + 50
         let randomRetry = 0;
         if (disableRecursion) {
@@ -64,10 +66,10 @@
 
         img.style.opacity = "0"
 
-        playSound("/flicker.mp3", 0.1)
 
         setTimeout(() => {
             img.style.opacity = "1"
+            playSound("/flicker.mp3", 0.1)
 
             if (!disableRecursion && Math.random() < 0.5) {
                 setTimeout(() => {
@@ -134,7 +136,7 @@
 {:else if !soundEnabled}
     <button class="w-screen h-screen flex flex-col gap-10 items-center justify-center crt" on:click={() => {
         soundEnabled = true
-        noiseSoundID = playSound("/noise.mp3", 0.05, true)
+        // noiseSoundID = playSound("/noise.mp3", 0.05, true)
     }}>
         <img src="/icon.png" alt="" class="w-64" draggable="false">
         <h1 class="h3 uppercase font-black text-primary-500">Click Anywhere to Enable Sound</h1>
@@ -164,21 +166,25 @@
 <div class="fixed w-screen z-20 left-0 bottom-0 h-16 p-3 flex items-center justify-between bg-primary-900/5 select-none">
     <div class="w-56">
         <button class="flex gap-3 items-center pl-2 crt" on:click={() => openWindow("userprofile")}>
-            <img src="/User.png" alt="" class="w-6 rounded-full border border-primary-500 p-1">
+            <img src="/User.png" alt="" class="w-6 rounded-full border border-primary-500 p-1 no-flicker">
             <p class="text-xl text-primary-500">Profile</p>
         </button>
     </div>
 
     <div class="flex gap-5">
         {#each taskbar as window}
-            <button class="flex flex-col gap-3 items-center pl-2" on:click={() => openWindow(window.appId)}>
-                <img src="{window.app.icon}" alt="" class="w-8 h-8" draggable="false">
-                <div class="w-8 h-1 {window.open == 'open' ? 'bg-primary-500' : window.open == 'closed' ? '' : 'bg-primary-500/10'}"></div>
-            </button>
+            {#if !window.app.hidden}
+                <button class="flex flex-col gap-3 items-center pl-2" on:click={() => openWindow(window.appId)}>
+                    <img src="{window.app.icon}" alt="" class="w-8 h-8" draggable="false">
+                    <div class="w-8 h-1 {window.open == 'open' ? 'bg-primary-500' : window.open == 'closed' ? '' : 'bg-primary-500/10'}"></div>
+                </button>
+            {/if}
         {/each}
     </div>
 
-    <div class="w-56"></div>
+    <div class="w-56 flex items-center justify-end crt">
+        <p class="pr-3 text-lg text-primary-500">9:40 PM</p>
+    </div>
 </div>
 
 <!-- app windows -->

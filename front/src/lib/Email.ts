@@ -22,20 +22,12 @@ export type Contact = {
 
 export const contacts: Contact[] = [
     {
-        name: "Xel Lu",
+        name: "James Wilson",
         online: true
     },
     {
-        name: "Rachel Johnson",
-        online: true
-    },
-    {
-        name: "James Roberts",
-        online: true
-    },
-    {
-        name: "Dan C. Smith",
-        online: true
+        name: "Linda Williams",
+        online: false
     }
 ]
 
