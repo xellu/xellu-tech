@@ -38,7 +38,7 @@ export function getMaxZ() {
 export function openWindow(appId: string, meta:any = {}) {
     if (!Object.keys(apps).includes(appId)) { return }
 
-    playSound("/window-open.mp3", 0.1)
+    playSound("/window-open.mp3", 0.01)
 
     let exists: boolean = false;
 

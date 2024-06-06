@@ -51,9 +51,31 @@
         }
     });
 
+    function flicker(img: HTMLImageElement, disableRecursion: boolean = false) {
+        let randomDelay = Math.floor(Math.random() * 200) + 50
+        let randomRetry = 0;
+        if (disableRecursion) {
+            randomRetry = Math.floor(Math.random() * 100)
+        }
 
+        img.style.opacity = "0"
+
+        playSound("/flicker.mp3", 0.1)
+
+        setTimeout(() => {
+            img.style.opacity = "1"
+
+            if (!disableRecursion && Math.random() < 0.5) {
+                setTimeout(() => {
+                    flicker(img, true)
+                }, randomRetry)
+            }
+
+        }, randomDelay)
+    }
 
     function eventLoop() {
+        //photosensitive warning
         if (photosensitiveWarning.state) {
             let remaining = Math.floor((photosensitiveWarning.expire - Date.now()) / 1000)
             if (remaining <= 0) {
@@ -62,6 +84,23 @@
             } else {
                 photosensitiveWarning.remaining = remaining.toString() + "s"
             }
+        }
+
+        if (!soundEnabled) { return }
+
+        //image flicker
+        if (Date.now() - imageFlicker.last > imageFlicker.interval) {
+            imageFlicker.last = Date.now()
+            //get 3-5 random images
+            let images = document.querySelectorAll("img")
+            let randomImages = []
+            for (let i = 0; i < Math.floor(Math.random() * 3) + 3; i++) {
+                randomImages.push(images[Math.floor(Math.random() * images.length)])
+            }
+            
+            randomImages.forEach(img => {
+                flicker(img)
+            })
         }
     }
 </script>
@@ -92,13 +131,11 @@
 
 <div class="w-screen h-screen flex flex-col gap-5 flex-wrap p-5 xl:p-10 crt select-none" transition:fade>
     {#each Object.keys(apps) as app}
-        <button on:click={() => {
+        <button class="w-20 h-24" on:click={() => {
             openWindow(app)
         }}>
-            <div class="w-20 h-24">
-                <img src="{apps[app].icon}" alt="" class="h-20" draggable="false">
-                <p class="lowercase text-center">{apps[app].title}</p>
-            </div>
+            <img src="{apps[app].icon}" alt="" class="h-20" draggable="false">
+            <p class="lowercase text-center">{apps[app].title}</p>
         </button>
     {/each}
 </div>
