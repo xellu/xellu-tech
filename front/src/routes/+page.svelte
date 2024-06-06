@@ -5,9 +5,13 @@
 
     import { playSound, stopSound } from "$lib/SoundManager";
 
-    import { fade } from "svelte/transition";
+    import { fade, scale, slide } from "svelte/transition";
 
-    let windows = [];
+    import { type Window } from "$lib/WindowManager";
+
+    import AppWindow from "$lib/components/AppWindow.svelte";
+
+    let windows: Window[] = [];
 
     let loaded: boolean = false;
     let soundEnabled: boolean = false;
@@ -105,6 +109,10 @@
     }
 </script>
 
+<head>
+    <title>Xel Lu</title>
+</head>
+
 {#if loaded}
 
 {#if photosensitiveWarning.state}
@@ -124,21 +132,36 @@
         soundEnabled = true
         noiseSoundID = playSound("/noise.mp3", 0.05, true)
     }}>
-        <img src="/icon.png" alt="" class="w-64">
+        <img src="/icon.png" alt="" class="w-64" draggable="false">
         <h1 class="h3 uppercase font-black text-primary-500">Click Anywhere to Enable Sound</h1>
     </button>
 {:else}
 
 <div class="w-screen h-screen flex flex-col gap-5 flex-wrap p-5 xl:p-10 crt select-none" transition:fade>
     {#each Object.keys(apps) as app}
-        <button class="w-20 h-24" on:click={() => {
-            openWindow(app)
-        }}>
-            <img src="{apps[app].icon}" alt="" class="h-20" draggable="false">
-            <p class="lowercase text-center">{apps[app].title}</p>
-        </button>
+        {#if !apps[app].hidden}
+            <button class="w-20 h-24" on:click={() => {
+                openWindow(app)
+            }}>
+                <img src="{apps[app].icon}" alt="" class="h-20" draggable="false">
+                <p class="lowercase text-center">{apps[app].title}</p>
+            </button>
+        {/if}
     {/each}
 </div>
+
+<div class="fixed w-screen z-20 left-0 bottom-0 h-16 p-3 flex items-center justify-between bg-primary-900/5">
+    <button class="flex gap-3 items-center pl-2 crt" on:click={() => openWindow("userprofile")}>
+        <img src="/User.png" alt="" class="w-6 rounded-full border border-primary-500 p-1">
+        <p class="text-xl text-primary-500">Profile</p>
+    </button>
+</div>
+
+{#each windows as window}
+    <AppWindow bind:self={window}>
+        <svelte:component this={apps[window.appId].component} bind:self={window} />
+    </AppWindow>
+{/each}
 
 {/if}
 {/if}

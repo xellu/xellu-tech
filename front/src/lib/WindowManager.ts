@@ -1,10 +1,10 @@
-import { writable } from "svelte/store";
+import { writable, type Writable } from "svelte/store";
 
 import { logger } from "$lib/Logger";
 import { apps } from "./Apps";
 import { playSound } from "./SoundManager";
 
-export let activeWindows = writable([]);
+export let activeWindows: Writable<Window[]> = writable([]);
 
 let windows: Window[] = [];
 
@@ -35,6 +35,27 @@ export function getMaxZ() {
     return max;
 }
 
+export function isTop(appId: string) {
+    let top = 0;
+    windows.forEach(win => {
+        if (win.appId == appId && win.posZ > top) {
+            top = win.posZ;
+        }
+    })
+
+    return top == getMaxZ();
+}
+
+export function promoteWindow(win: Window) {
+    win.posZ = getMaxZ() + 1;
+}
+
+export function closeWindow(win: Window) {
+    windows = windows.filter(window => window != win);
+
+    activeWindows.set(windows);
+}
+
 export function openWindow(appId: string, meta:any = {}) {
     if (!Object.keys(apps).includes(appId)) { return }
 
@@ -49,6 +70,7 @@ export function openWindow(appId: string, meta:any = {}) {
             exists = true;
 
             logger.success(`Window with appId [${appId}] promoted to top`)
+            activeWindows.set(windows);
         }
     })
 
@@ -71,5 +93,5 @@ export function openWindow(appId: string, meta:any = {}) {
 
     if (startX > 400) { startX = 200 }
     if (startY > 400) { startY = 200 }
-
+    activeWindows.set(windows);
 }
