@@ -117,7 +117,7 @@
 </script>
 
 <head>
-    <title>Xel Lu</title>
+    <title>Xellu : Night Shift</title>
 </head>
 
 {#if loaded}
@@ -137,7 +137,7 @@
 {:else if !soundEnabled}
     <button class="w-screen h-screen flex flex-col gap-10 items-center justify-center crt" on:click={() => {
         soundEnabled = true
-        // noiseSoundID = playSound("/noise.mp3", 0.05, true)
+        noiseSoundID = playSound("/noise.mp3", 0.05, true)
         setTimeout(() => {
             sendEmail({
                 author: contacts[0],

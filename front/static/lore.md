@@ -1,4 +1,4 @@
-# First Day on the Job
+# Night Shift
 - Short analog horror game
 
 You've been hired as a cctv operator at a local powerplant. This is your first (night) shift, and you're not sure what to expect.

@@ -32,7 +32,7 @@
                     selectedContact = contact;
                 }
             }}>
-                <div class=""></div>
+                <div class="w-4 h-3 rounded-sm {contact.online ? 'bg-success-500' : 'bg-error-500'}" title="{contact.online ? 'Online' : 'Offline'}"></div>
                 <p class="w-full text-left">{contact.name}</p>
             </button>
         {/each}
@@ -58,6 +58,7 @@
             {#if selectedEmail == null}
                 <p class="text-error-500 p-2">No e-mail selected</p>
             {:else}
+                <button class="btn btn-sm variant-soft-primary" on:click={() => page = "inbox"}>&lt- return</button>
                 <h3 class="h3 px-2">{selectedEmail.subject}</h3>
                 <p class="text-secondary-500 px-2">from {selectedEmail.author.name}</p>
 
