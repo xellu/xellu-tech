@@ -23,6 +23,16 @@ export const apps: {about: App, projects: App, email: App} | any = { //had to ad
         icon: "/User.png",
         component: null,
         hidden: true
+    },
+    cameras: {
+        title: "CCTV Cameras",
+        icon: "/Cameras.png",
+        component: null,
+    },
+    reports: {
+        title: "Report Log",
+        icon: "/ReportLog.png",
+        component: null,
     }
 }
 

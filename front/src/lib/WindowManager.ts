@@ -34,6 +34,18 @@ export type AppWindow = {
     open: "open" | "hidden" | "closed"
 }
 
+export function getWindow(appId: string): Window | null {
+    let win: Window | null = null;
+
+    windows.forEach(window => {
+        if (window.appId == appId) {
+            win = window;
+        }
+    })
+
+    return win;
+}
+
 export function getAllAppWindows(): AppWindow[] {
     let all: AppWindow[] = [];
 

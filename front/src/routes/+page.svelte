@@ -3,7 +3,7 @@
     import { apps } from "$lib/Apps";
 
     import { playSound, stopSound } from "$lib/SoundManager";
-    import { activeWindows, openWindow, getAllAppWindows } from "$lib/WindowManager";
+    import { activeWindows, openWindow, getAllAppWindows, isOpen, getWindow } from "$lib/WindowManager";
     import { type Window, type AppWindow as AppWindowType } from "$lib/WindowManager";
 
     import { fade } from "svelte/transition";
@@ -183,7 +183,19 @@
     <div class="flex gap-5">
         {#each taskbar as window}
             {#if !window.app.hidden}
-                <button class="flex flex-col gap-3 items-center pl-2" on:click={() => openWindow(window.appId)}>
+                <button class="flex flex-col gap-3 items-center pl-2" on:click={() => {
+                    let win = getWindow(window.appId)
+                    if (!win) {
+                        openWindow(window.appId)
+                        return
+                    }
+
+                    if (win.visible) {
+                        win.visible = false
+                    } else {
+                        openWindow(window.appId)
+                    }
+                }}>
                     <img src="{window.app.icon}" alt="" class="w-8 h-8" draggable="false">
                     <div class="w-8 h-1 {window.open == 'open' ? 'bg-primary-500' : window.open == 'closed' ? '' : 'bg-primary-500/10'}"></div>
                 </button>
