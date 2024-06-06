@@ -61,7 +61,7 @@
                 <h3 class="h3 px-2">{selectedEmail.subject}</h3>
                 <p class="text-secondary-500 px-2">from {selectedEmail.author.name}</p>
 
-                <pre class="font-vt mt-3 p-2">{@html selectedEmail.content}</pre>
+                <pre class="font-vt mt-3 p-2 whitespace-normal">{@html selectedEmail.content}</pre>
             {/if}
         {:else if page == "compose"}
             {#if selectedContact == null}

@@ -10,6 +10,7 @@
 
     import AppWindow from "$lib/components/AppWindow.svelte";
     import { contacts, sendEmail } from "$lib/Email";
+    import { welcomeEmail } from "$lib/Messages";
 
     let windows: Window[] = [];
 
@@ -140,8 +141,8 @@
         setTimeout(() => {
             sendEmail({
                 author: contacts[0],
-                subject: "Welcome!",
-                content: "Welcome to your job!",
+                subject: "Welcome to our Team!",
+                content: welcomeEmail,
                 read: false
             })
         }, 5000)
