@@ -3,7 +3,7 @@
 
     import { type Notification } from "$lib/Notifications";
     import { notifyQueue } from "$lib/Notifications";
-    import { slide } from "svelte/transition";
+    import { scale, slide } from "svelte/transition";
 
     let notifications: Notification[] = [];
 
@@ -46,7 +46,7 @@
                     notifyQueue.set(notifications);
                 }}>[x]</button>
             </div>
-            <p class="p-3">{n.message}</p>
+            <p class="p-3" transition:scale>{n.message}</p>
         </div>
     {/each}
 </div>

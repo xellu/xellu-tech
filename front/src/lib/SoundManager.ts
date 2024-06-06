@@ -1,3 +1,5 @@
+import { logger } from "./Logger";
+
 let sounds: Sound[] = [];
 
 export type Sound = {
@@ -20,6 +22,8 @@ export function playSound(src: string, volume: number = 1, loop: boolean = false
         id,
         audioObject: audio
     })
+
+    logger.info(`Playing sound (source: ${src}) at ${volume*100}% volume.`);
 
     return id;
 }

@@ -106,6 +106,7 @@ export function closeWindow(win: Window) {
     windows = windows.filter(window => window != win);
 
     activeWindows.set(windows);
+    logger.success(`Closed window with appId [${win.appId}]`)
 }
 
 export function openWindow(appId: string, meta:any = {}) {

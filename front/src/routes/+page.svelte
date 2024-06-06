@@ -9,6 +9,7 @@
     import { fade } from "svelte/transition";
 
     import AppWindow from "$lib/components/AppWindow.svelte";
+    import { contacts, sendEmail } from "$lib/Email";
 
     let windows: Window[] = [];
 
@@ -41,7 +42,6 @@
         }
 
         eventLoopThread = setInterval(eventLoop, 250)
-
         loaded = true
     });
 
@@ -137,6 +137,14 @@
     <button class="w-screen h-screen flex flex-col gap-10 items-center justify-center crt" on:click={() => {
         soundEnabled = true
         // noiseSoundID = playSound("/noise.mp3", 0.05, true)
+        setTimeout(() => {
+            sendEmail({
+                author: contacts[0],
+                subject: "Welcome!",
+                content: "Welcome to your job!",
+                read: false
+            })
+        }, 5000)
     }}>
         <img src="/icon.png" alt="" class="w-64" draggable="false">
         <h1 class="h3 uppercase font-black text-primary-500">Click Anywhere to Enable Sound</h1>

@@ -1,5 +1,6 @@
 import { type Writable } from "svelte/store";
 import { writable } from "svelte/store";
+import { notify } from "./Notifications";
 
 export let emailInbox: Writable<Email[]> = writable([]);
 let inbox: Email[] = [];
@@ -9,7 +10,7 @@ emailInbox.subscribe(value => {
 })
 
 export type Email = {
-    subjet: string,
+    subject: string,
     content: string,
     author: Contact,
     read: boolean
@@ -34,6 +35,8 @@ export const contacts: Contact[] = [
 export function sendEmail(email: Email) {
     inbox.push(email);
     emailInbox.set(inbox);
+
+    notify(`New email from ${email.author.name}`);
 }
 
 export function markAsRead(email: Email) {

@@ -37,18 +37,52 @@
             </button>
         {/each}
     </div>
-    <div class="w-96 h-80 overflow-y-scroll">
+    <div class="w-96 h-80 overflow-y-scroll p-3">
         {#if page == "inbox"}
             <h3 class="h3 px-2">Inbox</h3>
+
+            <div class="mt-3 flex flex-col-reverse gap-3">
+                {#each inbox as email}
+                    <button class="bg-primary-900/10 p-2 px-3" on:click={() => {
+                        page = "read"
+                        selectedEmail = email
+                        email.read = true
+                    }}>
+                        <h4 class="h4 w-full text-left text-secondary-500">{#if !email.read}<span class="animate-text-flashing">[NEW]</span>{/if} {email.subject}</h4>
+                        <p class="w-full text-left">from {email.author.name}</p>
+                    </button>
+                {/each}
+            </div>
+
+        {:else if page == "read"}
+            {#if selectedEmail == null}
+                <p class="text-error-500 p-2">No e-mail selected</p>
+            {:else}
+                <h3 class="h3 px-2">{selectedEmail.subject}</h3>
+                <p class="text-secondary-500 px-2">from {selectedEmail.author.name}</p>
+
+                <pre class="font-vt mt-3 p-2">{@html selectedEmail.content}</pre>
+            {/if}
         {:else if page == "compose"}
-            <h3 class="h3 px-2">Compose</h3>
-            <button on:click={() => {
-                setTimeout(() => {
-                    notify("Domain resolution failure", "error")
-                }, 500)
-            }}>
-                Send
-            </button>
+            {#if selectedContact == null}
+                <h3 class="h3 px-2">Compose</h3>
+                <p class="text-error-500 mt-3">No contact selected</p>
+            {:else}
+                <div class="flex flex-col gap-2">
+                    <h3 class="h3 px-2">Compose</h3>
+
+                    <p class="text-secondary-500">Message {selectedContact.name}</p>    
+                    <textarea class="input p-2 px-3 resize-none crt outline-none !bg-primary-900/10" rows="5"></textarea>
+
+                    <button class="btn btn-sm variant-soft-secondary" on:click={() => {
+                        setTimeout(() => {
+                            notify("Temporary domain resolution failure, try again later", "error")
+                        }, 500)
+                    }}>
+                        Send -&gt
+                    </button>
+                </div>
+            {/if}
         {:else}
             <h3 class="h3 px-2">404 Not Found</h3>
             <p class="px-2">Requested page was not found</p>
