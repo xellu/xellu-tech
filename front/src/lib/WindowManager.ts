@@ -1,10 +1,12 @@
 import { writable, type Writable } from "svelte/store";
+import { type App } from "./Apps";
 
 import { logger } from "$lib/Logger";
 import { apps } from "./Apps";
 import { playSound } from "./SoundManager";
 
 export let activeWindows: Writable<Window[]> = writable([]);
+export let allApps: Writable<AppWindow[]> = writable([]);
 
 let windows: Window[] = [];
 
@@ -15,6 +17,7 @@ activeWindows.subscribe(value => {
     windows = value;
 })
 
+
 export type Window = {
     posX: number,
     posY: number,
@@ -23,6 +26,34 @@ export type Window = {
 
     appId: string,
     meta: any
+}
+
+export type AppWindow = {
+    app: App,
+    appId: string,
+    open: "open" | "hidden" | "closed"
+}
+
+export function getAllAppWindows(): AppWindow[] {
+    let all: AppWindow[] = [];
+
+    Object.keys(apps).forEach(app => {
+        let open: "open" | "hidden" | "closed" = "closed";
+
+        windows.forEach(win => {
+            if (win.appId == app) {
+                open = win.visible ? "open" : "hidden";
+            }
+        })
+
+        all.push({
+            app: apps[app],
+            appId: app,
+            open
+        })
+    })
+
+    return all;
 }
 
 export function getMaxZ() {
@@ -44,6 +75,27 @@ export function isTop(appId: string) {
     })
 
     return top == getMaxZ();
+}
+
+export function isOpen(appId: string): boolean {
+    let open = false;
+    windows.forEach(win => {
+        if (win.appId == appId && win.visible) {
+            open = true;
+        }
+    })
+
+    return open;
+}
+
+export function isVisible(appId: string): boolean {
+    let visible: boolean = false;
+    windows.forEach(win => {
+        if (win.appId == appId && win.visible) {
+            visible = true;
+        }
+    })
+    return visible;
 }
 
 export function promoteWindow(win: Window) {

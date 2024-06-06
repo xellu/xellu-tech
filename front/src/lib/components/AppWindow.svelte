@@ -5,6 +5,7 @@
     import { type Window } from "$lib/WindowManager";
     import { isTop, promoteWindow, closeWindow } from "$lib/WindowManager";
     import { onDestroy, onMount } from "svelte";
+    import { playSound } from "$lib/SoundManager";
 
     export let self: Window;
 
@@ -12,8 +13,6 @@
     let eventLoopThread: any = null;
 
     let randomId = Math.random().toString(36).substring(7);
-    let visible = false
-    let visibleLock = false
 
     onMount(() => {
         eventLoopThread = setInterval(eventLoop, 100)
@@ -27,10 +26,6 @@
 
     function eventLoop() {
         active = isTop(self.appId);
-
-        if (!visibleLock) {
-            visible = self.visible;
-        }
 
         let win = document.getElementById(randomId);
         if (win) {
@@ -75,8 +70,7 @@
 
 </script>
 
-{#if visible}
-<div class="bg-surface-500/50 border {active ? 'border-primary-900' : 'border-primary-900/50'} {self.visible ? 'fixed' : 'hidden'} duration-300 max-w-3xl min-w-56 backdrop-blur-lg text-left crt"
+<div class="bg-surface-500/50 border {active ? 'border-primary-900' : 'border-primary-900/50'} {self.visible ? 'fixed' : 'hidden'} max-w-3xl min-w-56 backdrop-blur-lg text-left crt"
     id="{randomId}" style="left: {self.posX}px; top: {self.posY}px; z-index: {self.posZ};"
     on:click={() => { if (!isTop(self.appId)) { promoteWindow(self) } }} on:keydown={null} role="checkbox" tabindex="0" aria-checked
     transition:scale
@@ -87,24 +81,15 @@
         <div class="flex">
             <button class="p-1 text-xl" on:click={() => { 
                 setTimeout(() => {
-                    visible = false
+                    playSound("/window-open.mp3", 0.01)
                     self.visible = false
-                    visibleLock = true
-                    setTimeout(() => { 
-                        visibleLock = false
-                    }, 500)
-                }, 100)
+                }, 10)
             }}>[-]</button>
             <button class="p-1 text-xl" on:click={() => { if (!self.meta.locked) {
                 setTimeout(() => {
-                    visible = false
-                    self.visible = false
-                    visibleLock = true
-                    setTimeout(() => { 
-                        closeWindow(self)
-                        visibleLock = false
-                    }, 500)
-                }, 100)
+                    playSound("/window-open.mp3", 0.01)
+                    closeWindow(self)
+                }, 10)
             }}}>[x]</button>
         </div>
     </button>
@@ -113,4 +98,3 @@
         <slot />
     </div>
 </div>
-{/if}

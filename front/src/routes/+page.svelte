@@ -1,13 +1,12 @@
 <script lang="ts">
     import { onMount, onDestroy } from "svelte";
-    import { activeWindows, openWindow } from "$lib/WindowManager";
     import { apps } from "$lib/Apps";
 
     import { playSound, stopSound } from "$lib/SoundManager";
+    import { activeWindows, openWindow, getAllAppWindows } from "$lib/WindowManager";
+    import { type Window, type AppWindow as AppWindowType } from "$lib/WindowManager";
 
-    import { fade, scale, slide } from "svelte/transition";
-
-    import { type Window } from "$lib/WindowManager";
+    import { fade } from "svelte/transition";
 
     import AppWindow from "$lib/components/AppWindow.svelte";
 
@@ -27,6 +26,7 @@
         last: Date.now(),
         interval: 5000,
     }
+    let taskbar: AppWindowType[] = []
 
     activeWindows.subscribe(value => {
         windows = value;
@@ -90,7 +90,11 @@
             }
         }
 
+        //prevent in-game interactions if sound is disabled
         if (!soundEnabled) { return }
+
+        //taskbar
+        taskbar = getAllAppWindows()
 
         //image flicker
         if (Date.now() - imageFlicker.last > imageFlicker.interval) {
@@ -137,6 +141,12 @@
     </button>
 {:else}
 
+<!-- background image -->
+<div class="fixed w-screen h-screen -z-10 flex items-center justify-center opacity-10">
+    <img src="/icon.png" alt="" class="w-96 animate-pulse">
+</div>
+
+<!-- desktop -->
 <div class="w-screen h-screen flex flex-col gap-5 flex-wrap p-5 xl:p-10 crt select-none" transition:fade>
     {#each Object.keys(apps) as app}
         {#if !apps[app].hidden}
@@ -150,13 +160,28 @@
     {/each}
 </div>
 
-<div class="fixed w-screen z-20 left-0 bottom-0 h-16 p-3 flex items-center justify-between bg-primary-900/5">
-    <button class="flex gap-3 items-center pl-2 crt" on:click={() => openWindow("userprofile")}>
-        <img src="/User.png" alt="" class="w-6 rounded-full border border-primary-500 p-1">
-        <p class="text-xl text-primary-500">Profile</p>
-    </button>
+<!-- taskbar -->
+<div class="fixed w-screen z-20 left-0 bottom-0 h-16 p-3 flex items-center justify-between bg-primary-900/5 select-none">
+    <div class="w-56">
+        <button class="flex gap-3 items-center pl-2 crt" on:click={() => openWindow("userprofile")}>
+            <img src="/User.png" alt="" class="w-6 rounded-full border border-primary-500 p-1">
+            <p class="text-xl text-primary-500">Profile</p>
+        </button>
+    </div>
+
+    <div class="flex gap-5">
+        {#each taskbar as window}
+            <button class="flex flex-col gap-3 items-center pl-2" on:click={() => openWindow(window.appId)}>
+                <img src="{window.app.icon}" alt="" class="w-8 h-8" draggable="false">
+                <div class="w-8 h-1 {window.open == 'open' ? 'bg-primary-500' : window.open == 'closed' ? '' : 'bg-primary-500/10'}"></div>
+            </button>
+        {/each}
+    </div>
+
+    <div class="w-56"></div>
 </div>
 
+<!-- app windows -->
 {#each windows as window}
     <AppWindow bind:self={window}>
         <svelte:component this={apps[window.appId].component} bind:self={window} />

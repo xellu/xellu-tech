@@ -1,5 +1,6 @@
 import AboutMe from "./components/apps/AboutMe.svelte"
 import Projects from "./components/apps/Projects.svelte"
+import Email from "./components/apps/Email.svelte"
 
 export const apps: {about: App, projects: App, email: App} | any = { //had to add 'any' to stop vscode from bitching
     about: {
@@ -15,7 +16,7 @@ export const apps: {about: App, projects: App, email: App} | any = { //had to ad
     email: {
         title: "E-Mail",
         icon: "/Email.png",
-        component: null,
+        component: Email,
     },
     userprofile: {
         title: "User Profile",
