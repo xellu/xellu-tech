@@ -6,5 +6,5 @@ Your job will be to monitor the CCTV cameras and report any suspicious activity 
 Good luck!<br><br>
 
 Best regards,<br>
-Moba Power Plant Inc.
+Wallmart, Security Department
 `

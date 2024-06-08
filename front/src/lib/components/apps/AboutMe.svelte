@@ -65,7 +65,7 @@
     <!-- lore: introduction -->
     <h4 class="h4 text-primary-300">First Day on the Job</h4>
     <p>
-        You've just been hired as a CCTV operator at a local power plant. Your job is to monitor the cameras and report any suspicious activity.
+        You've just been hired as a CCTV operator at a shopping mall. Your job is to monitor the cameras and report any suspicious activity.
     </p>
     
 </div>
