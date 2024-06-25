@@ -1,7 +1,7 @@
 <script lang="ts">
     export let style: string = "";
 
-    export let from: string = "from-primary-500";
+    export let from: string = "from-primary-400";
     export let to: string = "to-secondary-500";
 </script>
 
