@@ -43,7 +43,7 @@
 </head>
 <div id="circle" class="max-lg:hidden absolute w-[300px] h-[300px] -top-[500px] left-1/2 rounded-full bg-primary-500/10 duration-150"></div>
 
-<div class="flex flex-wrap max-md:flex-col lg:justify-between lg:gap-32 z-10 backdrop-blur-3xl" on:mousemove={onMove} role="button" tabindex={-1}>
+<div class="flex flex-wrap max-md:flex-col lg:justify-between lg:gap-32 z-10 backdrop-blur-3xl" on:mousemove={onMove}>
     <!-- left side -->
     <div class="min-w-64 lg:w-1/5 lg:flex-grow flex flex-col lg:justify-between xl:items-end p-10 xl:pt-32 lg:min-h-screen gap-10">
         <!-- top -->
