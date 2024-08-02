@@ -39,7 +39,7 @@
 </style>
 
 <head>
-    <title>iohue</title>
+    <title>Xellu</title>
 </head>
 <div id="circle" class="max-lg:hidden absolute w-[300px] h-[300px] -top-[500px] left-1/2 rounded-full bg-primary-500/10 duration-150"></div>
 
@@ -49,7 +49,7 @@
         <!-- top -->
         <div class="max-w-96">
             <h1 class="h1 text-7xl text-primary-500 font-bold">
-                <Highlighed>io hue</Highlighed>
+                <Highlighed>Xellu</Highlighed>
             </h1>
             <p class="text-lg">Full-Stack Developer</p>
             <p class="mt-5 text-surface-50 max-w-80">
