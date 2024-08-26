@@ -1,7 +1,19 @@
 export const projects = [
     {
+        name: "MDBB",
+        description: "A Base for Discord Bots, with an Event, Plugin and Command System.",
+        date: "2024 - Present",
+        links: [
+            {
+                name: "Source Code",
+                url: "https://github.com/xellu/mdbb"
+            }
+        ],
+        tags: ["Python", "Discord API"]
+    },
+    {
         name: "Lime",
-        description: "A Game Cheat & Mod Marketplace and development, with focus on bypasses and user experience. Features a web dashboard for configuring cheat clients over the internet. Over 35 users & 5 customers, as of June 2024.",
+        description: "A Game Cheat & Mod Marketplace and development, with focus on bypasses and user experience. Features a web dashboard for configuring cheat clients over the internet. Over 55 users & 8 paying customers, as of August 2024.",
         date: "2024 - Present",
         links: [
             {
