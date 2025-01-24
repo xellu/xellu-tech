@@ -1,7 +1,6 @@
 <script lang="ts">
     import Highlighed from "$lib/components/highlighed.svelte";
 
-    import Home from "$lib/pages/Home.svelte";
     import Bio from "$lib/pages/Bio.svelte";
     import Blog from "$lib/pages/Blog.svelte";
 
@@ -13,12 +12,6 @@
     let page: {list: {name: string, id: string, component: any, hidden?: true}[], active: string} = {
         list: [
             {
-                name: "Home",
-                id: "home",
-                component: Home,
-                hidden: true
-            },
-            {
                 name: "About",
                 id: "bio",
                 component: Bio
@@ -29,7 +22,7 @@
                 component: Blog
             }
         ],
-        active: "home"
+        active: "about"
     }
 
     let loops: any = []
@@ -41,7 +34,7 @@
                     page.active = hash;
                 }
             } else {
-                page.active = "home";
+                page.active = "about";
             }
         }, 100))
     })
