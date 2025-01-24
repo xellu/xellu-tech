@@ -3,27 +3,9 @@
     import Separator from "$lib/components/separator.svelte";
 
     import { instagram, github, discord, email } from "$lib/socials";
-    import { projects } from "$lib/projects";
+    import { projectTimeline } from "$lib/projects";
 
     let  active: string = "about";
-    let intervals: any[] = []
-
-    function onMove(event: MouseEvent) {
-        let circle = document.getElementById("circle");
-        if (!circle) return;
-        
-        let x = event.clientX - (circle.clientWidth / 2);
-        let y = event.clientY - (circle.clientHeight / 2);
-    
-        if (x < 0) x = 0;
-        if (y < 0) y = 0;
-        if (x + circle.clientWidth > window.innerWidth) x = window.innerWidth - circle.clientWidth;
-        if (y + circle.clientHeight > window.innerHeight) y = window.innerHeight - circle.clientHeight;
-
-        circle.style.left = x + "px";
-        circle.style.top = y + "px";
-    }
-
 </script>
 
 <style lang="postcss">
@@ -41,9 +23,8 @@
 <head>
     <title>Xellu</title>
 </head>
-<div id="circle" class="max-lg:hidden absolute w-[300px] h-[300px] -top-[500px] left-1/2 rounded-full bg-primary-500/10 duration-150"></div>
 
-<div class="flex flex-wrap max-md:flex-col lg:justify-between lg:gap-32 z-10 backdrop-blur-3xl" on:mousemove={onMove}>
+<div class="flex flex-wrap max-md:flex-col lg:justify-between lg:gap-32">
     <!-- left side -->
     <div class="min-w-64 lg:w-1/5 lg:flex-grow flex flex-col lg:justify-between xl:items-end p-10 xl:pt-32 lg:min-h-screen gap-10">
         <!-- top -->
@@ -95,7 +76,9 @@
     <!-- right side -->
     <div class="min-w-64 lg:w-1/3 flex-grow flex flex-col gap-3 xl:h-screen items-start p-10 xl:pt-32 overflow-y-scroll scroll-smooth">
 
+        <!-- about me -->
         <div class="w-full xl:w-3/5">
+
             <Separator> <span id="about">About Me</span> </Separator>
             <p class="text-surface-200">
                 <!-- how i started -->
@@ -116,38 +99,52 @@
             </p>
 
             <div class="h-5"></div>
+
+            <!-- my projects -->
             <Separator> <span id="projects">My Projects</span> </Separator>
-            <div class="flex flex-col gap-3">
-                {#each projects as project}
-                    <div class="group hover:bg-surface-300/5 p-5 rounded-xl duration-300 border-t border-t-white/0 hover:border-t-white/10">
-                        <div class="flex justify-between">
-                            <h2 class="text-lg font-semibold group-hover:text-tertiary-500 duration-300">{project.name}</h2>
-
-                            <p class="text-sm uppercase font-semibold text-surface-300">{project.date.replaceAll("-", "—")}</p>
+            <div class="flex flex-col">
+                {#each projectTimeline as entry, i}
+                    <div class="flex gap-3 group">
+                        <!-- timeline -->
+                        <div class="flex flex-col gap-1 items-center justify-center max-sm:w-1/4 w-56">
+                            <div class="w-px min-h-5 flex-grow {i == 0 ? 'bg-gradient-to-t from-white/50 via-transparent to-transparent' : 'bg-white/50'}"></div>
+                            <div class="max-md:text-center">
+                                <p class="text-sm font-black uppercase group-hover:text-tertiary-500 duration-300">{entry.until ? `From ${entry.date}` : entry.date}</p>
+                                {#if entry.until}
+                                    <p class="text-xs font-bold uppercase opacity-50 group-hover:text-tertiary-500 duration-300">Until {entry.until}</p>
+                                {/if}
+                            </div>
+                            <div class="w-px min-h-5 flex-grow {i == projectTimeline.length-1 ? 'bg-gradient-to-b from-white/50 via-transparent to-transparent': 'bg-white/50'}"></div>
                         </div>
-                        <p class="text-surface-200 w-4/5 mt-3">{project.description}</p>
 
-                        {#if project.links.length > 0}
-                        <div class="flex gap-3 flex-wrap my-5">
-                            {#each project.links as link}
-                                <a href="{link.url}" target="_blank" class="flex gap-2 items-center opacity-75 hover:opacity-100 duration-150">
-                                    <img src="/link.png" alt="{link.name}" class="h-5" />
-                                    <span>{link.name}</span>
-                                </a>
-                            {/each}
-                        </div>
-                        {/if}
-
-                        <div class="flex gap-3 flex-wrap mt-5">
-                            {#each project.tags as tag}
-                                <span class="chip variant-soft-tertiary">{tag}</span>
-                            {/each}
+                        <!-- project card -->
+                        <div class="p-3 rounded-xl w-full my-3 glass-group flex flex-col">
+                            <h2 class="text-lg font-semibold group-hover:text-tertiary-500 duration-300">{entry.project.name}</h2>
+                            <p class="text-surface-200 w-4/5 mt-3 text-sm">{entry.project.description}</p>
+    
+                            {#if entry.project.links.length > 0}
+                            <div class="flex gap-3 flex-wrap my-5">
+                                {#each entry.project.links as link}
+                                    <a href="{link.url}" target="_blank" class="flex gap-2 items-center opacity-70 hover:opacity-100 duration-150">
+                                        <img src="/link.png" alt="{link.name}" class="h-5" />
+                                        <span>{link.name}</span>
+                                    </a>
+                                {/each}
+                            </div>
+                            {/if}
+    
+                            <div class="flex gap-3 flex-wrap mt-5">
+                                {#each entry.project.tags as tag}
+                                    <span class="chip variant-soft-tertiary">{tag}</span>
+                                {/each}
+                            </div>
                         </div>
                     </div>
                 {/each}
             </div>
-
             <div class="h-5"></div>
+
+            <!-- contact info -->
             <Separator> <span id="contact">Get in Touch</span> </Separator>
 
             <p class="text-surface-200">

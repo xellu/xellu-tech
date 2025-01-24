@@ -7,3 +7,38 @@
 html, body {
     scroll-behavior: smooth;
 }
+
+.glass {
+    @apply backdrop-blur-3xl;
+    @apply bg-surface-400/10;
+    @apply shadow-lg;
+
+    @apply border-t;
+    @apply border-t-surface-400/20;
+
+    @apply duration-300;
+}
+
+.glass-hover {
+    @apply backdrop-blur-3xl;
+    @apply hover:bg-surface-400/10;
+    @apply hover:shadow-lg;
+
+    @apply border-t;
+    @apply border-t-surface-400/0;
+    @apply hover:border-t-surface-400/20;
+
+    @apply duration-300;
+}
+
+.glass-group {
+    @apply backdrop-blur-3xl;
+    @apply group-hover:bg-surface-400/10;
+    @apply group-hover:shadow-lg;
+
+    @apply border-t;
+    @apply border-t-surface-400/0;
+    @apply group-hover:border-t-surface-400/20;
+
+    @apply duration-300;
+}
