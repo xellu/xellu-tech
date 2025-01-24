@@ -105,7 +105,7 @@ class SessionService:
         if not user_id:
             return None
         
-        user = Database.get_database("users").users.find_one({"_id": user_id})
+        user = Database.get_database("xelapi").users.find_one({"_id": user_id})
 
         return user
     

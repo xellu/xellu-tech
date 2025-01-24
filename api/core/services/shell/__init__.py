@@ -2,7 +2,7 @@ from events import ShellEventBus, EventBus
 from core.logging import LoggingManager
 
 import threading
-from .commands import basic
+from .commands import basic, users
 
 logger = LoggingManager("Service.Shell")
 

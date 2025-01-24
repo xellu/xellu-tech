@@ -69,7 +69,7 @@ def clear_all_sessions(*args, **kwargs):
     if Database.get_database("sessions") is None:
         logger.warning("Database not loaded")
     
-    Database.get_database("users").sessions.delete_many({})
+    Database.get_database("xelapi").sessions.delete_many({})
     logger.success("done")
     
 #rekove all rate limits

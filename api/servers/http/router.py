@@ -50,7 +50,7 @@ def on_server_start():
 
 @EventBus.on("ready")
 def on_ready():
-    Sessions.sessions = Database.get_database("users").sessions
+    Sessions.sessions = Database.get_database("xelapi").sessions
     logger.ok("Loaded session service")
  
 #error handling

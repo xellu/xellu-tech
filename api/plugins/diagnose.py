@@ -15,6 +15,6 @@ def diagnose(*args, **kwargs):
         logger.warn(f"Sessions are not initialized")
         if fix:
             from core import Database
-            Sessions.sessions = Database.get_database("users").sessions
+            Sessions.sessions = Database.get_database("xelapi").sessions
             
     return "Diagnose complete"

@@ -2,6 +2,15 @@
     import "../app.pcss"
 
     import { onMount } from "svelte";
+    import { getToastStore, initializeStores, Toast } from "@skeletonlabs/skeleton";
+
+    import { AutoAuthenticate, AuthLogger } from '$lib/scripts/Auth';
+
+    initializeStores();
+
+
+
+    const toast = getToastStore();
 
     function onMove(event: MouseEvent) {
         let circle = document.getElementById("circle");
@@ -19,10 +28,24 @@
         circle.style.top = y + "px";
     }
 
-    onMount(() => {
+    onMount(async () => {
         document.body.addEventListener("mousemove", onMove);
+
+        let auth = await AutoAuthenticate();
+
+        auth.state.loggedIn ? AuthLogger.ok(`Successfully authenticated (${auth.state.auto})`) : AuthLogger.warn(`Unable to authenticate: ${auth.state.error}`);
+        if (auth.state.error && !auth.state.loggedIn) { //show error message
+            toast.trigger({
+                message: auth.state.error,
+                background: "variant-glass-warning",
+            })
+        }
     })
+
+
 </script>
+
+<Toast />
 
 <div id="circle"
     class="max-lg:hidden absolute w-[400px] h-[400px] -top-[500px] left-1/2 rounded-full -z-20 duration-150"

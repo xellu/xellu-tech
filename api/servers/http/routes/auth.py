@@ -5,8 +5,6 @@ from core.tools import RandomStr, HashStr
 from core.templates.UserTemplate import UserTemplate, SanitizeUser
 from core import Database, Config
 
-from plugins.intercom import Intercom
-
 from flask import request
 import time
 import re
@@ -99,7 +97,6 @@ def verify():
         **SanitizeUser(user)
     )
     
-
 @v2auth.route("/logout", methods=["POST"])
 @Sessions.protect()
 def logout():
@@ -120,47 +117,3 @@ def logout():
     user = Sessions.get_user(request.cookies.get("session"))
     Sessions.delete_all(user_id=user["_id"])
     return Reply(), 200
-
-@v2auth.route("/login/discord", methods=["POST"])
-def discord_login():
-    #get code from request
-    data = Require(request, code=str).body()
-    if not data.ok:
-        return Reply(**data.content), 400
-    
-    if len(data.content["code"]) > 82:
-        return Reply(error="Invalid code"), 400
-    
-    #send code to discord connect service using intercom
-    r = Intercom.send_and_wait(
-        destination="discord",
-        data=Intercom.packet(
-            id="oauth2.get_user",
-            code=data.content["code"],
-            redirect_uri=Config.get("AUTH.DISCORD.REDIRECT")
-        )
-    )
-    
-    #validate response
-    if r is None:
-        return Reply(error="Internal request timed out"), 504
-    
-    if r.get("_type") != "reply" or r.get("error") is not None:
-        return Reply(error=r.get("error") or r.get("content") or "Internal error"), 500
-
-    
-    #get user data
-    user = Database.get_database("xelapi").users.find_one({"discord": r.get("id")})
-    if not user:
-        return Reply(error="Unable to find a linked account"), 404
-    
-    #create session
-    session = Sessions.create(
-        user_id = user["_id"],
-        expire = Config.get("AUTH.EXPIRE") + time.time(),
-        scopes = ["*"]
-    )
-    
-    r = Reply(session=session)
-    r.set_cookie("session", value=session)
-    return r, 200
