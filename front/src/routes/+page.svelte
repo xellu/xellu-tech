@@ -22,7 +22,7 @@
                 component: Blog
             }
         ],
-        active: "about"
+        active: "bio"
     }
 
     let loops: any = []
@@ -34,7 +34,7 @@
                     page.active = hash;
                 }
             } else {
-                page.active = "about";
+                page.active = "bio";
             }
         }, 100))
     })
