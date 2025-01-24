@@ -8,6 +8,14 @@ html, body {
     scroll-behavior: smooth;
 }
 
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
+
 .glass {
     @apply backdrop-blur-3xl;
     @apply bg-surface-400/10;
@@ -41,4 +49,8 @@ html, body {
     @apply group-hover:border-t-surface-400/20;
 
     @apply duration-300;
+}
+
+.transparent-gradient-mask {
+    mask: linear-gradient(to bottom, black 0%, transparent 95%);
 }

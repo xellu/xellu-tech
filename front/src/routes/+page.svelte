@@ -1,15 +1,23 @@
 <script lang="ts">
     import Highlighed from "$lib/components/highlighed.svelte";
 
+    import Home from "$lib/pages/Home.svelte";
     import Bio from "$lib/pages/Bio.svelte";
     import Blog from "$lib/pages/Blog.svelte";
 
-
     import { instagram, github, discord } from "$lib/socials";
-  import { slide } from "svelte/transition";
 
-    let page: {list: {name: string, id: string, component: any}[], active: string} = {
+    import { slide } from "svelte/transition";
+    import { onDestroy, onMount } from "svelte";
+
+    let page: {list: {name: string, id: string, component: any, hidden?: true}[], active: string} = {
         list: [
+            {
+                name: "Home",
+                id: "home",
+                component: Home,
+                hidden: true
+            },
             {
                 name: "About",
                 id: "bio",
@@ -21,8 +29,26 @@
                 component: Blog
             }
         ],
-        active: "bio"
+        active: "home"
     }
+
+    let loops: any = []
+    onMount(() => {
+        loops.push(setInterval(() => {
+            if (window.location.hash) {
+                let hash = window.location.hash.slice(1);
+                if (page.list.find(p => p.id == hash)) {
+                    page.active = hash;
+                }
+            } else {
+                page.active = "home";
+            }
+        }, 100))
+    })
+
+    onDestroy(() => {
+        loops.forEach((l: any) => clearInterval(l));
+    })
 </script>
 
 
@@ -46,13 +72,16 @@
 
             <div class="flex flex-col gap-2 mt-16">
                 {#each page.list as p}
+                    {#if !p.hidden}
                     <button class="flex items-center gap-1 group" on:click={() => {
                         if (p.id == page.active) { return; }
-                        page.active = p.id;
+                        
+                        window.location.hash = p.id;
                     }}>
                         <div class="h-px {p.id == page.active ? 'w-12 bg-tertiary-500' : 'w-6 bg-white group-hover:bg-tertiary-300 group-hover:w-12'} duration-300"></div>
                         <p class="{p.id == page.active ? 'text-tertiary-500' : ''} duration-300">{p.name}</p>
                     </button>
+                    {/if}
                 {/each}
                 
             </div>
