@@ -96,8 +96,8 @@ async function LogIn(username: string, password: string): Promise<AuthStateType>
     }
 }
 
-async function Register(email: string, username: string, password: string): Promise<AuthStateType> {
-    if (!email || !username || !password) {
+async function Register(username: string, password: string, invite: string): Promise<AuthStateType> {
+    if (!invite || !username || !password) {
         const res = {loggedIn: false, loading: false, error: "Missing fields"}
         
         AuthState.set(res);
@@ -112,7 +112,7 @@ async function Register(email: string, username: string, password: string): Prom
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({email, username, password})
+            body: JSON.stringify({username, password, invite})
         })
 
         //if the request failed

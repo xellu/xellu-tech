@@ -1,5 +1,5 @@
 <div class="flex items-center gap-3 my-5">
-    <h2 class="text-sm font-semibold text-secondary-500 uppercase">
+    <h2 class="text-sm font-bold text-secondary-500 uppercase">
         <slot />
     </h2>
 

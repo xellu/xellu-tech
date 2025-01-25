@@ -1,7 +1,7 @@
 <script lang="ts">
     import "../app.pcss"
 
-    import Highlighed from "$lib/components/highlighed.svelte";
+    import Highlighed from "$lib/components/Highlighed.svelte";
 
     import { instagram, github, discord } from "$lib/socials";
 
