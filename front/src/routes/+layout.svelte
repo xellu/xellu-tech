@@ -2,6 +2,7 @@
     import "../app.pcss"
 
     import Highlighed from "$lib/components/Highlighed.svelte";
+    import MouseCircle from "$lib/components/MouseCircle.svelte";
 
     import { instagram, github, discord } from "$lib/socials";
 
@@ -52,8 +53,6 @@
 
     let loops: any[] = []
     onMount(async () => {
-        document.body.addEventListener("mousemove", onMove);
-
         let auth = await AutoAuthenticate();
 
         auth.state.loggedIn ? AuthLogger.ok(`Successfully authenticated (${auth.state.auto})`) : AuthLogger.warn(`Unable to authenticate: ${auth.state.error}`);
@@ -92,11 +91,7 @@
 </script>
 
 <Toast />
-
-<div id="circle"
-    class="max-lg:hidden absolute w-[400px] h-[400px] -top-[500px] left-1/2 rounded-full -z-20 duration-150"
-    style="background: radial-gradient(circle, rgba(var(--color-primary-500) / 0.2) 0%, rgba(var(--color-primary-500) / 0) 70%)"
-></div>
+<MouseCircle />
 
 <div class="flex flex-wrap max-md:flex-col lg:justify-between lg:gap-32 backdrop-blur-md">
     <!-- left side -->

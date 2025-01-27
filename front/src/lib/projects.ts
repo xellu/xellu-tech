@@ -76,7 +76,16 @@ export type Timeline = {
 export const projectTimeline: Timeline[] = [
     {
         date: "Summer 2024",
-        until: "Spring 2025",
+        project: {
+            name: "Veinyard",
+            description: "A Freelancing project, a Roblox Script marketplace.",
+            links: [],
+            tags: ["Svelte", "TypeScript", "TailwindCSS", "Python", "Nginx"]
+        }
+    },
+    {
+        date: "Summer 2024",
+        // until: "Spring 2025",
         project: {
             name: "Lime",
             description: "A Game Cheat & Mod Marketplace and development, with focus on bypasses and user experience. Featuring a web dashboard for configuring cheat clients over the internet. Over 85 users & 11 paying customers, as of August 2024.",

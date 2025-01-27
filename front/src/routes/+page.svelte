@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Separator from "$lib/components/separator.svelte";
+    import Separator from "$lib/components/Separator.svelte";
 
     import { projectTimeline } from "$lib/projects";
     import { discord, email } from "$lib/socials";
@@ -51,7 +51,7 @@
                     <div class="max-md:text-center">
                         <p class="text-sm font-black uppercase group-hover:text-tertiary-500 duration-300">{entry.until ? `From ${entry.date}` : entry.date}</p>
                         {#if entry.until}
-                            <p class="text-xs font-bold uppercase opacity-50 group-hover:text-tertiary-500 duration-300">Until {entry.until}</p>
+                            <p class="text-xs font-bold uppercase opacity-50 group-hover:text-tertiary-500 duration-300">To {entry.until}</p>
                         {/if}
                     </div>
                     <div class="w-px min-h-5 flex-grow {i == projectTimeline.length-1 ? 'bg-gradient-to-b from-white/50 via-transparent to-transparent': 'bg-white/50'}"></div>
