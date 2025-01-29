@@ -60,20 +60,20 @@
                 <!-- project card -->
                 <div class="p-3 rounded-xl w-full my-3 glass-group flex flex-col">
                     <h2 class="text-lg font-semibold group-hover:text-tertiary-500 duration-300">{entry.project.name}</h2>
-                    <p class="text-surface-200 w-4/5 mt-3 text-sm">{entry.project.description}</p>
+                    <p class="text-surface-200 w-4/5 mt-3 text-sm mb-5">{entry.project.description}</p>
 
                     {#if entry.project.links.length > 0}
-                    <div class="flex gap-3 flex-wrap my-5">
+                    <div class="flex gap-3 flex-wrap mb-3">
                         {#each entry.project.links as link}
-                            <a href="{link.url}" target="_blank" class="flex gap-2 items-center opacity-70 hover:opacity-100 duration-150">
-                                <img src="/link.png" alt="{link.name}" class="h-5" />
+                            <a href="{link.url}" target="_blank" class="flex gap-2 items-center opacity-70 hover:opacity-100 hover:text-primary-400 duration-150 text-xs uppercase font-bold">
+                                <span class="material-symbols-outlined text-sm">open_in_new</span>
                                 <span>{link.name}</span>
                             </a>
                         {/each}
                     </div>
                     {/if}
 
-                    <div class="flex gap-3 flex-wrap mt-5">
+                    <div class="flex gap-3 flex-wrap">
                         {#each entry.project.tags as tag}
                             <span class="chip variant-soft-tertiary">{tag}</span>
                         {/each}
@@ -88,7 +88,7 @@
     <Separator> <span id="contact">Get in Touch</span> </Separator>
 
     <p class="text-surface-200">
-        If you want to work with me, or just chat, feel free to reach out to me on <a href={discord} target="_blank">Discord</a>, or send me an <a href={email} target="_blank">email</a>.
+        If you want to work with me, or just chat, feel free to <a href={discord} target="_blank">reach out to me on Discord</a>, or <a href={email} target="_blank">send me an email</a>.
     </p>
 
     <div class="mt-32">

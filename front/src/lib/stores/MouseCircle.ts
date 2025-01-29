@@ -6,7 +6,7 @@ type CircleConfigType = {
     color: string,
 }
 
-const CircleConfig: Writable<CircleConfigType> = writable<CircleConfigType>({hidden: false, radius: 400, color: "var(--color-primary-500)" })
+const CircleConfig: Writable<CircleConfigType> = writable<CircleConfigType>({hidden: false, radius: 600, color: "var(--color-primary-500)" })
 
 export {
     type CircleConfigType,

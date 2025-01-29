@@ -12,13 +12,6 @@ ConfigTemplate = {
     "DATABASE.USER": "",
     "DATABASE.PASS": "",
     
-    "SUPERVISOR": {
-        "ACCESS.KEY": "password",
-        "HOST": "127.0.0.1",
-        "SOCK.PORT": 9100,
-        "HTTP.PORT": 9000
-    },
-    
     "AUTH.EXPIRE": 7 * 24 * 60 * 60, #7 days
     "AUTH.DISCORD.REDIRECT": "https://localhost/auth/discord",
 }

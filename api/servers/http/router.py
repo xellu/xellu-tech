@@ -41,8 +41,8 @@ class BlueprintLoader:
 #routes
 BPLoader = BlueprintLoader(root="/api/v2")
 
-v2blog = BPLoader.new("blog")
 v2auth = BPLoader.new("auth")
+v2blog = BPLoader.new("blog")
 
 @EventBus.on("http.start")
 def on_server_start():

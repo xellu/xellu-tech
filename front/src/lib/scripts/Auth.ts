@@ -5,16 +5,12 @@ type AccountType = {
     _id: string,
         
     username: string,
-    email: string,
     password?: string,
-    
-    discord: null | {id: string, username: string},
-    minecraft: null | {uuid: string, username: string},
-    
-    roleTrack: "default" | "mod" | "build" | "dev" | "gfx" | "management",
-    role: string,
-    
-    createdAt: number
+
+    uploads: string[],
+    admin: boolean,
+
+    createdAt: number,
 }
 
 type AuthStateType = {

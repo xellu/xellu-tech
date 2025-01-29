@@ -11,7 +11,7 @@ def UserTemplate():
         "uploads": [],
         "admin": False,
         
-        "created": time.time(),
+        "createdAt": time.time(),
 }    
     
 def SanitizeUser(user: dict):

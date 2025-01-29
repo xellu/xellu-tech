@@ -40,6 +40,6 @@ def run_websocket():
 def main():
     threading.Thread(target=run_http).start()
     # threading.Thread(target=run_socket).start()
-    threading.Thread(target=run_websocket).start()
+    # threading.Thread(target=run_websocket).start()
 
 main()

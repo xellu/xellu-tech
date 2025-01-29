@@ -85,7 +85,7 @@ export const projectTimeline: Timeline[] = [
     },
     {
         date: "Summer 2024",
-        // until: "Spring 2025",
+        until: "Present",
         project: {
             name: "Lime",
             description: "A Game Cheat & Mod Marketplace and development, with focus on bypasses and user experience. Featuring a web dashboard for configuring cheat clients over the internet. Over 85 users & 11 paying customers, as of August 2024.",
@@ -99,7 +99,7 @@ export const projectTimeline: Timeline[] = [
         }    
     },
     {
-        date: "Fall 2024",
+        date: "Spring 2024",
         project: {
             name: "MDBB",
             description: "A Base for Discord Bots, with an Event, Plugin and Command System.",
