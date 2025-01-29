@@ -13,25 +13,7 @@
 
     initializeStores();
 
-
-
     const toast = getToastStore();
-
-    function onMove(event: MouseEvent) {
-        let circle = document.getElementById("circle");
-        if (!circle) return;
-        
-        let x = event.clientX - (circle.clientWidth / 2);
-        let y = event.clientY - (circle.clientHeight / 2);
-
-        if (x < 0) x = 0;
-        if (y < 0) y = 0;
-        if (x + circle.clientWidth > window.innerWidth) x = window.innerWidth - circle.clientWidth;
-        if (y + circle.clientHeight > window.innerHeight) y = window.innerHeight - circle.clientHeight;
-
-        circle.style.left = x + "px";
-        circle.style.top = y + "px";
-    }
 
     let page: {list: {name: string, path: string}[], active: string} = {
         list: [
