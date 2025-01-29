@@ -48,7 +48,7 @@
                 <!-- timeline -->
                 <div class="flex flex-col gap-1 items-center justify-center max-sm:w-1/4 w-56">
                     <div class="w-px min-h-5 flex-grow {i == 0 ? 'bg-gradient-to-t from-white/50 via-transparent to-transparent' : 'bg-white/50'}"></div>
-                    <div class="max-md:text-center">
+                    <div class="max-md:text-center font-heading-token">
                         <p class="text-sm font-black uppercase group-hover:text-tertiary-500 duration-300">{entry.until ? `From ${entry.date}` : entry.date}</p>
                         {#if entry.until}
                             <p class="text-xs font-bold uppercase opacity-50 group-hover:text-tertiary-500 duration-300">To {entry.until}</p>
@@ -59,7 +59,7 @@
 
                 <!-- project card -->
                 <div class="p-3 rounded-xl w-full my-3 glass-group flex flex-col">
-                    <h2 class="text-lg font-semibold group-hover:text-tertiary-500 duration-300">{entry.project.name}</h2>
+                    <h2 class="text-lg font-semibold group-hover:text-tertiary-500 duration-300 font-heading-token">{entry.project.name}</h2>
                     <p class="text-surface-200 w-4/5 mt-3 text-sm mb-5">{entry.project.description}</p>
 
                     {#if entry.project.links.length > 0}

@@ -21,6 +21,7 @@ def register():
     if not data.ok:
         return Reply(**data.content), 400
     
+    data.content["username"] = data.content["username"].lower()
     if Database.get_database("xelapi").users.find_one({"username": data.content["username"]}):
         return Reply(error="Username already in use"), 400
 
@@ -34,7 +35,7 @@ def register():
     if len(data.content["username"]) > 32:
         return Reply(error="Username too long"), 400
     
-    if not re.match(r"^[a-zA-Z0-9_]+$", data.content["username"]):
+    if not re.match(r"^[a-z0-9_]+$", data.content["username"]):
         return Reply(error="Username contains invalid characters"), 400
     
     #validate password
@@ -42,11 +43,11 @@ def register():
         return Reply(error="Password too short"), 400
     
     user = UserTemplate()
-    user["email"] = data.content["email"].lower()
-    user["username"] = data.content["username"].lower()
+    user["username"] = data.content["username"]
     user["password"] = HashStr(f"{user['_id']}${data.content['password']}")
 
     Database.get_database("xelapi").users.insert_one(user)
+    Database.get_database("xelapi").invites.delete_one({"code": data.content["invite"]})
     
     session = Sessions.create(
         user_id = user["_id"],

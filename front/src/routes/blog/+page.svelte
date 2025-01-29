@@ -10,6 +10,7 @@
 
     let loading: boolean = true
     let posts: PostType[] = []
+    let page: "posts" | "new" = "posts";
 
     Posts.subscribe(value => {
         posts = value;
@@ -23,7 +24,10 @@
 </script>
 
 {#if User?.admin}
-    <p>hello world</p>
+    <button class="btn btn-sm variant-soft-tertiary flex items-center justify-center gap-2">
+        <span>stylus_note</span>
+        <span>New Post</span>
+    </button>
 {/if}
 
 <p>loading: {loading}</p>

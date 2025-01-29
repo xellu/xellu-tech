@@ -27,7 +27,7 @@
             },
             {
                 name: "Image Host",
-                path: "/host"
+                path: "/panel"
             }
         ],
         active: ""
@@ -41,7 +41,7 @@
         if (auth.state.error && !auth.state.loggedIn) { //show error message
             toast.trigger({
                 message: auth.state.error,
-                background: "variant-glass-warning",
+                background: "variant-soft-warning",
             })
         }
 

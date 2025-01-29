@@ -14,7 +14,6 @@ fallback = {
 @EventBus.on("error")
 def error_callback(error: Exception, source: str = fallback["source"], message: str = fallback["message"], fatal: bool = False):
     from core import Config
-    from plugins.supervisor import SVClient
 
     logger.error(f"Error in {source}: {error}")
 
@@ -42,12 +41,5 @@ def error_callback(error: Exception, source: str = fallback["source"], message: 
     except:
         if Config.get("DEVMODE"): logger.error(f"Failed to parse traceback data")
     
-    SVClient.send(
-        id="error",
-        error=f"{error}",
-        traceback=traces if len(traces) > 0 else None,
-        trigger=trigger
-    )
-
     if fatal:
         EventBus.signal("shutdown.crash", f"Fatal error in {source}: {message}")

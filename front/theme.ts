@@ -6,7 +6,7 @@ export const appTheme: CustomThemeConfig = {
     properties: {
 		// =~= Theme Properties =~=
 		"--theme-font-family-base": `"Inter", sans-serif`,
-		"--theme-font-family-heading": `"Inter", sans-serif`,
+		"--theme-font-family-heading": `"Plus Jakarta Sans", serif`,
 		"--theme-font-color-base": "255 255 255",
 		"--theme-font-color-dark": "255 255 255",
 		"--theme-rounded-base": "8px",

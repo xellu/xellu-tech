@@ -56,7 +56,7 @@ def remove_admin(*args, **kwargs):
     Database.get_database("xelapi").users.update_one({"_id": args[0]}, {"$set": {"admin": False}})
     logger.success(f"Removed admin from {user['username']}")
     
-@Helper.command("mkinv", "Generate an invite code", "mkinvite [count=1]")
+@Helper.command("mkinv", "Generate an invite code", "mkinv [count=1]")
 @ShellEventBus.on("mkinv")
 def make_invite(*args, **kwargs):
     from core import Database
@@ -72,7 +72,7 @@ def make_invite(*args, **kwargs):
         Database.get_database("xelapi").invites.insert_one({"code": code})
         logger.info(f"Invite code: {code}")
 
-@Helper.command("rminv", "Remove an invite code", "rminvite <code|*>")
+@Helper.command("rminv", "Remove an invite code", "rminv <code|*>")
 @ShellEventBus.on("rminv")
 def remove_invite(*args, **kwargs):
     from core import Database
@@ -94,7 +94,8 @@ def remove_invite(*args, **kwargs):
     Database.get_database("xelapi").invites.delete_one({"code": args[0]})
     logger.success(f"Invite {args[0]} has been removed")
     
-@Helper.command("listinv", "List all invite codes", "listinv")
+@Helper.command("lsinv", "List all invite codes", "lsinv")
+@ShellEventBus.on("lsinv")
 def list_invites(*args, **kwargs):
     from core import Database
 
