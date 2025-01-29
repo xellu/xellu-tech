@@ -1,7 +1,7 @@
 <script lang="ts">
     import "../app.pcss"
 
-    import Highlighed from "$lib/components/Highlighed.svelte";
+    import Highlighted from "$lib/components/Highlighted.svelte";
     import MouseCircle from "$lib/components/MouseCircle.svelte";
 
     import { instagram, github, discord } from "$lib/socials";
@@ -81,11 +81,11 @@
         <!-- top -->
         <div class="max-w-96">
             <h1 class="h1 text-7xl text-primary-500 font-bold">
-                <Highlighed>Xellu</Highlighed>
+                <Highlighted>Xellu</Highlighted>
             </h1>
             <p class="text-lg">Full-Stack Developer</p>
             <p class="mt-5 text-surface-50 max-w-80">
-                👋 Hello! I'm a <Highlighed>Developer</Highlighed> from Czechia,
+                👋 Hello! I'm a <Highlighted>Developer</Highlighted> from Czechia,
                 Living in Siberia, Russia. 
             </p>
 
