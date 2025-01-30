@@ -1,7 +1,7 @@
 <script lang="ts">
+
     import "../../../markdown.pcss";
 
-    import { page } from "$app/stores";
     import { onMount } from "svelte";
     import { getToastStore } from "@skeletonlabs/skeleton";
 
@@ -10,36 +10,21 @@
     import Embed from "$lib/components/Embed.svelte";
     
     import type { PostType } from "$lib/scripts/Blog";
-    import { toAgo, MarkdownParser } from "$lib/scripts/Utils";
+    import { toAgo } from "$lib/scripts/Utils";
 
     const toast = getToastStore();
 
-    let post: PostType | null = null;
-    let error: string | null = null;
+    export let data;
+    const { props } = data;
 
-    onMount(async () => {
-        const search = new URLSearchParams(location.search);
-        if (search.has("preview")) {
-            post = search.get("data") as unknown as PostType;
-            post.content = MarkdownParser(post.content);
-            return;
-        }
+    let post: PostType | undefined;
+    let error: string | null | undefined;
 
-        const postId = $page.params.postId;
+    $: post = props.post;
+    $: error = props.error;
 
-        const r = await fetch(`/api/v2/blog/post/${postId}`);
-        const data = await r.json();
-
-        if (!r.ok) {
-            error = data.error || "Unknown error";
-            return toast.trigger({
-                message: error as string,
-                background: "variant-soft-warning",
-            })
-        }
-
-        post = data.post as PostType;
-        post.content = MarkdownParser(post.content);
+    onMount(() => {
+        console.log(post, error)
     })
 </script>
 
