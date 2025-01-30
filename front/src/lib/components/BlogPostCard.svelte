@@ -54,7 +54,7 @@
     }
 </script>
 
-<div class="glass p-3 rounded-xl group">
+<div class="glass p-3 rounded-xl group max-sm:w-80">
     <a href="{post._id == null ? '#' : '/blog/' + post._id}" class="flex flex-col" draggable="false">
 
         <h2 class="text-lg group-hover:text-tertiary-500 duration-300 font-bold whitespace-nowrap text-ellipsis overflow-hidden">{post.title}</h2>

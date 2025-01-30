@@ -1,7 +1,7 @@
 <script lang="ts">
     import "../../../markdown.pcss";
 
-    import { page } from "$app/state";
+    import { page } from "$app/stores";
     import { onMount } from "svelte";
     import { getToastStore } from "@skeletonlabs/skeleton";
 
@@ -25,7 +25,7 @@
             return;
         }
 
-        const postId = page.params.postId;
+        const postId = $page.params.postId;
 
         const r = await fetch(`/api/v2/blog/post/${postId}`);
         const data = await r.json();

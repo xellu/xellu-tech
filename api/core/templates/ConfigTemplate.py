@@ -1,6 +1,7 @@
 ConfigTemplate = {
     "SERVER.NAME": "NightCube-Public",
     "DEVMODE": True,
+    "SERVER.URL": "http://localhost",
     
     "HTTP.HOST": "0.0.0.0",
     "HTTP.PORT": 3000,
