@@ -18,6 +18,10 @@
 
 </style>
 
+<svelte:head>
+    <title>Xellu</title>
+</svelte:head>
+
 <div>
     <Separator> <span id="about">About Me</span> </Separator>
     <p class="text-surface-200 pl-3">

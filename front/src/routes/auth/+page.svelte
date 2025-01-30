@@ -65,6 +65,10 @@
 
 </script>
 
+<svelte:head>
+    <title>{page == "login" ? "Log In" : "Sign Up"} | Xellu</title>
+</svelte:head>
+
 <div class="w-full flex items-center justify-center">
     <div class="glass rounded-xl p-3 flex flex-col max-w-xs w-full">
         <h2 class="uppercase font-bold text-tertiary-500 font-heading-token">{page}</h2>

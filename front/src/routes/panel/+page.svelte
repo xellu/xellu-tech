@@ -36,6 +36,10 @@
     })
 </script>
 
+<svelte:head>
+    <title>Image Hosting | Xellu</title>
+</svelte:head>
+
 {#if UserState.loading || !UserState.loggedIn || loading}
     <Loader />
 {:else}

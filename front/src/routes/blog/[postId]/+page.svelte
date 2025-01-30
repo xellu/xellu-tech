@@ -35,6 +35,10 @@
     })
 </script>
 
+<svelte:head>
+    <title>{post ? (post?.title || 'Blog Post') : 'Blog Post'} | Xellu</title>
+</svelte:head>
+
 {#if !post && !error}
     <Loader />
 {:else if error}

@@ -85,6 +85,10 @@
     })
 </script>
 
+<svelte:head>
+    <title>Blog Posts | Xellu</title>
+</svelte:head>
+
 {#if User?.admin}
     <button class="btn btn-sm {page === "posts" ? 'glass' : 'glass-tertiary'} flex items-center justify-center mb-5"
         on:click={() => {
