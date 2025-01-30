@@ -70,7 +70,7 @@ def make_invite(*args, **kwargs):
         code = str(uuid.uuid4())
         
         Database.get_database("xelapi").invites.insert_one({"code": code})
-        logger.info(f"Invite code: {code} ({Config.get('SERVER.URL')}/auth?invite={code})")
+        logger.info(f"Invite code: {code} ({Config.get('SERVER.URL')}/invite/{code})")
 
 @Helper.command("rminv", "Remove an invite code", "rminv <code|*>")
 @ShellEventBus.on("rminv")

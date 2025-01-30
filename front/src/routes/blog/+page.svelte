@@ -1,6 +1,4 @@
 <script lang="ts">
-    import "../../markdown.pcss";
-
     import Loader from "$lib/components/Loader.svelte";
     import BlogPostCard from "$lib/components/BlogPostCard.svelte";
     import ArrowButton from "$lib/components/ArrowButton.svelte";

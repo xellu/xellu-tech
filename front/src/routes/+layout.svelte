@@ -1,5 +1,6 @@
 <script lang="ts">
     import "../app.pcss"
+    import "../markdown.pcss"
 
     import Highlighted from "$lib/components/Highlighted.svelte";
     import MouseCircle from "$lib/components/MouseCircle.svelte";

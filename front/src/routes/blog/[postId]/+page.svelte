@@ -1,7 +1,4 @@
 <script lang="ts">
-
-    import "../../../markdown.pcss";
-
     import { onMount } from "svelte";
     import { getToastStore } from "@skeletonlabs/skeleton";
 
@@ -10,7 +7,7 @@
     import Embed from "$lib/components/Embed.svelte";
     
     import type { PostType } from "$lib/scripts/Blog";
-    import { toAgo } from "$lib/scripts/Utils";
+    import { MarkdownParser, toAgo } from "$lib/scripts/Utils";
 
     const toast = getToastStore();
 
@@ -55,6 +52,6 @@
     <div class="h-px w-full bg-surface-300/10 my-10"></div>
 
     <div class="markdown">
-        {@html post?.content}
+        {@html MarkdownParser(post?.content || '')}
     </div>
 {/if}
