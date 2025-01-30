@@ -47,7 +47,9 @@
     <title>{post ? (post?.title || 'Blog Post') : 'Blog Post'} | Xellu</title>
 
     <Embed
-
+        title = "{post ? post?.title : 'Blog Post'} by {post ? post?.author : 'Unknown'}"
+        description = "{post ? post?.brief : 'No data'}"
+        route = "/blog/{post ? post?._id : ''}"
     />
 </svelte:head>
 
