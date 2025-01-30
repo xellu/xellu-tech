@@ -27,6 +27,13 @@
         "close",
         "keyboard_arrow_down",
         "expand_more",
+        "home",
+        "forum",
+        "photo_library",
+        "settings",
+        "colors",
+        "cloud_upload",
+        "person"
     ].toSorted();
 
     const toast = getToastStore();
