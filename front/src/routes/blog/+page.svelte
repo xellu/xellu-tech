@@ -1,6 +1,10 @@
 <script lang="ts">
+    import "../../markdown.pcss";
+
     import Loader from "$lib/components/Loader.svelte";
     import BlogPostCard from "$lib/components/BlogPostCard.svelte";
+    import ArrowButton from "$lib/components/ArrowButton.svelte";
+    import Separator from "$lib/components/Separator.svelte";
 
     import { onMount } from "svelte";
     import { slide } from "svelte/transition";
@@ -8,6 +12,7 @@
 
     import { LoadNext, Posts, type PostType } from "$lib/scripts/Blog";
     import { Account, type AccountType } from "$lib/scripts/Auth";
+    import { MarkdownParser, toAgo } from "$lib/scripts/Utils";
     
     const toast = getToastStore();
 
@@ -21,11 +26,12 @@
     let page: "posts" | "new" = "posts";
     let reachedEnd: boolean = false;
 
-    let newPost: {_id: string | null, title: string, brief: string, content: string, previewOpen:boolean, saving: {state: boolean, error: boolean}} = {
+    let newPost: {_id: string | null, title: string, brief: string, content: string, markdownContent: string, previewOpen:boolean, saving: {state: boolean, error: boolean}} = {
         _id: null,
         title: "",
         brief: "",
         content: "",
+        markdownContent: "",
 
         previewOpen: false,
         saving: {
@@ -98,6 +104,7 @@
                 title: "",
                 brief: "",
                 content: "",
+                markdownContent: "",
 
                 previewOpen: false,
                 saving: {
@@ -116,11 +123,19 @@
     <div transition:slide>
         <h2 class="uppercase font-bold text-tertiary-500">{newPost._id == null ? 'New Post' : 'Edit Post'}</h2>
 
-        <div class="glass max-w-sm w-full rounded-xl p-3 mt-1 flex flex-col gap-1">    
+        <div class="glass w-full rounded-xl p-3 mt-1 flex flex-col gap-1">    
             <input type="text" placeholder="Title" bind:value={newPost.title} class="glass-input w-2/3" />
             <input type="text" placeholder="Brief summary" bind:value={newPost.brief} class="glass-input" />
             
-            <textarea placeholder="Content" bind:value={newPost.content} class="glass-input h-32 mt-3" />
+            <textarea
+                placeholder="Content"
+                class="glass-input h-32 mt-3"
+                
+                bind:value={newPost.content}
+                on:input={() => {
+                    newPost.markdownContent = MarkdownParser(newPost.content)
+                }}    
+            />
         </div>
 
         <button class="btn btn-sm mt-2 flex items-center justify-center {newPost.saving.error ? 'glass-error' : 'glass-tertiary'}" disabled={newPost.saving.state || (!newPost.title || !newPost.brief || !newPost.content)}
@@ -173,10 +188,11 @@
         </button>
 
         {#if newPost.previewOpen}
-            <div transition:slide class="border-t border-t-surface-400/20 mt-1 pt-5 max-w-sm w-full">
+            <div transition:slide class="w-full">
                 {#if !newPost.title || !newPost.brief || !newPost.content}
                     <Loader error="Unable to preview: Missing Fields" />
                 {:else}
+                    <Separator>Card</Separator>
                     <BlogPostCard post={{ //yea i have to do all this buffoonery cause i have to convert it to PostType 🥲
                         _id: newPost._id,
                         title: newPost.title,
@@ -188,6 +204,20 @@
             
                         author: User?.username || "Unknown",
                     }} />
+
+                    <Separator>Page</Separator>
+                    <div class="flex items-center justify-between">
+                        <h1 class="h3 font-bold overflow-hidden text-ellipsis whitespace-nowrap">{newPost.title}</h1>
+
+                        <ArrowButton>Return</ArrowButton>
+                    </div>
+                    <p class="text-sm opacity-50">{newPost._id == null ? `Posted` : `Edited`} by <span class="capitalize font-bold">{User?.username}</span> {toAgo(new Date().getTime())}</p>
+
+                    <div class="h-px w-full bg-surface-300/10 my-10"></div>
+
+                    <div class="markdown">
+                        {@html newPost.markdownContent}
+                    </div>
                 {/if}
             </div>
         {/if}
@@ -212,6 +242,7 @@
                         title: p.title,
                         brief: p.brief,
                         content: p.content,
+                        markdownContent: MarkdownParser(p.content),
 
                         previewOpen: false,
                         saving: {

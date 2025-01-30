@@ -7,7 +7,6 @@
 
     import Loader from "$lib/components/Loader.svelte";
     import ArrowButton from "$lib/components/ArrowButton.svelte";
-    import Separator from "$lib/components/Separator.svelte";
     
     import type { PostType } from "$lib/scripts/Blog";
     import { toAgo, MarkdownParser } from "$lib/scripts/Utils";
@@ -18,6 +17,13 @@
     let error: string | null = null;
 
     onMount(async () => {
+        const search = new URLSearchParams(location.search);
+        if (search.has("preview")) {
+            post = search.get("data") as unknown as PostType;
+            post.content = MarkdownParser(post.content);
+            return;
+        }
+
         const postId = page.params.postId;
 
         const r = await fetch(`/api/v2/blog/post/${postId}`);
