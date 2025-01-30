@@ -1,10 +1,12 @@
 import { writable, type Writable } from "svelte/store";
+import { Logger } from "./Logger";
 
 type PostType = {
-    _id: string,
+    _id: string | null,
 
     createdAt: number,
     lastModified: null | number,
+    author?: string,
 
     title: string,
     brief: string,
@@ -12,15 +14,17 @@ type PostType = {
 }
 
 let NextPage: number = 1
-const Posts: Writable<PostType[]> = writable<PostType[]>([]); //
+const Posts: Writable<PostType[]> = writable<PostType[]>([]);
 
-async function LoadNext(): Promise<{ok: boolean, error?: string}> {
+async function LoadNext(): Promise<{ok: boolean, error?: string, reachedEnd?: boolean}> {
     if (NextPage < 0) {
-        return {ok: true} //end of posts
+        console.warn("No more posts to load")
+        return {ok: true, reachedEnd: true} //end of posts
     }
 
     const r = await fetch(`/api/v2/blog/posts?page=${NextPage}`)
     if (!r.ok) {
+        console.error(`Unable to update posts: ${r.status} ${r.statusText}`)
         return {ok: false, error: `Unable to update posts: ${r.status} ${r.statusText}`}
     }
 
@@ -28,7 +32,7 @@ async function LoadNext(): Promise<{ok: boolean, error?: string}> {
     let data = await r.json()
     let newPosts: PostType[] = data.posts
 
-    if (newPosts.length == 0) { NextPage == -1 }
+    if (newPosts.length == 0) { NextPage = -1 }
     else { NextPage++ }
 
     //add new posts to Posts store

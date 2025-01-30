@@ -7,7 +7,7 @@
     import { instagram, github, discord } from "$lib/socials";
 
     import { onMount, onDestroy } from "svelte";
-    import { getToastStore, initializeStores, Toast } from "@skeletonlabs/skeleton";
+    import { getToastStore, initializeStores, Toast, Modal } from "@skeletonlabs/skeleton";
 
     import { AutoAuthenticate, AuthLogger } from '$lib/scripts/Auth';
 
@@ -73,6 +73,7 @@
 </script>
 
 <Toast />
+<Modal />
 <MouseCircle />
 
 <div class="flex flex-wrap max-md:flex-col lg:justify-between lg:gap-32 backdrop-blur-md">
