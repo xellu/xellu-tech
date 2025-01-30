@@ -7,6 +7,7 @@
 
     import Loader from "$lib/components/Loader.svelte";
     import ArrowButton from "$lib/components/ArrowButton.svelte";
+    import Separator from "$lib/components/Separator.svelte";
     
     import type { PostType } from "$lib/scripts/Blog";
     import { toAgo, MarkdownParser } from "$lib/scripts/Utils";
@@ -53,7 +54,9 @@
     </div>
     <p class="text-sm opacity-50">{post?.lastModified == null ? `Posted` : `Edited`} by <span class="capitalize font-bold">{post?.author}</span> {post?.lastModified == null ? toAgo((post?.createdAt || 0) * 1000) : toAgo(post?.lastModified * 1000)}</p>
 
-    <div class="mt-5 markdown">
+    <div class="h-px w-full bg-surface-300/10 my-10"></div>
+
+    <div class="markdown">
         {@html post?.content}
     </div>
 {/if}

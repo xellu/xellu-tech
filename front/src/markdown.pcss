@@ -35,7 +35,7 @@
     }
 
     p {
-        @apply text-surface-200;
+        @apply opacity-80;
         @apply my-4
     }
     
@@ -47,7 +47,7 @@
     hr {
         @apply my-8;
         @apply border-t;
-        @apply border-surface-300;
+        @apply border-surface-300/20;
     }
 
     ul {
@@ -75,7 +75,8 @@
         @apply border-primary-500;
 
         @apply p-1;
-        @apply px-3
+        @apply px-3;
+        @apply rounded-md;
     }
 
     blockquote p {
@@ -90,16 +91,17 @@
     }
 
     th {
-        @apply bg-surface-700;
+        @apply bg-primary-500/10;
+        @apply border border-primary-500/10;
+        
+        @apply text-primary-300;
         @apply p-2;
-        @apply border;
-        @apply border-surface-600;
     }
 
     td {
-        @apply text-surface-300;
+        @apply text-primary-100;
+        
+        @apply border border-primary-500/10;
         @apply p-2;
-        @apply border;
-        @apply border-surface-600;
     }
 }
