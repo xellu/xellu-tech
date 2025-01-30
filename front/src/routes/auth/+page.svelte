@@ -43,6 +43,11 @@
         if (qRef && !qRef.startsWith("//")) {
             ref = qRef;
         }
+
+        if (search.has("invite")) {
+            page = "register";
+            form.inviteCode = search.get("invite") || "";
+        }
     })
 
     function resolve(res: AuthStateType) {

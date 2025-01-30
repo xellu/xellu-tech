@@ -59,7 +59,7 @@ def remove_admin(*args, **kwargs):
 @Helper.command("mkinv", "Generate an invite code", "mkinv [count=1]")
 @ShellEventBus.on("mkinv")
 def make_invite(*args, **kwargs):
-    from core import Database
+    from core import Database, Config
     import random
 
     count = 1
@@ -70,7 +70,7 @@ def make_invite(*args, **kwargs):
         code = str(uuid.uuid4())
         
         Database.get_database("xelapi").invites.insert_one({"code": code})
-        logger.info(f"Invite code: {code}")
+        logger.info(f"Invite code: {code} ({Config.get('SERVER.URL')}/auth?invite={code})")
 
 @Helper.command("rminv", "Remove an invite code", "rminv <code|*>")
 @ShellEventBus.on("rminv")
