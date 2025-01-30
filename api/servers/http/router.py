@@ -44,6 +44,10 @@ BPLoader = BlueprintLoader(root="/api/v2")
 v2auth = BPLoader.new("auth")
 v2blog = BPLoader.new("blog")
 
+@v2auth.route("/test2")
+def test2():
+    return Reply(hello="world")
+
 @EventBus.on("http.start")
 def on_server_start():
     BPLoader.load()

@@ -9,6 +9,10 @@ from flask import request
 import time
 import re
 
+@v2auth.route("/test")
+def test():
+    return Reply(hello="world")
+
 @v2auth.route("/register", methods=["POST"])
 @Limiter.limit("5/minute")
 def register():
