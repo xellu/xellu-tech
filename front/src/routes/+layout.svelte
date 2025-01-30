@@ -14,6 +14,21 @@
 
     initializeStores();
 
+    const ICONS = [
+        "add",
+        "arrow_right_alt",
+        "edit",
+        "delete",
+        "error",
+        "open_in_new",
+        "cancel_schedule_send",
+        "send",
+        "check",
+        "close",
+        "keyboard_arrow_down",
+        "expand_more",
+    ].toSorted();
+
     const toast = getToastStore();
 
     let page: {list: {name: string, path: string}[], active: string} = {
@@ -69,8 +84,6 @@
         loops.forEach(l => clearInterval(l));
     })
 
-
-
 </script>
 
 <svelte:head>
@@ -79,6 +92,11 @@
     <meta name="keywords" content="blog, posts, xellu, xellu.tech, image hosting" />
 
     <meta content="#33A4F7" data-react-helmet="true" name="theme-color" />
+
+    <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names={ICONS}"
+    />
 </svelte:head>
 
 <Toast />
