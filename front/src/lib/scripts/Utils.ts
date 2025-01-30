@@ -1,4 +1,5 @@
 import { marked } from 'marked';
+import DOMPurify from 'dompurify';
 
 export function toAgo(timestamp: number): string {
     const date = new Date(timestamp);
@@ -24,5 +25,7 @@ export function toAgo(timestamp: number): string {
 
 export function MarkdownParser(content: string): string {
     const html: string = marked(content) as string;
-    return html;
+    const clean = DOMPurify.sanitize(html);
+    
+    return clean;
 }
