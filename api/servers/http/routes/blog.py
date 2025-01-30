@@ -85,12 +85,13 @@ def manage_post(post_id):
 @v2blog.route("/posts", methods=["GET"])
 @Limiter.limit("15/minute")
 def post_list():
-    start = int(request.args.get("page", 1)) * 10 - 10
+    LIMIT = 10
+    start = int(request.args.get("page", 1)) * LIMIT - LIMIT
     
-    posts = list(Database.get_database("xelapi").blog.find().sort("createdAt", -1).skip(start).limit(10))
+    posts = list(Database.get_database("xelapi").blog.find().sort("createdAt", -1).skip(start).limit(LIMIT))
     
     for post in posts:
         author = Database.get_database("xelapi").users.find_one({"_id": post["author"]})
         post["author"] = author["username"] if author else "Unknown"
         
-    return Reply(posts=posts), 200
+    return Reply(posts=posts, limit=LIMIT), 200

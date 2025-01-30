@@ -85,7 +85,8 @@
     });
 
     onMount(async () => {
-        await LoadNext();
+        const r = await LoadNext();
+        reachedEnd = r.reachedEnd || false;
 
         loading = false;
     })
@@ -276,7 +277,7 @@
             </button>
         {:else}
             <p class="text-center mt-5 opacity-50 text-xs uppercase font-bold" transition:slide>
-                You've reached the end
+                {posts.length == 0 ? "No posts yet, check back later!" : "You've reached the end"}
             </p>
         {/if}
     </div>

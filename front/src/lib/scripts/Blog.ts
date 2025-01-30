@@ -32,7 +32,7 @@ async function LoadNext(): Promise<{ok: boolean, error?: string, reachedEnd?: bo
     let data = await r.json()
     let newPosts: PostType[] = data.posts
 
-    if (newPosts.length == 0) { NextPage = -1 }
+    if (newPosts.length == 0 || data.limit > newPosts.length) { NextPage = -1 }
     else { NextPage++ }
 
     //add new posts to Posts store
@@ -41,7 +41,7 @@ async function LoadNext(): Promise<{ok: boolean, error?: string, reachedEnd?: bo
         return value
     })
 
-    return {ok: true}
+    return {ok: true, reachedEnd: data.limit > newPosts.length}
 }
 
 export {
