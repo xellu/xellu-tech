@@ -7,6 +7,7 @@
 
     import Loader from "$lib/components/Loader.svelte";
     import ArrowButton from "$lib/components/ArrowButton.svelte";
+    import Embed from "$lib/components/Embed.svelte";
     
     import type { PostType } from "$lib/scripts/Blog";
     import { toAgo, MarkdownParser } from "$lib/scripts/Utils";
@@ -44,6 +45,10 @@
 
 <svelte:head>
     <title>{post ? (post?.title || 'Blog Post') : 'Blog Post'} | Xellu</title>
+
+    <Embed
+
+    />
 </svelte:head>
 
 {#if !post && !error}

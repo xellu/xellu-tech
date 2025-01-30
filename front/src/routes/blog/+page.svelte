@@ -5,6 +5,7 @@
     import BlogPostCard from "$lib/components/BlogPostCard.svelte";
     import ArrowButton from "$lib/components/ArrowButton.svelte";
     import Separator from "$lib/components/Separator.svelte";
+    import Embed from "$lib/components/Embed.svelte";
 
     import { onMount } from "svelte";
     import { slide } from "svelte/transition";
@@ -94,6 +95,12 @@
 
 <svelte:head>
     <title>Blog Posts | Xellu</title>
+    
+    <Embed
+        title = "Blog Posts"
+        description = "A collection of posts from my personal blog"
+        route = "/blog"
+    />
 </svelte:head>
 
 {#if User?.admin}

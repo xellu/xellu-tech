@@ -1,0 +1,6 @@
+User-agent: *
+
+Disallow: /auth
+Disallow: /panel
+
+Sitemap: https://xellu.tech/api/v2/sitemap/xml

@@ -4,6 +4,7 @@
     import { Account, AuthState, type AuthStateType, type AccountType } from "$lib/scripts/Auth";
     
     import Loader from "$lib/components/Loader.svelte";
+    import Embed from "$lib/components/Embed.svelte";
   
     let User: AccountType | null;
     let UserState: AuthStateType = { loggedIn: false, loading: true};
@@ -38,6 +39,11 @@
 
 <svelte:head>
     <title>Image Hosting | Xellu</title>
+    <Embed
+        title = "Xellu's Image Hosting"
+        description = "Private & secure image hosting for only a select few."
+        route = "/panel"
+    />
 </svelte:head>
 
 {#if UserState.loading || !UserState.loggedIn || loading}

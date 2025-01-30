@@ -1,5 +1,6 @@
 <script lang="ts">
     import Separator from "$lib/components/Separator.svelte";
+    import Embed from "$lib/components/Embed.svelte";
 
     import { projectTimeline } from "$lib/projects";
     import { discord, email } from "$lib/socials";
@@ -20,6 +21,12 @@
 
 <svelte:head>
     <title>Xellu</title>
+
+    <Embed
+        title = "Xellu"
+        description = "A Personal website, featuring my projects, blog posts and invite-only image hosting."
+        route = "/"
+    />
 </svelte:head>
 
 <div>

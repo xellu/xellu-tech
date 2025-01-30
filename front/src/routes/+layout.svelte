@@ -72,6 +72,14 @@
 
 </script>
 
+<svelte:head>
+    <meta name="author" content="Xellu" />
+    <meta name="description" content="A Personal blog page and invite-only image hosting" />
+    <meta name="keywords" content="blog, posts, xellu, xellu.tech, image hosting" />
+
+    <meta content="#33A4F7" data-react-helmet="true" name="theme-color" />
+</svelte:head>
+
 <Toast />
 <Modal />
 <MouseCircle />
