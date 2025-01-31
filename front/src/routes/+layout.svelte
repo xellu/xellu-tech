@@ -33,7 +33,16 @@
         "settings",
         "colors",
         "cloud_upload",
-        "person"
+        "person",
+        "upload",
+        "folder_open",
+        "draft",
+        "image",
+        "movie",
+        "terminal",
+        "code_blocks",
+        "music_note",
+        "package",
     ].toSorted();
 
     const toast = getToastStore();
