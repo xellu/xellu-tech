@@ -171,7 +171,7 @@ def wipe_files(*args, **kwargs):
         logger.success(f"File {file['fullName']} has been removed")
     
     if user:
-        Database.get_database("xelapi").users.update_one({"_id": args[0]}, {"$set": {"uploads": {"files": [], "storageUsed": 0}}})
+        Database.get_database("xelapi").users.update_one({"_id": args[0]}, {"$set": {"uploads": {"files": [], "storageUsed": 0, "storageMax": user['uploads'].get('storageMax', 0)}}})
         logger.success(f"Files from {user['username']} have been removed")
         
 @Helper.command("files", "List user's files", "files <user_id>")
