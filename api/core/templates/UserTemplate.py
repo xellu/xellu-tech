@@ -12,8 +12,8 @@ def UserTemplate():
         
         "uploads": {
             "files": [], #fileId[] - just a uuid
-            "folders": [], #{name: "", files: fileId[]}
-            "storageUsed": 0
+            "storageUsed": 0,
+            "storageMax": 1024 * 1024 * 1024 * 1, #1GB of storage
         },
         "settings": {
             "embeds": {

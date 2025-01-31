@@ -29,3 +29,15 @@ export function MarkdownParser(content: string): string {
     
     return clean;
 }
+
+export function toDataUnit(bytes: number): string {
+    const units = ['B', 'KB', 'MB', 'GB', 'TB'];
+    let unit = 0;
+
+    while (bytes >= 1024) {
+        bytes /= 1024;
+        unit++;
+    }
+
+    return `${bytes.toFixed(1)} ${units[unit]}`;
+}

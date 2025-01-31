@@ -30,8 +30,11 @@ def upload_file():
     fd["fullName"] = f"{uuid.uuid4().hex}-{alias}.{extension}"
     fd["author"] = user["_id"]
     
-    fd["size"] = file.content_length
+    fd["size"] = len(file.read())
     fd["contentType"] = file.content_type
+    
+    if user["uploads"]["storageUsed"] + fd["size"] > user["uploads"]["storageMax"]:
+        return Reply(error="Storage limit reached"), 413
     
     file.save(f"{Config.get('UPLOADS.PATH')}/{fd['fullName']}")
     Database.get_database("xelapi").files.insert_one(fd)

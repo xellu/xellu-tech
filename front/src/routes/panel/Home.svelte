@@ -4,6 +4,7 @@
     import UploadBox from "$lib/components/misc/UploadBox.svelte";
 
     import { Account, AuthState, type AuthStateType, type AccountType } from "$lib/scripts/Auth";
+    import { toDataUnit } from "$lib/scripts/Utils";
 
     let User: AccountType | null;
     let UserState: AuthStateType = { loggedIn: false, loading: true};
@@ -58,6 +59,6 @@
 <UcHeading>Upload</UcHeading>
 <UploadBox />
 
-<UcHeading>Statistics</UcHeading>
+<UcHeading>Storage</UcHeading>
 <p>Uploads: {User?.uploads.files.length}</p>
-<p>Storage Used: {(User?.uploads.storageUsed || 0)/1024}kb</p>
+<p>Storage Used: {toDataUnit(User?.uploads.storageUsed || 0)}</p>

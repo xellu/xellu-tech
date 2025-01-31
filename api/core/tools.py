@@ -18,3 +18,11 @@ def LoadPlaceholders(text: str, config: ConfigManager):
 
 def SanitizePath(path: str):
     return path.replace("..", "").replace("/", "").replace("\\", "")
+
+def ToDataUnit(size: int):
+    for unit in ["B", "KB", "MB", "GB", "TB"]:
+        if size < 1024:
+            return f"{size:.1f}{unit}"
+        size /= 1024
+
+    return f"{size:.1f}PB"

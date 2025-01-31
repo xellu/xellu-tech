@@ -2,6 +2,8 @@ from events import ShellEventBus, EventBus
 from ..helper import Helper
 
 from core.logging import LoggingManager
+from core.tools import ToDataUnit
+from core.templates.UserTemplate import UserTemplate
 
 import uuid
 import os
@@ -16,7 +18,24 @@ def list_users(*args, **kwargs):
     users = Database.get_database("xelapi").users.find()
 
     for user in users:
-        logger.info(f"{user['username']} - {user['_id']} - {'Admin' if user['admin'] else 'User'}")
+        updated = False
+        for k, v in UserTemplate().items():
+            if k not in user or (type(v) != type(user[k]) and v is not None):
+                if type(v) is dict:
+                    for kk, vv in v.items():
+                        if kk not in user or (type(vv) != type(user[kk]) and vv is not None):
+                            user[k][kk] = vv
+                            updated = True
+                
+                user[k] = v
+                updated = True    
+        # this is a fucking abomination
+            
+        if updated:
+            Database.get_database("xelapi").users.update_one({"_id": user["_id"]}, {"$set": {k: user[k]}})
+            logger.warn(f"Updated user profile for {user['username']}")
+                
+        logger.info(f"{user['username']}{'*' if user['admin'] else ''} - {user['_id']} - {ToDataUnit(user['uploads']['storageUsed'])} (files: {len(user['uploads']['files'])}, max: {ToDataUnit(user['uploads'].get('storageMax', 0))})")
         
 @Helper.command("term", "Terminate a user", "terminate <user_id>")
 @ShellEventBus.on("term")
@@ -109,3 +128,80 @@ def list_invites(*args, **kwargs):
 
     for invite in invites:
         logger.info(f"{invite['code']}")
+        
+    
+@Helper.command("rmfile", "Remove a file", "rmfile <file_id>")
+@ShellEventBus.on("rmfile")
+def remove_file(*args, **kwargs):
+    from core import Database, Config
+
+    file = Database.get_database("xelapi").files.find_one({"fullName": args[0]})
+    if not file:
+        file = Database.get_database("xelapi").files.find_one({"alias": args[0]})
+        if not file:
+            logger.warning(f"File not found")
+            return
+
+    os.remove(f"{Config.get('UPLOADS.PATH')}/{file['fullName']}")
+    Database.get_database("xelapi").files.delete_one({"_id": file["_id"]})
+    Database.get_database("xelapi").users.update_one(
+        {"_id": file["author"]},
+        {
+            "$pull": {"uploads.files": file["fullName"]},
+            "$inc": {"uploads.storageUsed": -file["size"]}
+        }
+    )
+    logger.success(f"File {file['fullName']} has been removed")
+
+@Helper.command("wipefiles", "Remove files from a user", "wipefiles <user_id>")
+@ShellEventBus.on("wipefiles")
+def wipe_files(*args, **kwargs):
+    from core import Database, Config
+    
+    files = Database.get_database("xelapi").files.find({"author": args[0]})
+    user = Database.get_database("xelapi").users.find_one({"_id": args[0]})
+    
+    for file in files:
+        os.remove(f"{Config.get('UPLOADS.PATH')}/{file['fullName']}")
+        
+        Database.get_database("xelapi").files.delete_one({"_id": file["_id"]})
+        logger.success(f"File {file['fullName']} has been removed")
+    
+    if user:
+        Database.get_database("xelapi").users.update_one({"_id": args[0]}, {"$set": {"uploads": {"files": [], "storageUsed": 0}}})
+        logger.success(f"Files from {user['username']} have been removed")
+        
+@Helper.command("files", "List user's files", "files <user_id>")
+@ShellEventBus.on("files")
+def list_files(*args, **kwargs):
+    from core import Database, Config
+
+    files = Database.get_database("xelapi").files.find({"author": args[0]}).sort("size", -1)
+    for file in files:
+        logger.info(f"{file['fullName']} - {Config.get('SERVER.URL')}/upload/{file['alias']} - {ToDataUnit(file['size'])}")
+        
+@Helper.command("setmax", "Set user's max storage", "setmax <user_id> <size> <g|m|k|b>")
+@ShellEventBus.on("setmax")
+def set_max_storage(*args, **kwargs):
+    from core import Database
+    
+    user = Database.get_database("xelapi").users.find_one({"_id": args[0]})
+    if not user:
+        logger.warning(f"User not found")
+        return
+    
+    size = int(args[1])
+    if args[2] == "g":
+        size *= 1024 * 1024 * 1024
+    elif args[2] == "m":
+        size *= 1024 * 1024
+    elif args[2] == "k":
+        size *= 1024
+    elif args[2] == "b":
+        pass
+    else:
+        logger.warning(f"Invalid size unit")
+        return
+    
+    Database.get_database("xelapi").users.update_one({"_id": args[0]}, {"$set": {"uploads.storageMax": size}})
+    logger.success(f"Set max storage for {user['username']} to {ToDataUnit(size)}")
