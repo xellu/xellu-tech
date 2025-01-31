@@ -39,5 +39,5 @@ export function toDataUnit(bytes: number): string {
         unit++;
     }
 
-    return `${bytes.toFixed(1)} ${units[unit]}`;
+    return bytes.toFixed(bytes.toFixed(1).toString().endsWith("0") ? 0 : 1) + units[unit];
 }

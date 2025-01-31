@@ -9,8 +9,8 @@ type AccountType = {
 
     uploads: {
         files: string[],
-        folders: {name: string, files: string[]}[],
-        storageUsed: number
+        storageUsed: number,
+        storageMax: number
     },
     settings: {
         embeds: {
