@@ -1,20 +1,23 @@
 import json
 
 def ShareXConfigTemplate(uploadKey):
+    from core import Config
+    
     return json.dumps({
+        "Version": "17.0.0",
         "Name": "Xellu.tech",
         "DestinationType": "ImageUploader, FileUploader",
         
         "RequestType": "POST",
-        "RequestURL": "https://xellu.tech/api/v2/files/upload",
+        "RequestURL": f"{Config.get('SERVER.URL')}/api/v2/files/upload",
         "FileFormName": "file",
         "Body": "MultipartFormData",
         "Headers": {
             "Authorization": uploadKey
         },
-        "URL": "$json:url$",
-        "DeletionURL": "$json:deleteUrl$",
-        "ErrorMessage": "$json:error$"
+        "URL": "{json:url}",
+        "DeletionURL": "{json:deleteUrl}",
+        "ErrorMessage": "{json:error}"
     }, indent=4)
     
 def FileTemplate():

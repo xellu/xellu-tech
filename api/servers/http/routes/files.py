@@ -15,10 +15,12 @@ from flask import request, make_response, send_from_directory
 def upload_file():
     session = request.headers.get("Authorization") if request.headers.get("Authorization") else request.cookies.get("session")
     user = Sessions.get_user(session, scopes=["upload"])
+    if not user:
+        return Reply(error="Authorization required"), 401
     
     file = request.files.get("file")
     if not file:
-        return Reply(error="No file was provided")
+        return Reply(error="No file was provided") , 400
 
     alias = RandomStr(12)
     extension = SanitizePath(file.filename).split(".")[-1] if "." in file.filename else "bin"
@@ -51,6 +53,8 @@ def upload_file():
 def delete_file():
     session = request.headers.get("Authorization") if request.headers.get("Authorization") else request.cookies.get("session")
     user = Sessions.get_user(session, scopes=["upload"])
+    if not user:
+        return Reply(error="Authorization required"), 401
     
     file = Database.get_database("xelapi").files.find_one({"fullName": file})
     if not file:
