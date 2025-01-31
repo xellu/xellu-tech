@@ -79,8 +79,6 @@ def delete_file():
     return Reply(), 200
 
 #file downloads-----
-@v2files.route("/")
-
 @v2files.route("/alias/<alias>", methods=["GET"]) #file download
 @Limiter.limit("60/minute")
 def get_file_using_alias(alias):
@@ -88,7 +86,7 @@ def get_file_using_alias(alias):
     if not file:
         return Reply(error="File not found"), 404
     
-    return send_from_directory(Config.get("UPLOADS.PATH"), file["fullName"], as_attachment=True)
+    return send_from_directory(Config.get("UPLOADS.PATH"), file["fullName"])
 
 @v2files.route("/<file>", methods=["GET"]) #file download
 @Limiter.limit("60/minute")
@@ -97,4 +95,4 @@ def get_file(file):
     if not file:
         return Reply(error="File not found"), 404
     
-    return send_from_directory(Config.get("UPLOADS.PATH"), file["fullName"], as_attachment=True)
+    return send_from_directory(Config.get("UPLOADS.PATH"), file["fullName"])
