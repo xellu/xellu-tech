@@ -23,7 +23,9 @@ def UserTemplate():
                 "siteName": None,
                 "color": "#33A4F7",
             },
-            "rawUrl": False
+            "rawUrl": False,
+            "domain": "xellu.tech",
+            "subDomain": None,
         },
         
         "createdAt": time.time(),

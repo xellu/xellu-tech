@@ -2,7 +2,10 @@ ConfigTemplate = {
     "SERVER.NAME": "XelAPI",
     "DEVMODE": True,
     "SERVER.URL": "http://localhost",
+    
     "UPLOADS.PATH": ".uploads/",
+    "UPLOADS.BASEURL": "http://%domain%",
+    "UPLOADS.DOMAINS.AVAILABLE": ["xellu.tech", "iohue.xyz"],
     
     "HTTP.HOST": "0.0.0.0",
     "HTTP.PORT": 3000,

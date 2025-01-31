@@ -41,3 +41,7 @@ export function toDataUnit(bytes: number): string {
 
     return bytes.toFixed(bytes.toFixed(1).toString().endsWith("0") ? 0 : 1) + units[unit];
 }
+
+export function constructDomain(domain: string, subdomain?: string | null): string {
+    return subdomain ? `${subdomain}.${domain}` : domain;
+}

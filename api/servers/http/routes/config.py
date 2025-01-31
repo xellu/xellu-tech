@@ -6,6 +6,15 @@ from core.tools import RandomStr, HashStr
 from core.templates.UploadTemplate import ShareXConfigTemplate
 
 from flask import request, make_response
+import re
+
+def keyRegen(user):
+    key = f"{user['username']}.{RandomStr(4)}.{HashStr(RandomStr(16))}"
+    
+    Sessions.delete_all_matching_scope(user["_id"], "upload") 
+    Sessions.create(user["_id"], scopes=["upload"], tokenOverride=key)
+    
+    return key
 
 #downloads---
 @v2config.route("/download/sharex", methods=["GET"]) #ShareX config
@@ -14,21 +23,32 @@ from flask import request, make_response
 def get_upload_config():
     user = Sessions.get_user(request.cookies.get("session"))
     
-    #generate a session key (and also delete any old ones)
-    key = f"{user['username']}.{RandomStr(4)}.{HashStr(RandomStr(16))}"
-    
-    Sessions.delete_all_matching_scope(user["_id"], "upload") 
-    Sessions.create(user["_id"], scopes=["upload"], tokenOverride=key)
+    #get a key
+    query = Sessions.sessions.find_one({"user_id": user["_id"], "scopes": "upload"})
+    if not query:
+        key = keyRegen(user)
+    else:
+        key = query["token"]
     
     data = ShareXConfigTemplate(key)
     
     r = make_response(data)
     r.headers["Content-Type"] = "application/octet-stream"
-    r.headers["Content-Disposition"] = f"attachment; filename=xellutech-{user['username']}.sxcu"
+    r.headers["Content-Disposition"] = f"attachment; filename={user['username']}.xellu-tech.sxcu"
     
     return r, 200
 
 #settings------
+@v2config.route("/regenerate", methods=["POST"])
+@Sessions.protect()
+@Limiter.limit("5/minute")
+def regenerate_upload_key():
+    user = Sessions.get_user(request.cookies.get("session"))
+
+    key = keyRegen(user)
+
+    return Reply(key=key), 200
+
 @v2config.route("/push", methods=["POST"])
 @Sessions.protect()
 def push_settings():
@@ -70,6 +90,26 @@ def push_settings():
         elif key in ["rawUrl"]:
             user["settings"][key] = bool(value)
             
+        elif key == "domain":
+            if not value:
+                value = Config.get("UPLOADS.DOMAINS.AVAILABLE")[0]
+                
+            if value not in Config.get("UPLOADS.DOMAINS.AVAILABLE"):
+                return Reply(error="Invalid domain"), 400
+            
+            user["settings"][key] = value
+            
+        elif key == "subDomain":
+            if not value or type(value) != str:
+                value = None
+                
+            if len(str(value)) > 64:
+                return Reply(error="Subdomain exceeds maximum allowed length"), 400
+                
+            if not re.match(r"^[a-zA-Z0-9-]*$", str(value)):
+                return Reply(error="Unicode not allowed"), 400
+                
+            user["settings"][key] = value
         else:
             return Reply(error=f"Unknown setting: {key}"), 400
         
@@ -81,3 +121,11 @@ def push_settings():
     )
     
     return Reply(settings=user["settings"]), 200
+
+@v2config.route("/available-domains", methods=["GET"])
+def get_available_domains():
+    r = Reply(domains=Config.get("UPLOADS.DOMAINS.AVAILABLE"))
+    r.headers["Cache-Control"] = "max-age=86400"
+    r.headers["Expires"] = "86400"
+    
+    return r, 200

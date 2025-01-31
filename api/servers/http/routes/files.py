@@ -49,8 +49,12 @@ def upload_file():
         }
     )
         
+    domainsAvailable = Config.get("UPLOADS.DOMAINS.AVAILABLE")
+    domain = (f"{user['settings']['subDomain']}." if user['settings']['subDomain'] else "") + domainsAvailable[0] if user["settings"]["domain"] not in domainsAvailable else user["settings"]["domain"]
+    baseUrl = f"{Config.get('UPLOADS.BASEURL').replace('%domain%', domain)}"
+        
     return Reply(
-        url = f"{Config.get('SERVER.URL')}/upload/{fd['alias']}" if not user['settings']['rawUrl'] else f"{Config.get('SERVER.URL')}/api/v2/files/{fd['fullName']}",
+        url = f"{baseUrl}/upload/{fd['alias']}" if not user['settings']['rawUrl'] else f"{baseUrl}/api/v2/files/{fd['fullName']}",
         deleteUrl = f"{Config.get('SERVER.URL')}/api/v2/files/delete/{fd['fullName']}",
     )    
 

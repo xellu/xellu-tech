@@ -20,7 +20,9 @@ type AccountType = {
             siteName: string,
             color: string
         },
-        rawUrl: boolean
+        rawUrl: boolean,
+        domain: string,
+        subDomain: string,
     }
 
     admin: boolean,
@@ -309,6 +311,8 @@ async function PushSettings(options: {[key: string]: any}): Promise<{ok: boolean
         let acc = JSON.parse(localStorage.getItem("account.data") as string) as AccountType;
         acc.settings = data.settings;
         localStorage.setItem("account.data", JSON.stringify(acc));
+
+        Account.set(acc);
 
         return {ok: true}
     } catch (e) {

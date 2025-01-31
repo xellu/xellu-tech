@@ -6,6 +6,7 @@
     import { getToastStore } from '@skeletonlabs/skeleton';
 
     import { Account, AuthState, PushSettings, type AuthStateType, type AccountType } from "$lib/scripts/Auth";
+    import { constructDomain } from '$lib/scripts/Utils';
 
     import UcHeading from '$lib/components/UCHeading.svelte';
 
@@ -151,7 +152,7 @@
             <img src="/favicon.png" alt="" class="w-12 rounded-full" draggable="false">
             <div>
                 <p class="capitalize font-bold">{User?.username}</p>
-                {#if !settings.rawUrl} <p class="hover:underline cursor-pointer" style="color: {colors.url}">https://xellu.tech/upload/An1iO7WZ</p> {/if}
+                {#if !settings.rawUrl} <p class="hover:underline cursor-pointer" style="color: {colors.url}">https://{constructDomain(User?.settings.domain || "xellu.tech", User?.settings.subDomain)}/upload/An1iO7WZ</p> {/if}
 
                 {#if settings.enabled && !settings.rawUrl}
                 <div class="flex rounded overflow-hidden shadow-md">

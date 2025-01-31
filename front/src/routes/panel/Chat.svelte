@@ -1,4 +1,6 @@
 <script lang="ts">
+    import UcHeading from "$lib/components/UCHeading.svelte";
+    
     import { Account, AuthState, type AuthStateType, type AccountType } from "$lib/scripts/Auth";
 
     let User: AccountType | null;
@@ -13,4 +15,4 @@
     })
 </script>
 
-<p>not yet</p>
+<UcHeading>Not Yet</UcHeading>

@@ -141,8 +141,8 @@
         {file ? file.name : 'Drag and drop files here to upload'}
     </p>
     {#if progress >= 0}
-    <div class="w-full bg-surface-400/50 rounded-xl overflow-hidden mt-2" transition:slide>
-        <div class="{progress == 100 ? 'bg-success-500 animate-pulse' : 'bg-primary-500'} h-1.5 duration-150" style="width: {Math.round(progress)}%"></div>
+    <div class="w-full bg-surface-400/50 rounded-full overflow-hidden mt-2" transition:slide>
+        <div class="{progress == 100 ? 'bg-success-500 animate-pulse' : 'bg-primary-500'} h-1.5 duration-150 rounded-full min-w-1.5" style="width: {Math.round(progress)}%"></div>
     </div>
     {/if}
 </button>
