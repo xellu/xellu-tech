@@ -28,7 +28,7 @@
         You've been invited to use Xellu's Private image hosting service, free of charge.
     </p>
 
-    <a href="/auth?invite={code}">
+    <a href="/auth?invite={code}&ref=/panel">
         <button class="btn glass-success mt-10 w-full">
             Accept
         </button>

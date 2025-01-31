@@ -1,13 +1,13 @@
 from ..router import v2files, Sessions, Limiter
-from ..services.adapter import Reply, Require
+from ..services.adapter import Reply
 
 from core import Config, Database
-from core.tools import RandomStr, HashStr, SanitizePath
-from core.templates.UploadTemplate import ShareXConfigTemplate, FileTemplate
+from core.tools import RandomStr, SanitizePath
+from core.templates.UploadTemplate import FileTemplate
 
 import os
 import uuid
-from flask import request, make_response, send_from_directory
+from flask import request, send_from_directory
 
 #upload clients-----
 @v2files.route("/upload", methods=["POST"]) #upload for ShareX/other clients
@@ -74,28 +74,6 @@ def delete_file():
     
     os.remove(f"{Config.get('UPLOADS.PATH')}/{file['fullName']}")
     return Reply(), 200
-    
-  
-#config downloads-----
-@v2files.route("/config/sharex", methods=["GET"]) #ShareX config
-@Limiter.limit("5/minute")
-@Sessions.protect()
-def get_upload_config():
-    user = Sessions.get_user(request.cookies.get("session"))
-    
-    #generate a session key (and also delete any old ones)
-    key = f"{user['username']}.{RandomStr(4)}.{HashStr(RandomStr(16))}"
-    
-    Sessions.delete_all_matching_scope(user["_id"], "upload") 
-    Sessions.create(user["_id"], scopes=["upload"], tokenOverride=key)
-    
-    data = ShareXConfigTemplate(key)
-    
-    r = make_response(data)
-    r.headers["Content-Type"] = "application/octet-stream"
-    r.headers["Content-Disposition"] = f"attachment; filename=xellutech-{user['username']}.sxcu"
-    
-    return r, 200
 
 #file downloads-----
 @v2files.route("/")

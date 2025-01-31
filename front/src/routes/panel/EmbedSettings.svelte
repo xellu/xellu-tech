@@ -3,11 +3,13 @@
 
     import { SlideToggle } from '@skeletonlabs/skeleton';
     import { slide } from 'svelte/transition';
+    import { getToastStore } from '@skeletonlabs/skeleton';
 
-    import { Account, AuthState, type AuthStateType, type AccountType } from "$lib/scripts/Auth";
+    import { Account, AuthState, PushSettings, type AuthStateType, type AccountType } from "$lib/scripts/Auth";
 
     import UcHeading from '$lib/components/UCHeading.svelte';
 
+    const toast = getToastStore();
     const settings = {
         enabled: false,
         rawUrl: false,
@@ -44,7 +46,21 @@
 
     AuthState.subscribe((value) => {
         UserState = value;
-    })    
+    })
+
+    async function updateConfig(options: {[key: string]: any}) {
+        const r = await PushSettings(options);
+        if (r.ok) { return console.debug("Config Updated") }
+            
+        toast.trigger({
+            message: r.error?.message || "An error occurred",
+            background: "variant-soft-error",
+            action: {
+                label: "Retry",
+                response: () => updateConfig(options)
+            }
+        })
+    }
 </script>
 
 <div class="flex flex-col">
@@ -54,6 +70,7 @@
             size="sm"
             
             bind:checked={settings.enabled}
+            on:change={() => { updateConfig({'embeds.enabled': settings.enabled}) }}
 
             background="glass"
             active="glass-tertiary"
@@ -67,6 +84,7 @@
             size="sm"
             
             bind:checked={settings.rawUrl}
+            on:change={() => { updateConfig({rawUrl: settings.rawUrl}) }}
 
             background="glass"
             active="glass-tertiary"
@@ -84,10 +102,22 @@
 
         <div class="glass rounded-xl p-3 mt-1 flex flex-col gap-3 mb-5">
             <div class="flex items-center gap-3">
-                <input type="text" class="glass-input w-2/3 min-w-32" placeholder="Title" bind:value={settings.title} />
-                <input type="text" class="glass-input w-12 flex-grow" placeholder="Site Name" bind:value={settings.siteName} />
+                <input
+                    type="text" class="glass-input w-2/3 min-w-32"
+                    placeholder="Title" bind:value={settings.title}
+                    on:change={() => { updateConfig({'embeds.title': settings.title}) }}
+                />
+                <input
+                    type="text" class="glass-input w-12 flex-grow"
+                    placeholder="Site Name" bind:value={settings.siteName}
+                    on:change={() => { updateConfig({'embeds.siteName': settings.siteName}) }}
+                />
             </div>
-            <input type="text" class="glass-input" placeholder="Description" bind:value={settings.description} />
+            <input
+                type="text" class="glass-input"
+                placeholder="Description" bind:value={settings.description}
+                on:change={() => { updateConfig({'embeds.description': settings.description}) }}    
+            />
             
             
             <ColorPicker
@@ -102,6 +132,14 @@
                 isAlpha={false}
 
                 bind:hex={settings.color}
+                on:input={() => {
+                    const color = settings.color;
+                    setTimeout(() => {
+                        if (color === settings.color) {
+                            updateConfig({'embeds.color': settings.color})
+                        }
+                    }, 1000);
+                }}
             />
         </div>
     </div>

@@ -282,10 +282,52 @@ async function LogOut(): Promise<AuthStateType> {
     }
 }
 
+async function PushSettings(options: {[key: string]: any}): Promise<{ok: boolean, error?: {message: string, retryParams: {[key: string]: any}}}> {
+    try {
+        const r = await fetch(`/api/v2/config/push`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                settings: options
+            })
+        })
+
+        const data = await r.json();
+        if (!r.ok) {
+            return {
+                ok: false,
+                error: {
+                    message: data.error || "Unknown error",
+                    retryParams: options
+                }
+            }
+        }
+
+        //update the local account data
+        let acc = JSON.parse(localStorage.getItem("account.data") as string) as AccountType;
+        acc.settings = data.settings;
+        localStorage.setItem("account.data", JSON.stringify(acc));
+
+        return {ok: true}
+    } catch (e) {
+        return {
+            ok: false,
+            error: {
+                message: `${e}`,
+                retryParams: options
+            }
+        }
+    }
+}
+
 export {
     LogIn,
     LogOut,
     Register,
     Authenticate,
-    AutoAuthenticate
+    AutoAuthenticate,
+
+    PushSettings
 }
