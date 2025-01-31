@@ -36,7 +36,9 @@ def upload_file():
     if user["uploads"]["storageUsed"] + fd["size"] > user["uploads"]["storageMax"]:
         return Reply(error="Storage limit reached"), 413
     
-    file.save(f"{Config.get('UPLOADS.PATH')}/{fd['fullName']}")
+    with open(f"{Config.get('UPLOADS.PATH')}/{fd['fullName']}", "wb") as f:
+        f.write(file.read())
+        
     Database.get_database("xelapi").files.insert_one(fd)
     Database.get_database("xelapi").users.update_one(
         {"_id": user["_id"]},
@@ -86,7 +88,7 @@ def get_file_using_alias(alias):
     if not file:
         return Reply(error="File not found"), 404
     
-    return send_from_directory(Config.get("UPLOADS.PATH"), file["fullName"])
+    return send_from_directory(Config.get("UPLOADS.PATH"), file["fullName"], as_attachment=True)
 
 @v2files.route("/<file>", methods=["GET"]) #file download
 @Limiter.limit("60/minute")
@@ -95,4 +97,4 @@ def get_file(file):
     if not file:
         return Reply(error="File not found"), 404
     
-    return send_from_directory(Config.get("UPLOADS.PATH"), file["fullName"])
+    return send_from_directory(Config.get("UPLOADS.PATH"), file["fullName"], as_attachment=True)
