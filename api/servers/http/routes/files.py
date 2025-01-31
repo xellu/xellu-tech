@@ -24,20 +24,21 @@ def upload_file():
 
     alias = RandomStr(12)
     extension = SanitizePath(file.filename).split(".")[-1] if "." in file.filename else "bin"
+    content = file.read()
 
     fd = FileTemplate()
     fd["alias"] = alias
     fd["fullName"] = f"{uuid.uuid4().hex}-{alias}.{extension}"
     fd["author"] = user["_id"]
     
-    fd["size"] = len(file.read())
+    fd["size"] = len(content)
     fd["contentType"] = file.content_type
     
     if user["uploads"]["storageUsed"] + fd["size"] > user["uploads"]["storageMax"]:
         return Reply(error="Storage limit reached"), 413
     
     with open(f"{Config.get('UPLOADS.PATH')}/{fd['fullName']}", "wb") as f:
-        f.write(file.read())
+        f.write(content)
         
     Database.get_database("xelapi").files.insert_one(fd)
     Database.get_database("xelapi").users.update_one(
