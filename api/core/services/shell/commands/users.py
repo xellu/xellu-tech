@@ -48,7 +48,9 @@ def terminate_user(*args, **kwargs):
         return
     
     for file in Database.get_database("xelapi").files.find({"author": args[0]}):
-        os.remove(f"{Config.get('UPLOADS.PATH')}/{file['fullName']}")
+        try: os.remove(f"{Config.get('UPLOADS.PATH')}/{file['fullName']}")
+        except: logger.warn(f"Failed to remove file {file['fullName']}")
+        
         Database.get_database("xelapi").files.delete_one({"_id": file["_id"]})
         logger.success(f"File {file['fullName']} has been removed")
 
@@ -162,7 +164,8 @@ def wipe_files(*args, **kwargs):
     user = Database.get_database("xelapi").users.find_one({"_id": args[0]})
     
     for file in files:
-        os.remove(f"{Config.get('UPLOADS.PATH')}/{file['fullName']}")
+        try: os.remove(f"{Config.get('UPLOADS.PATH')}/{file['fullName']}")
+        except: logger.warn(f"Failed to remove file {file['fullName']}")
         
         Database.get_database("xelapi").files.delete_one({"_id": file["_id"]})
         logger.success(f"File {file['fullName']} has been removed")

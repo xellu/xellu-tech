@@ -1,5 +1,5 @@
 ConfigTemplate = {
-    "SERVER.NAME": "NightCube-Public",
+    "SERVER.NAME": "XelAPI",
     "DEVMODE": True,
     "SERVER.URL": "http://localhost",
     "UPLOADS.PATH": ".uploads/",
@@ -15,5 +15,4 @@ ConfigTemplate = {
     "DATABASE.PASS": "",
     
     "AUTH.EXPIRE": 7 * 24 * 60 * 60, #7 days
-    "AUTH.DISCORD.REDIRECT": "https://localhost/auth/discord",
 }
