@@ -8,8 +8,23 @@ def UserTemplate():
         "username": "",
         "password": "",
         
-        "uploads": [],
         "admin": False,
+        
+        "uploads": {
+            "files": [], #fileId[] - just a uuid
+            "folders": [], #{name: "", files: fileId[]}
+            "storageUsed": 0
+        },
+        "settings": {
+            "embeds": {
+                "enabled": True,
+                "title": "Xellu.tech",
+                "description": None,
+                "siteName": None,
+                "color": "#33A4F7",
+            },
+            "rawUrl": False
+        },
         
         "createdAt": time.time(),
 }    

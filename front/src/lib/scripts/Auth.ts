@@ -7,7 +7,22 @@ type AccountType = {
     username: string,
     password?: string,
 
-    uploads: string[],
+    uploads: {
+        files: string[],
+        folders: {name: string, files: string[]}[],
+        storageUsed: number
+    },
+    settings: {
+        embeds: {
+            enabled: boolean,
+            title: string,
+            description: string,
+            siteName: string,
+            color: string
+        },
+        rawUrl: boolean
+    }
+
     admin: boolean,
 
     createdAt: number,

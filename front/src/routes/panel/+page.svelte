@@ -94,7 +94,7 @@
 {#if UserState.loading || !UserState.loggedIn || loading}
     <Loader />
 {:else}
-    <UCHeading>{greeting} {User?.username}</UCHeading>
+    <UCHeading>{greeting}, {User?.username}</UCHeading>
 
     <div class="grid grid-cols-2 md:grid-cols-3 gap-2 my-3">
        {#each tabs as tab, i}

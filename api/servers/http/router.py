@@ -44,6 +44,7 @@ BPLoader = BlueprintLoader(root="/api/v2")
 v2auth = BPLoader.new("auth")
 v2blog = BPLoader.new("blog")
 v2sitemap = BPLoader.new("sitemap")
+v2files = BPLoader.new("files")
 
 @EventBus.on("http.start")
 def on_server_start():

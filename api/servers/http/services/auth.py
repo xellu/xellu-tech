@@ -42,19 +42,21 @@ class SessionService:
             return wrapper
         return decorator
     
-    def create(self, user_id: str, expire: int | None = None, scopes: list[str] = []) -> str:
+    def create(self, user_id: str, expire: int | None = None, scopes: list[str] = [], tokenOverride = None) -> str:
         """
         Creates a new session for the user.
 
         Args:
             user_id (str): The user ID to create the session for.
             expire (int | None): The expiration time for the session. Won't expire if set to None.
+            scopes (list[str]): The scopes for the session.
+            tokenOverride: The token to use for the session. If not provided, a new token will be generated.
 
         Returns:
             str: The session token.
         """
 
-        token = HashStr(RandomStr(32))
+        token = HashStr(RandomStr(32)) if not tokenOverride else tokenOverride
         self.sessions.insert_one({
             "user_id": user_id,
             "token": token,
@@ -139,3 +141,14 @@ class SessionService:
         """
 
         self.sessions.delete_many({"user_id": user_id, "token": {"$ne": except_token}})
+
+    def delete_all_matching_scope(self, user_id: str, scope: str) -> None:
+        """
+        Deletes all sessions for a user with a matching scope.
+
+        Args:
+            user_id (str): The user ID to delete all sessions for.
+            scope (str): The scope to match.
+        """
+
+        self.sessions.delete_many({"user_id": user_id, "scopes": scope})

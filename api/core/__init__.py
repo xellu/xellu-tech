@@ -98,3 +98,6 @@ if CoreStats.amount_of_calls > 1:
     EventBus.signal("shutdown.crash", "Core has been initialized more than once, please check for duplicate imports!")
 
 CoreStats.config = Config
+
+if not os.path.exists(Config.get("UPLOADS.PATH")):
+    os.makedirs(Config.get("UPLOADS.PATH"), exist_ok=True)

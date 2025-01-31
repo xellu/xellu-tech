@@ -15,3 +15,6 @@ def LoadPlaceholders(text: str, config: ConfigManager):
         text = text.replace(f"%{key}%", str(value))
 
     return text
+
+def SanitizePath(path: str):
+    return path.replace("..", "").replace("/", "").replace("\\", "")
