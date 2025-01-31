@@ -75,14 +75,20 @@
         xhr.onload = () => {
             const data = JSON.parse(xhr.responseText);
             if (xhr.status >= 200 && xhr.status < 300) {
-                setTimeout(() => { progress = -1; }, 1000);
+                setTimeout(() => {
+                    progress = -1;
+                    file = null;
+                }, 1000);
                 toast.trigger({
                     message: "Link copied to clipboard",
                     background: "variant-soft-success"
                 });
                 navigator.clipboard.writeText(data.url);
             } else {
-                setTimeout(() => { progress = -1; }, 1000);
+                setTimeout(() => {
+                    progress = -1;
+                    file = null;
+                }, 1000);
                 toast.trigger({
                     message: data.error || "Upload failed",
                     background: "variant-soft-error"
@@ -91,7 +97,10 @@
         };
 
         xhr.onerror = () => {
-            setTimeout(() => { progress = -1; }, 1000);
+            setTimeout(() => {
+                progress = -1;
+                file = null;
+            }, 1000);
             toast.trigger({
                 message: "Upload failed",
                 background: "variant-soft-error"
@@ -112,6 +121,7 @@
         try { upload() }
         catch (e) { 
             progress = -1;
+            file = null;
             toast.trigger({
                 message: "Upload failed",
                 background: "variant-soft-error"
