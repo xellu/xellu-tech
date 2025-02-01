@@ -1,40 +1,18 @@
 <script lang="ts">
     import { getToastStore } from "@skeletonlabs/skeleton";
-    import { slide } from "svelte/transition";
+    import { scale, slide } from "svelte/transition";
+
+    import { getFileType } from "$lib/files";
 
     const toast = getToastStore();
 
     let file: File | null = null;
+    let icon: string = "draft";
+
     let progress: number = -1;
 
-    const fileIcons = [
-        {
-            ext: ["png", "jpg", "jpeg", "gif", "webp"],
-            icon: "image"
-        },
-        {
-            ext: ["mp4", "webm", "avi", "mkv", "flv", "mov"],
-            icon: "movie"
-        },
-        {
-            ext: ["mp3", "wav", "flac", "ogg", "m4a"],
-            icon: "music_note"
-        },
-        {
-            ext: ["zip", "rar", "7z", "tar", "gz", "xz", "bz2", "rar4"],
-            icon: "package"
-        },
-        {
-            ext: [
-                "js", "ts", "cjs", "html", "css", "pcss", "postcss", "tsx", "py", "pyw", "env", "php", "json", "jsonc",
-                "bson", "db", "sql", "sh", "bat", "cmd", "ps1", "psm1", "psd1", "ps1xml", "pssc", "xml", "yaml", "yml", "toml",
-                "ini", "cfg", "conf", "md", "markdown", "rst", "txt", "log", "csv", "tsv", "dat", "data", "bin", "exe", "dll",
-                "lib", "obj", "o", "a", "so", "dylib", "dll", "pdb", "class", "jar", "war", "ear", "java", "kt", "kts", "ktm",
-                "go", "rs", "rb", "r", "lua", "pl", "pm", "tcl", "awk", "sed", "asm", "s", "h", "hpp", "cpp", "cxx", "cc", "cs"
-            ],
-            icon: "code_blocks"
-        }
-    ]
+
+    
 
     function handleClickEvent() {
         const input = document.createElement('input');
@@ -42,6 +20,8 @@
         input.accept = '*';
         input.onchange = (e) => {
             file = input.files?.[0] || null;
+            icon = getFileType(file?.name || '').icon;
+
             try { upload() }
             catch (e) { 
                 progress = -1;
@@ -118,6 +98,8 @@
 
         e.preventDefault();
         file = e.dataTransfer?.files[0] || null;
+        icon = getFileType(file?.name || '').icon;
+
         try { upload() }
         catch (e) { 
             progress = -1;
@@ -135,7 +117,7 @@
     }}
 >
     <span class="material-symbols-outlined text-5xl opacity-70 group-hover:opacity-100 duration-300">
-        {file ? (fileIcons.find(i => i.ext.includes(file?.name.split('.').pop() || "")) || {icon: 'draft'}).icon : 'upload'}
+        {file ? icon : 'upload'}
     </span>
     <p class="uppercase text-xs opacity-70 group-hover:opacity-100 duration-300 max-w-72 overflow-hidden text-ellipsis whitespace-nowrap mt-3">
         {file ? file.name : 'Drag and drop files here to upload'}
@@ -144,5 +126,6 @@
     <div class="w-full bg-surface-400/50 rounded-full overflow-hidden mt-2" transition:slide>
         <div class="{progress == 100 ? 'bg-success-500 animate-pulse' : 'bg-primary-500'} h-1.5 duration-150 rounded-full min-w-1.5" style="width: {Math.round(progress)}%"></div>
     </div>
+
     {/if}
 </button>

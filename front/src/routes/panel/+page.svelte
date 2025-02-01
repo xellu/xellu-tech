@@ -2,7 +2,7 @@
     import { onMount } from "svelte";
     import { slide } from "svelte/transition";
 
-    import { Account, AuthState, type AuthStateType, type AccountType } from "$lib/scripts/Auth";
+    import { Account, AuthState, SettingPushState, type AuthStateType, type AccountType, type SettingPushStateType } from "$lib/scripts/Auth";
     
     import Loader from "$lib/components/Loader.svelte";
     import Embed from "$lib/components/Embed.svelte";
@@ -18,6 +18,7 @@
 
     let User: AccountType | null;
     let UserState: AuthStateType = { loggedIn: false, loading: true};
+    let SettingPush: SettingPushStateType = { loading: false, ok: null };
 
     Account.subscribe((value) => {
         User = value;
@@ -30,6 +31,12 @@
             window.location.href = "/auth?ref=/panel"
         }
     })
+
+    SettingPushState.subscribe((value) => {
+        SettingPush = value;
+    })
+
+    
 
     let greeting: string;
     let loading: boolean = true;
@@ -94,7 +101,19 @@
 {#if UserState.loading || !UserState.loggedIn || loading}
     <Loader />
 {:else}
-    <UCHeading>{greeting}, {User?.username}</UCHeading>
+    <div class="flex items-center justify-between w-full">
+        <UCHeading>{greeting}, {User?.username}</UCHeading>
+
+        <div class="h-8">
+            {#if SettingPush.loading}
+                <Loader scale="sm" variant="tertiary" center={false} />
+            {:else if SettingPush.ok}
+                <span class="material-symbols-outlined text-tertiary-500">check_circle</span>
+            {:else if SettingPush.ok == false}
+                <span class="material-symbols-outlined text-error-500" title="Failed to save settings: {SettingPush.error || 'Unknown Error'}">error</span>
+            {/if}
+        </div>
+    </div>
 
     <div class="grid grid-cols-2 md:grid-cols-3 gap-2 my-3">
        {#each tabs as tab, i}

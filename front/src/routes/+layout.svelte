@@ -41,6 +41,7 @@
         "code_blocks",
         "music_note",
         "package",
+        "check_circle"
     ].toSorted();
 
     const toast = getToastStore();

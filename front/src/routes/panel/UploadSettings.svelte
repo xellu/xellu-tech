@@ -4,11 +4,10 @@
     import Loader from "$lib/components/Loader.svelte";
 
     import { onMount } from "svelte";
-    import { getModalStore, getToastStore } from "@skeletonlabs/skeleton";
+    import { getModalStore, getToastStore, SlideToggle } from "@skeletonlabs/skeleton";
 
     import { Account, AuthState, PushSettings, type AuthStateType, type AccountType } from "$lib/scripts/Auth";
     import { constructDomain } from "$lib/scripts/Utils";
-  import { scale } from "svelte/transition";
 
     const toast = getToastStore();
     const modal = getModalStore();
@@ -19,7 +18,8 @@
     let availableDomains: string[] = [];
     const settings = {
         subDomain: "",
-        domain: ""
+        domain: "",
+        rawUrl: false
     }
 
     const colors = {
@@ -34,6 +34,7 @@
         if (value) {
             settings.subDomain = value.settings.subDomain;
             settings.domain = value.settings.domain;
+            settings.rawUrl = value.settings.rawUrl;
         }
     })
 
@@ -145,21 +146,37 @@
 </div>
 
 <UcHeading>Domain</UcHeading>
-<div class="flex gap-1 mt-1 mb-5 w-full">
-    <input
-        type="text" placeholder="Subdomain"
-        class="glass-input max-w-40"
-        bind:value={settings.subDomain}
-        on:change={() => updateConfig({ subDomain: settings.subDomain })}
+<div class="mt-1 mb-5 flex flex-col gap-2">
+    <div class="flex gap-1 w-full">
+        <input
+            type="text" placeholder="Subdomain"
+            class="glass-input max-w-40"
+            bind:value={settings.subDomain}
+            on:change={() => updateConfig({ subDomain: settings.subDomain })}
+        >
+
+        <span class="mt-2">.</span>
+
+        <select name="Domain" placeholder="Domain" class="glass-input flex-grow" on:change={() => updateConfig({ domain: settings.domain })}>
+            {#each availableDomains as domain}
+                <option value={domain}>{domain}</option>
+            {/each}
+        </select>
+    </div>
+
+    <SlideToggle
+        name="Raw URL"
+        size="sm"
+        
+        bind:checked={settings.rawUrl}
+        on:change={() => { updateConfig({rawUrl: settings.rawUrl}) }}
+
+        background="glass"
+        active="glass-tertiary"
+        rounded="rounded-lg"
     >
-
-    <span class="mt-2">.</span>
-
-    <select name="Domain" placeholder="Domain" class="glass-input flex-grow" on:change={() => updateConfig({ domain: settings.domain })}>
-        {#each availableDomains as domain}
-            <option value={domain}>{domain}</option>
-        {/each}
-    </select>
+        <span class="text-sm uppercase font-bold opacity-80">Use Raw URLs</span>
+    </SlideToggle>
 </div>
 
 <UcHeading>Preview</UcHeading>

@@ -38,7 +38,14 @@ type AuthStateType = {
     auto?: string //remote, local
 }
 
-export type { AccountType, AuthStateType };
+type SettingPushStateType = {
+    loading: boolean,
+    ok: boolean | null,
+    error?: string,
+    resetId?: number
+}
+
+export type { AccountType, AuthStateType, SettingPushStateType };
 
 
 
@@ -46,7 +53,9 @@ const Account: Writable<null | AccountType> = writable<null | AccountType>(null)
 const AuthState: Writable<AuthStateType> = writable<AuthStateType>({loggedIn: false, loading: true});
 const AuthLogger = new Logger("Auth");
 
-export { Account, AuthState, AuthLogger };
+const SettingPushState: Writable<SettingPushStateType> = writable({loading: false, ok: null});
+
+export { Account, AuthState, AuthLogger, SettingPushState };
 
 
 
@@ -284,8 +293,34 @@ async function LogOut(): Promise<AuthStateType> {
     }
 }
 
+function resetPushState() {
+    const resetId = Math.random();
+    SettingPushState.update(s => {
+        return {
+            loading: s.loading,
+            ok: s.ok,
+            error: s.error,
+            resetId: resetId
+        }
+    })
+
+    setTimeout(() => {
+        SettingPushState.update(s => {
+            if (s.resetId === resetId) {
+                return {
+                    loading: false,
+                    ok: null
+                }
+            }
+            return s;
+        })   
+    }, 5000)
+}
+
 async function PushSettings(options: {[key: string]: any}): Promise<{ok: boolean, error?: {message: string, retryParams: {[key: string]: any}}}> {
     try {
+        SettingPushState.set({loading: true, ok: null});
+
         const r = await fetch(`/api/v2/config/push`, {
             method: "POST",
             headers: {
@@ -298,6 +333,9 @@ async function PushSettings(options: {[key: string]: any}): Promise<{ok: boolean
 
         const data = await r.json();
         if (!r.ok) {
+            SettingPushState.set({loading: false, ok: false, error: data.error || "Unknown error"});
+            resetPushState();
+            
             return {
                 ok: false,
                 error: {
@@ -313,9 +351,14 @@ async function PushSettings(options: {[key: string]: any}): Promise<{ok: boolean
         localStorage.setItem("account.data", JSON.stringify(acc));
 
         Account.set(acc);
+        SettingPushState.set({loading: false, ok: true});
+        resetPushState();
 
         return {ok: true}
     } catch (e) {
+        SettingPushState.set({loading: false, ok: false, error: `${e}`});
+        resetPushState();
+
         return {
             ok: false,
             error: {
