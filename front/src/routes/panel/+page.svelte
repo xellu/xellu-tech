@@ -83,10 +83,10 @@
 </script>
 
 <svelte:head>
-    <title>Image Hosting | Xellu</title>
+    <title>File Hosting | Xellu</title>
     <Embed
-        title = "Xellu's Image Hosting"
-        description = "Private & secure image hosting for only a select few."
+        title = "Xellu's File Hosting"
+        description = "Private & secure file hosting for only a select few."
         route = "/panel"
     />
 </svelte:head>
