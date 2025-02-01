@@ -63,8 +63,16 @@ def push_settings():
         if key == "embeds.enabled":
             user["settings"]["embeds"]["enabled"] = bool(value)
         
+        #embed title
+        elif key == "embeds.title":
+            if not value or type(value) != str:
+                value = None
+                user["settings"]["embeds"]["enabled"] = False
+            
+            user["settings"]["embeds"]["title"] = value
+        
         #embed text fields (string or None)
-        elif key in ["embeds.title", "embeds.description", "embeds.siteName"]:
+        elif key in ["embeds.description", "embeds.siteName"]:
             if value is None or type(value) != str:
                 value = None
                 
