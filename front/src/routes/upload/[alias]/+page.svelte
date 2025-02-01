@@ -58,8 +58,16 @@
             route={`https://xellu.tech/upload/${alias}`}
         />
     {:else if file}
-        <meta property="og:image" content="{file.fileUrl}" />
-        <meta name="twitter:card" content="summary_large_image">
+        <Embed
+            title={null}
+            description={null}
+            siteName={null}
+            color="#000"
+
+            icon="customLarge"
+            iconUrl={file.fileUrl}
+            route={`https://xellu.tech/upload/${alias}`}
+        />
     {/if}
 </svelte:head>
 
