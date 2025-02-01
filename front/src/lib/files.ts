@@ -1,38 +1,60 @@
 type FileType = {
     ext: string[],
+    format: string,
     icon: string,
-    category: string
+    category: string,
 }
 
 const fileTypes: FileType[] = [
     {
-        ext: ["png", "jpg", "jpeg", "gif", "webp"],
+        ext: ["png", "jpg", "jpeg", "gif", "webp", "bmp", "ico", "svg", "jfif", "pjpeg", "pjp", "tif", "tiff", "heic", "heif"],
+        format: "image",
         icon: "image",
         category: "Images"
     },
     {
         ext: ["mp4", "webm", "avi", "mkv", "flv", "mov"],
+        format: "video",
         icon: "movie",
         category: "Videos"
     },
     {
         ext: ["mp3", "wav", "flac", "ogg", "m4a"],
+        format: "audio",
         icon: "music_note",
         category: "Music"
     },
     {
+        ext: ["pdf", "doc", "docx", "xls", "xlsx", "ppt", "pptx", "odt", "ods", "odp", "rtf", "ttf"],
+        format: "binary",
+        icon: "description",
+        category: "Documents"
+    },
+    {
         ext: ["zip", "rar", "7z", "tar", "gz", "xz", "bz2", "rar4"],
+        format: "binary",
         icon: "package",
         category: "Archives"
     },
     {
         ext: [
-            "js", "ts", "cjs", "html", "css", "pcss", "postcss", "tsx", "py", "pyw", "env", "php", "json", "jsonc",
-            "bson", "db", "sql", "sh", "bat", "cmd", "ps1", "psm1", "psd1", "ps1xml", "pssc", "xml", "yaml", "yml", "toml",
-            "ini", "cfg", "conf", "md", "markdown", "rst", "txt", "log", "csv", "tsv", "dat", "data", "bin", "exe", "dll",
-            "lib", "obj", "o", "a", "so", "dylib", "dll", "pdb", "class", "jar", "war", "ear", "java", "kt", "kts", "ktm",
-            "go", "rs", "rb", "r", "lua", "pl", "pm", "tcl", "awk", "sed", "asm", "s", "h", "hpp", "cpp", "cxx", "cc", "cs"
+            "js", "ts", "jsx", "tsx", "json", "html", "css", "scss", "pcss", "postcss", "htmx", "xml",
+            "yaml", "yml", "toml", "ini", "cfg", "conf", "go", "gitignore", "log", "vue", "svelte",
+            "py", "pyw", "java", "c", "cpp", "h", "hpp", "cs", "rs", "rb", "php", "sh", "bash", "zsh",
+            "ps1", "psm1", "bat", "cmd", "vbs", "vba", "vb", "vbe", "vbscript", "lua", "pl", "perl",
+            "sh", "kt", "kts", "kotlin", "swift", "mcfunction", "mcmeta", "jsonc", "tsconfig", "jsconfig",
+            "md", "markdown", "txt",
         ],
+        format: "text",
+        icon: "code_blocks",
+        category: "Code"
+    },
+    {
+        ext: [
+            "jar", "class", "exe", "msi", "apk", "app", "dmg", "pkg", "dat", "bin", "iso", "img", "ovpn", "ahk", "db", "sqlite",
+            "sql", "csv", "tsv", "pyc", "dll", "dylib", "so", "lib", "a", "o", "obj", "pdb", "ipynb", "whl", "egg", "deb", "rpm",
+        ],
+        format: "binary",
         icon: "code_blocks",
         category: "Code"
     }
@@ -50,13 +72,19 @@ const getFileType = (fileName: string): FileType => {
     return {
         ext: ["*"],
         icon: "draft",
+        format: "file",
         category: "Other"
     };
+}
+
+const getFileExtension = (fileName: string): string => {
+    return fileName.split(".").pop() || "";
 }
 
 export {
     type FileType,
 
     fileTypes,
-    getFileType
+    getFileType,
+    getFileExtension
 }

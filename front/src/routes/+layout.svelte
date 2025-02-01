@@ -3,12 +3,12 @@
     import "../markdown.pcss"
 
     import MouseCircle from "$lib/components/MouseCircle.svelte";
+    import HighlightJS from "$lib/components/misc/HighlightJS.svelte";
 
+    import { AutoAuthenticate, AuthLogger } from '$lib/scripts/Auth';
 
     import { onMount } from "svelte";
     import { getToastStore, initializeStores, Toast, Modal } from "@skeletonlabs/skeleton";
-
-    import { AutoAuthenticate, AuthLogger } from '$lib/scripts/Auth';
 
     initializeStores();
 
@@ -41,7 +41,10 @@
         "code_blocks",
         "music_note",
         "package",
-        "check_circle"
+        "check_circle",
+        "description",
+        "download",
+        "share"
     ].toSorted();
 
     const toast = getToastStore();
@@ -74,5 +77,6 @@
 <Toast />
 <Modal />
 <MouseCircle />
+<HighlightJS />
 
 <slot></slot>

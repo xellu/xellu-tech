@@ -1,8 +1,11 @@
 <script lang="ts">
     export let title: string | null = null;
     export let description: string | null = null;
+    export let siteName: string | null = "xellu.tech";
+
     export let icon: "default" | "custom" | "customLarge" | "none" = "default"
     export let iconUrl: string = "";
+
     export let route: string = "/";
     export let color: string = "#33A4F7";
 </script>
@@ -11,6 +14,7 @@
 
 {#if title} <meta property="og:title" content="{title}" /> {/if}
 {#if description} <meta property="og:description" content="{description}" /> {/if}
+{#if siteName} <meta property="og:site_name" content="{siteName}" /> {/if}
 
 {#if icon == "default"}
     <meta property="og:image" content="/favicon.png" />
@@ -23,7 +27,8 @@
     <meta name="twitter:card" content="summary_large_image">
 {/if}
 
+
 <meta property="og:url" content="https://xellu.tech{route}" />
 <meta property="og:type" content="website" />
-<meta property="og:site_name" content="xellu.tech" />
+
 <meta content="{color}" data-react-helmet="true" name="theme-color" />

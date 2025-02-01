@@ -4,6 +4,7 @@ from ..services.adapter import Reply
 from core import Config, Database
 from core.tools import RandomStr, SanitizePath
 from core.templates.UploadTemplate import FileTemplate
+from core.templates.UserTemplate import UserTemplate
 
 import os
 import uuid
@@ -29,6 +30,7 @@ def upload_file():
     fd = FileTemplate()
     fd["alias"] = alias
     fd["fullName"] = f"{uuid.uuid4().hex}-{alias}.{extension}"
+    fd["originalName"] = file.filename if file.filename else fd["fullName"]
     fd["author"] = user["_id"]
     
     fd["size"] = len(content)
@@ -86,14 +88,29 @@ def delete_file():
     return Reply(), 200
 
 #file downloads-----
-@v2files.route("/alias/<alias>", methods=["GET"]) #file download
+@v2files.route("/embed/<alias>", methods=["GET"]) #get file data using alias
 @Limiter.limit("60/minute")
 def get_file_using_alias(alias):
     file = Database.get_database("xelapi").files.find_one({"alias": alias})
     if not file:
         return Reply(error="File not found"), 404
     
-    return send_from_directory(Config.get("UPLOADS.PATH"), file["fullName"], as_attachment=True)
+    author = Database.get_database("xelapi").users.find_one({"_id": file["author"]})
+    embedSettings = UserTemplate()["settings"]["embeds"] if not author else author["settings"]["embeds"]
+    
+    return Reply(
+        fileUrl = f"{Config.get('SERVER.URL')}/api/v2/files/{file['fullName']}",
+        fileName = file.get("originalName", file['fullName']),
+        size = file["size"],
+        uploadedAt = file.get("uploadedAt", 0),
+        
+        embed = embedSettings,
+        author = {
+            "_id": author["_id"],
+            "username": author["username"]
+        }
+    )
+    
 
 @v2files.route("/<file>", methods=["GET"]) #file download
 @Limiter.limit("60/minute")

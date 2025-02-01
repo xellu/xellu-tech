@@ -1,4 +1,5 @@
 import json
+import time
 
 def ShareXConfigTemplate(uploadKey):
     from core import Config
@@ -24,8 +25,11 @@ def FileTemplate():
     return {
         "alias": "example.png",
         "fullName": "7461595e95f347b6bccbb8e10b3760cf-example.png",
+        "originalName": "example.png",
         "author": None,
         
         "size": 1024,
-        "contentType": "image/png"
+        "contentType": "image/png",
+        
+        "uploadedAt": time.time()
     }

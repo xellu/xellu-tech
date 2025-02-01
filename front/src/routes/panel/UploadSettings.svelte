@@ -119,6 +119,10 @@
     }
 </script>
 
+
+<UcHeading>Upload</UcHeading>
+<div class="mb-5 mt-1"> <UploadBox /> </div>
+
 <UcHeading>Authentication</UcHeading>
 <div class="glass rounded-xl p-3 mt-1 mb-5">
     <div class="flex items-center justify-between">
