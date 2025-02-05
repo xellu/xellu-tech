@@ -64,10 +64,6 @@
 </script>
 
 <svelte:head>
-    <meta name="author" content="Xellu" />
-    <meta name="description" content="A Personal blog page and invite-only file hosting" />
-    <meta name="keywords" content="blog, posts, xellu, xellu.tech, file hosting, image hosting, file host, image host" />
-
     <link
         rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names={ICONS}"

@@ -3,14 +3,27 @@
     export let description: string | null = null;
     export let siteName: string | null = "xellu.tech";
 
-    export let icon: "default" | "custom" | "customLarge" | "none" = "default"
+    export let icon: "default" | "custom" | "customLarge" | "video" | "none" = "default"
     export let iconUrl: string = "";
 
     export let route: string = "/";
     export let color: string = "#33A4F7";
+
+    export let disable: boolean = false
 </script>
 
-<meta name="title" content="{title}" />
+{#if !disable}
+    <meta name="author" content="Xellu" />
+    <meta name="description" content="A Personal blog page and invite-only file hosting" />
+    <meta name="keywords" content="blog, posts, xellu, xellu.tech, file hosting, image hosting, file host, image host" />
+
+    <meta name="title" content="{title}" />
+
+    <meta property="og:url" content="https://xellu.tech{route}" />
+    <meta property="og:type" content="website" />
+
+    <meta content="{color}" data-react-helmet="true" name="theme-color" />
+{/if}
 
 {#if title} <meta property="og:title" content="{title}" /> {/if}
 {#if description} <meta property="og:description" content="{description}" /> {/if}
@@ -25,10 +38,9 @@
 {:else if icon == "customLarge"}
     <meta property="og:image" content="{iconUrl}" />
     <meta name="twitter:card" content="summary_large_image">
+{:else if icon == "video"}
+    <meta property="og:image" content="{iconUrl}" />
+    <meta property="og:image:type" content="video/mp4" />
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height" content="720" />
 {/if}
-
-
-<meta property="og:url" content="https://xellu.tech{route}" />
-<meta property="og:type" content="website" />
-
-<meta content="{color}" data-react-helmet="true" name="theme-color" />

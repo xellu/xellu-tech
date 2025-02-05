@@ -46,7 +46,7 @@
 <svelte:head>
     <title>{file ? `${getFileExtension(file.fileName)} file uploaded by ${file.author.username}` : ''}</title>
 
-    {#if file && file.embed.enabled}
+    <!-- {#if file && file.embed.enabled}
         <Embed
             title={file.embed.title}
             description={file.embed.description}
@@ -57,16 +57,46 @@
             iconUrl={file.fileUrl}
             route={`https://xellu.tech/upload/${alias}`}
         />
-    {:else if file}
+    {:else if file && getFileType(file.fileName)}
         <Embed
             title={null}
             description={null}
             siteName={null}
             color="#000"
+            disable={true}
 
             icon="customLarge"
             iconUrl={file.fileUrl}
             route={`https://xellu.tech/upload/${alias}`}
+        />
+    {/if} -->
+
+    {#if !file}
+        <Embed
+            title = "File not found"
+            description = "The file you are looking for does not exist or has been removed."
+            color = "#FF442F"
+            icon="none"    
+        />
+    {:else if file.embed.enabled}
+        <Embed
+            title = {file.embed.title || null}}
+            description = {file.embed.description || null}
+            siteName = {file.embed.siteName || null}
+            color = {file.embed.color}
+
+            icon = {getFileType(file.fileName).format == "video" ? "video" : "customLarge"}
+            iconUrl = {file.fileUrl}
+            route = {`https://xellu.tech/upload/${alias}`}
+        />
+    {:else}
+        <Embed
+            siteName = {null}
+            disable = {true}
+
+            icon = {getFileType(file.fileName).format == "video" ? "video" : "customLarge"}
+            iconUrl = {file.fileUrl}
+            route = {`https://xellu.tech/upload/${alias}`}
         />
     {/if}
 </svelte:head>
