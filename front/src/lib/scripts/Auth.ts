@@ -164,7 +164,7 @@ async function Register(username: string, password: string, invite: string): Pro
             return res;
         }
 
-        document.cookie = `session=${session}; path=/`;
+        document.cookie = `session=${session}; path=/; expires=${new Date(Date.now() + 1000 * 60 * 60 * 24 * 7).toUTCString()}`; //in 7 days
 
         const res = await Authenticate();
 
@@ -178,8 +178,8 @@ async function Register(username: string, password: string, invite: string): Pro
     }
 }
 
-async function Authenticate(): Promise<{state: AuthStateType, account?: AccountType}> {
-    AuthState.set({loggedIn: false, loading: true});
+async function Authenticate(silent?: boolean): Promise<{state: AuthStateType, account?: AccountType}> {
+    if (!silent) { AuthState.set({loggedIn: false, loading: true}); }
 
     const r = await fetch(`/api/v2/auth/verify`, {
         method: "POST",

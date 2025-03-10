@@ -15,4 +15,4 @@
     })
 </script>
 
-<UcHeading>Not Yet</UcHeading>
+<UcHeading>Coming Soon&trade;</UcHeading>

@@ -44,7 +44,16 @@
         "check_circle",
         "description",
         "download",
-        "share"
+        "share",
+        "play_arrow",
+        "play_circle",
+        "stop",
+        "stop_circle",
+        "pause",
+        "pause_circle",
+        "volume_up",
+        "volume_down",
+        "volume_off"
     ].toSorted();
 
     const toast = getToastStore();

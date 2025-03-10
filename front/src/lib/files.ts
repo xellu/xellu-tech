@@ -81,10 +81,30 @@ const getFileExtension = (fileName: string): string => {
     return fileName.split(".").pop() || "";
 }
 
+function getCategoryIcon(catName: string): string {
+    switch (catName) {
+        case "Images":
+            return "image";
+        case "Videos":
+            return "movie";
+        case "Music":
+            return "music_note";
+        case "Documents":
+            return "description";
+        case "Archives":
+            return "package";
+        case "Code":
+            return "code_blocks";
+        default:
+            return "draft";
+    }
+}
+
 export {
     type FileType,
 
     fileTypes,
     getFileType,
-    getFileExtension
+    getFileExtension,
+    getCategoryIcon
 }

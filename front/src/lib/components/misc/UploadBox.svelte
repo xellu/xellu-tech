@@ -1,7 +1,8 @@
 <script lang="ts">
     import { getToastStore } from "@skeletonlabs/skeleton";
-    import { scale, slide } from "svelte/transition";
+    import { slide } from "svelte/transition";
 
+    import { Authenticate } from "$lib/scripts/Auth";
     import { getFileType } from "$lib/files";
 
     const toast = getToastStore();
@@ -59,11 +60,32 @@
                     progress = -1;
                     file = null;
                 }, 1000);
-                toast.trigger({
-                    message: "Link copied to clipboard",
-                    background: "variant-soft-success"
-                });
-                navigator.clipboard.writeText(data.url);
+                
+                try {
+                    navigator.clipboard.writeText(data.url);
+                    toast.trigger({
+                        message: "Link copied to clipboard",
+                        background: "variant-soft-success"
+                    });
+                } catch (e) {
+                    toast.trigger({
+                        message: "File uploaded",
+                        background: "variant-soft-success",
+
+                        action: {
+                            label: "Copy link",
+                            response: () => {
+                                navigator.clipboard.writeText(data.url);
+                                toast.trigger({
+                                    message: "Link copied to clipboard",
+                                    background: "variant-soft-success"
+                                });
+                            }
+                        }
+                    })
+                }
+
+                Authenticate(true);
             } else {
                 setTimeout(() => {
                     progress = -1;

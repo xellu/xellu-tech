@@ -1,5 +1,5 @@
 from ..router import v2files, Sessions, Limiter
-from ..services.adapter import Reply
+from ..services.adapter import Reply, Require
 
 from core import Config, Database
 from core.tools import RandomStr, SanitizePath
@@ -89,7 +89,6 @@ def delete_file():
 
 #file downloads-----
 @v2files.route("/embed/<alias>", methods=["GET"]) #get file data using alias
-@Limiter.limit("60/minute")
 def get_file_using_alias(alias):
     file = Database.get_database("xelapi").files.find_one({"alias": alias})
     if not file:
@@ -111,9 +110,29 @@ def get_file_using_alias(alias):
         }
     )
     
+@v2files.route("/gallery", methods=["GET"]) #get file data using full names (for gallery, authors only)
+@Sessions.protect()
+@Limiter.limit("3/minute")
+def get_file_meta():
+    user = Sessions.get_user(request.cookies.get("session"))
+    if not user:
+        return Reply(error="Authorization required"), 401
+    
+    files = Database.get_database("xelapi").files.find({"fullName": {"$in": user["uploads"]["files"]}})
+        
+    return Reply(files=[
+        {
+            "fullName": file["fullName"],
+            "originalName": file["originalName"],
+            "contentType": file["contentType"],
+            
+            "size": file["size"],
+            "uploadedAt": file["uploadedAt"]
+        } for file in files
+    ])
+    
 
 @v2files.route("/<file>", methods=["GET"]) #file download
-@Limiter.limit("60/minute")
 def get_file(file):
     file = Database.get_database("xelapi").files.find_one({"fullName": file})
     if not file:
