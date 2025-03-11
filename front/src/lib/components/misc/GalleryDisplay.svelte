@@ -114,7 +114,7 @@
                 </button>
             </a>
             <button class="flex items-center justify-start btn btn-sm variant-soft-surface w-full rounded-none" on:click={() => {
-                navigator.clipboard.writeText(`https://xellu.com/upload/${getAlias(contextMenu.data?.fullName)}`);
+                navigator.clipboard.writeText(`https://xellu.tech/upload/${getAlias(contextMenu.data?.fullName)}`);
                 contextMenu.open = false;
             }}>
                 <span class="material-symbols-outlined">share</span>
