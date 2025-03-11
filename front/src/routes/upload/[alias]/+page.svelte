@@ -80,7 +80,7 @@
         />
     {:else if file.embed.enabled}
         <Embed
-            title = {file.embed.title || null}}
+            title = {file.embed.title || null}
             description = {file.embed.description || null}
             siteName = {file.embed.siteName || null}
             color = {file.embed.color}
