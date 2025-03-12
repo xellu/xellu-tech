@@ -161,7 +161,7 @@
 
         <span class="mt-2">.</span>
 
-        <select name="Domain" placeholder="Domain" class="glass-input flex-grow" on:change={() => updateConfig({ domain: settings.domain })}>
+        <select name="Domain" placeholder="Domain" class="glass-input flex-grow" bind:value={settings.domain} on:change={() => updateConfig({ domain: settings.domain })}>
             {#each availableDomains as domain}
                 <option value={domain}>{domain}</option>
             {/each}
