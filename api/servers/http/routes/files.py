@@ -62,7 +62,7 @@ def upload_file():
 
 @v2files.route("/delete/<file>", methods=["DELETE", "POST"]) #ShareX delete url
 @Limiter.limit("30/minute")
-def delete_file():
+def delete_file(file):
     session = request.headers.get("Authorization") if request.headers.get("Authorization") else request.cookies.get("session")
     user = Sessions.get_user(session, scopes=["upload"])
     if not user:
