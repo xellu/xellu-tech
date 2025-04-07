@@ -191,8 +191,8 @@
         <div class="overflow-hidden">
             <p class="capitalize font-bold">{User?.username}</p>
             <p class="hover:underline cursor-pointer text-ellipsis overflow-hidden" style="color: {colors.url}">
-                {#if User?.settings.rawUrl} https://{constructDomain(User?.settings.domain || "xellu.tech", User?.settings.subDomain)}/api/v2/files/3335e4fe8342478aa94f2ab0692cdf00-An1iO7WZ.png
-                {:else} https://{constructDomain(User?.settings.domain || "xellu.tech", User?.settings.subDomain)}/upload/An1iO7WZ {/if}
+                {#if User?.settings.rawUrl} https://{constructDomain(User?.settings.domain || "xellu.xyz", User?.settings.subDomain)}/api/v2/files/3335e4fe8342478aa94f2ab0692cdf00-An1iO7WZ.png
+                {:else} https://{constructDomain(User?.settings.domain || "xellu.xyz", User?.settings.subDomain)}/upload/An1iO7WZ {/if}
             </p>
         
         </div>

@@ -5,7 +5,7 @@ ConfigTemplate = {
     
     "UPLOADS.PATH": ".uploads/",
     "UPLOADS.BASEURL": "http://%domain%",
-    "UPLOADS.DOMAINS.AVAILABLE": ["xellu.tech", "iohue.xyz"],
+    "UPLOADS.DOMAINS.AVAILABLE": ["xellu.xyz", "iohue.xyz"],
     
     "HTTP.HOST": "0.0.0.0",
     "HTTP.PORT": 3000,

@@ -21,7 +21,7 @@
 
     onMount(() => {
         meta = getFileType(data.fullName);
-        downloadUrl = `https://xellu.tech/api/v2/files/${data.fullName}`;
+        downloadUrl = `https://xellu.xyz/api/v2/files/${data.fullName}`;
     })
 </script>
 
