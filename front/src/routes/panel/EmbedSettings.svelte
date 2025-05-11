@@ -152,7 +152,7 @@
             <img src="/favicon.png" alt="" class="w-12 rounded-full" draggable="false">
             <div>
                 <p class="capitalize font-bold">{User?.username}</p>
-                {#if !settings.rawUrl} <p class="hover:underline cursor-pointer" style="color: {colors.url}">https://{constructDomain(User?.settings.domain || "xellu.tech", User?.settings.subDomain)}/upload/An1iO7WZ</p> {/if}
+                {#if !settings.rawUrl} <p class="hover:underline cursor-pointer" style="color: {colors.url}">https://{constructDomain(User?.settings.domain || "xellu.xyz", User?.settings.subDomain)}/upload/An1iO7WZ</p> {/if}
 
                 {#if settings.enabled && !settings.rawUrl}
                 <div class="flex rounded overflow-hidden shadow-md">
@@ -169,7 +169,7 @@
                     <img
                         src="/splash.png" alt="" draggable="false"
                         class="rounded shadow-sm" 
-                        title="{settings.rawUrl ? 'https://xellu.tech/api/v2/files/7461595e95f347b6bccbb8e10b3760cf-An1iO7WZ.png' : 'https://xellu.tech/upload/An1iO7WZ'}"
+                        title="{settings.rawUrl ? 'https://xellu.xyz/api/v2/files/7461595e95f347b6bccbb8e10b3760cf-An1iO7WZ.png' : 'https://xellu.xyz/upload/An1iO7WZ'}"
                     >
                 {/if}
             </div>

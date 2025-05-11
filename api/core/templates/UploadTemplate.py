@@ -6,7 +6,7 @@ def ShareXConfigTemplate(uploadKey):
     
     return json.dumps({
         "Version": "17.0.0",
-        "Name": "Xellu.tech",
+        "Name": "xellu.xyz",
         "DestinationType": "ImageUploader, FileUploader",
         
         "RequestType": "POST",

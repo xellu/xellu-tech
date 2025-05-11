@@ -55,7 +55,7 @@
             
             icon="customLarge"
             iconUrl={file.fileUrl}
-            route={`https://xellu.tech/upload/${alias}`}
+            route={`https://xellu.xyz/upload/${alias}`}
         />
     {:else if file && getFileType(file.fileName)}
         <Embed
@@ -67,7 +67,7 @@
 
             icon="customLarge"
             iconUrl={file.fileUrl}
-            route={`https://xellu.tech/upload/${alias}`}
+            route={`https://xellu.xyz/upload/${alias}`}
         />
     {/if} -->
 
@@ -87,7 +87,7 @@
 
             icon = {getFileType(file.fileName).format == "video" ? "video" : "customLarge"}
             iconUrl = {file.fileUrl}
-            route = {`https://xellu.tech/upload/${alias}`}
+            route = {`https://xellu.xyz/upload/${alias}`}
         />
     {:else}
         <Embed
@@ -96,7 +96,7 @@
 
             icon = {getFileType(file.fileName).format == "video" ? "video" : "customLarge"}
             iconUrl = {file.fileUrl}
-            route = {`https://xellu.tech/upload/${alias}`}
+            route = {`https://xellu.xyz/upload/${alias}`}
         />
     {/if}
 </svelte:head>

@@ -1,7 +1,7 @@
 <script lang="ts">
     export let title: string | null = null;
     export let description: string | null = null;
-    export let siteName: string | null = "xellu.tech";
+    export let siteName: string | null = "xellu.xyz";
 
     export let icon: "default" | "custom" | "customLarge" | "video" | "none" = "default"
     export let iconUrl: string = "";
@@ -15,11 +15,11 @@
 {#if !disable}
     <meta name="author" content="Xellu" />
     <meta name="description" content="A Personal blog page and invite-only file hosting" />
-    <meta name="keywords" content="blog, posts, xellu, xellu.tech, file hosting, image hosting, file host, image host" />
+    <meta name="keywords" content="blog, posts, xellu, xellu.xyz, file hosting, image hosting, file host, image host" />
 
     <meta name="title" content="{title}" />
 
-    <meta property="og:url" content="https://xellu.tech{route}" />
+    <meta property="og:url" content="https://xellu.xyz{route}" />
     <meta property="og:type" content="website" />
 
     <meta content="{color}" data-react-helmet="true" name="theme-color" />

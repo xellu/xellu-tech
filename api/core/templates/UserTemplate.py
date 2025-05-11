@@ -18,13 +18,13 @@ def UserTemplate():
         "settings": {
             "embeds": {
                 "enabled": True,
-                "title": "Xellu.tech",
+                "title": "xellu.xyz",
                 "description": None,
                 "siteName": None,
                 "color": "#33A4F7",
             },
             "rawUrl": False,
-            "domain": "xellu.tech",
+            "domain": "xellu.xyz",
             "subDomain": None,
         },
         
