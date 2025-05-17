@@ -133,9 +133,25 @@ html, body {
     mask: linear-gradient(to bottom, black 0%, transparent 95%);
 }
 
+
+.glass-checkbox {
+    box-shadow: none !important;
+
+    @apply !bg-transparent;
+    @apply !border-secondary-500/50;
+    
+    @apply duration-300;
+}
+
+.glass-checkbox:checked {
+    @apply !bg-secondary-500/50;
+    @apply !border-secondary-500/50;
+}
+
 .glass-input {
     @apply bg-transparent;
     @apply outline-none;
+    @apply border-transparent;
     @apply p-1;
     @apply px-2;
     @apply rounded-md;
@@ -147,6 +163,14 @@ html, body {
     @apply focus:bg-tertiary-500/10;
     
     @apply text-tertiary-300;
+}
+
+
+.glass-input:focus {
+    box-shadow: none !important;
+
+    @apply border;
+    @apply border-tertiary-500/50;
 }
 
 .glass-input::placeholder {

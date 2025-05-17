@@ -53,7 +53,8 @@
         "pause_circle",
         "volume_up",
         "volume_down",
-        "volume_off"
+        "volume_off",
+        "help",
     ].toSorted();
 
     const toast = getToastStore();

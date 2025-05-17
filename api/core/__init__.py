@@ -43,6 +43,7 @@ Database = DatabaseService(Config, [
     "xelapi",
     "sessions",
     "limits",
+    "clockbot"
 ])
 Database.start()
 

@@ -47,6 +47,7 @@ v2sitemap = BPLoader.new("sitemap")
 v2files = BPLoader.new("files")
 v2config = BPLoader.new("config")
 v2acc = BPLoader.new("account")
+v2clockbot = BPLoader.new("clockbot")
 
 @EventBus.on("http.start")
 def on_server_start():

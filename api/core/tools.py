@@ -1,6 +1,7 @@
 import random
 import string
 import hashlib
+import requests
 
 from .config import ConfigManager
 
@@ -26,3 +27,31 @@ def ToDataUnit(size: int):
         size /= 1024
 
     return f"{size:.1f}PB"
+
+def get_mc_uuid(username):
+    """Get the UUID of a Minecraft account by username"""
+    if not username:
+        return None
+    
+    try:
+        r = requests.get(f"https://mcprofile.io/api/v1/java/username/{username}")
+        r.raise_for_status()
+        data = r.json()
+        
+        return data.get("uuid")
+    except requests.RequestException as e:
+        return None
+    
+def get_mc_username(uuid):
+    """Get the username of a Minecraft account by UUID"""
+    if not uuid:
+        return None
+    
+    try:
+        r = requests.get(f"https://mcprofile.io/api/v1/java/uuid/{uuid}")
+        r.raise_for_status()
+        data = r.json()
+        
+        return data.get("username")
+    except requests.RequestException as e:
+        return None
