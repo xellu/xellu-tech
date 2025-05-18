@@ -1,8 +1,15 @@
 import time
 from ..tools import RandomStr, HashStr
+from enum import Enum
 
 ALLOWED_AGE_ANSWERS = ["13 or younger", "14-15", "16-17", "18 or older"]
 ALLOWED_REGION_ANSWERS = ["Europe", "Asia", "North America", "South America", "Oceania", "Africa"]
+
+class WLStatus(Enum):
+    INACTIVE = "Inactive"
+    PENDING = "Pending"
+    REJECTED = "Rejected"
+    APPROVED = "Approved"
 
 def WhitelistApplicationTemplate():
     return {

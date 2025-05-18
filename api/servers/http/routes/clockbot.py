@@ -3,9 +3,10 @@ from ..services.adapter import Reply, Require
 
 from core import Database, Config
 from core.tools import get_mc_uuid
-from core.templates.Clockwork import WhitelistApplicationTemplate, ALLOWED_AGE_ANSWERS, ALLOWED_REGION_ANSWERS
+from core.templates.Clockwork import WhitelistApplicationTemplate, ALLOWED_AGE_ANSWERS, ALLOWED_REGION_ANSWERS, WLStatus
 
 from flask import request
+import time
 import requests
 
 @v2clockbot.route("/mc-profile/<username>", methods=["GET"])
@@ -46,10 +47,31 @@ def fetch_discord_user(exchange_code):
     if "id" not in data:
         return Reply(error="No data found"), 400
     
+    user = Database.get_database("clockbot").users.find_one({"discord": int(data["id"])})
+    print(user)
+        
+    if user is not None and user["whitelist"]["status"] == WLStatus.PENDING.value:
+        return Reply(
+            error = "Your application is still pending. Please wait for a response from the staff team.",
+            reapply_in = user["whitelist"]["reapply_in"]
+        ), 429
+        
+    if user is not None and user["whitelist"]["status"] == WLStatus.APPROVED.value:
+        return Reply(
+            error = "You are already whitelisted. Please join the server.",
+            reapply_in = user["whitelist"]["reapply_in"]
+        ), 429
+    
+    if user is not None and user["whitelist"]["status"] == WLStatus.REJECTED.value and user["whitelist"]["reapply_in"] > time.time():
+        return Reply(
+            error = "You have been rejected. Please contact the staff team for more information.",
+            reapply_in = user["whitelist"]["reapply_in"]
+        ), 429
+        
     return Reply(
-        id=data["id"],
-        username=data["username"],
-        avatar=data["avatar"]
+        id = data["id"],
+        username = data["username"],
+        avatar = data["avatar"],
     )
 
 @v2clockbot.route("/apply", methods=["POST"])

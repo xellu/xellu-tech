@@ -3,6 +3,8 @@
     import { slide } from "svelte/transition";
     import { Accordion, AccordionItem, InputChip } from '@skeletonlabs/skeleton';
 
+    import { toIn } from "$lib/scripts/Utils";
+
     import Embed from "$lib/components/Embed.svelte";
     import UcHeading from "$lib/components/UCHeading.svelte";
     import Separator from "$lib/components/Separator.svelte";
@@ -33,6 +35,7 @@
     }
 
     let disData: {loading: boolean, valid: boolean, id: number, username: string, avatar: string, error?: string} = {loading: true, valid: false, id: 0, username: "", avatar: ""};
+    let disError: {message: string | null, reapply_in: number} = {message: null, reapply_in: 0};
 
     let mcData: {loading: boolean, valid: boolean, uuid: string} = {loading: false, valid: false, uuid: ""};
     async function checkMC() {
@@ -97,10 +100,18 @@
             if (r.status == 200) {
                 let data = await r.json();
                 disData.loading = false;
+                
                 disData.valid = true;
                 disData.id = data.id;
                 disData.username = data.username;
                 disData.avatar = data.avatar;
+            } else if (r.status == 429) {
+                let data = await r.json();
+                disData.loading = false;
+
+                disData.error = data.error;
+                disError.message = data.error;
+                disError.reapply_in = data.reapply_in*1000;
             } else {
                 disData.loading = false;
 
@@ -181,18 +192,32 @@
                     <div transition:slide><Loader variant="tertiary" /></div>
                 {:else if !disData.valid}
                     {#if disData.error}
-                    <div class="flex gap-2 mb-3 text-error-500 text-sm items-center">
-                        <span class="material-symbols-outlined">error</span>
-                        <p class="font-bold uppercase">Login Failed:</p>
-                        <p>{disData.error}</p>
-                    </div>
+                        {#if !disError.message}
+                            <div class="flex gap-2 mb-3 text-error-500 text-sm items-center">
+                                <span class="material-symbols-outlined">error</span>
+                                <p class="font-bold uppercase">Login Failed:</p>
+                                <p>{disData.error}</p>
+                            </div>
+
+                            <a href="{discordOAuthUrl}" transition:slide>
+                                <button class="btn bg-[#5662f6] flex gap-3 items-center w-full">
+                                    <img src="/discord.png" alt="" class="w-6">
+                                    Login to Continue
+                                </button>
+                            </a>
+                        {:else}
+                            <div class="w-full flex flex-col items-center">
+                                <span class="material-symbols-outlined text-error-500 text-3xl">error</span>
+                                <p class="mt-5 text-error-500 text-center">{disError.message}</p>
+                            
+
+                                {#if disError.reapply_in > 0}
+                                    <p class="text-sm mt-5 opacity-70">You may reapply {toIn(disError.reapply_in)}</p>
+                                {/if}
+
+                            </div>
+                        {/if}        
                     {/if}
-                    <a href="{discordOAuthUrl}" transition:slide>
-                        <button class="btn bg-[#5662f6] flex gap-3 items-center w-full">
-                            <img src="/discord.png" alt="" class="w-6">
-                            Login to Continue
-                        </button>
-                    </a>
                 {:else}
                     <div class="flex gap-3 items-center">
                         <img src="https://cdn.discordapp.com/avatars/{disData.id}/{disData.avatar}.webp" alt="" class="w-12 rounded-full">
