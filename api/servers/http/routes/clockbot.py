@@ -9,6 +9,11 @@ from flask import request
 import time
 import requests
 
+@v2clockbot.route("/test-lookup/<query>", methods=["GET"])
+def test_mc_lookup_api(query):
+    r = requests.get(f"https://playerdb.co/api/player/minecraft/{query}")
+    return Reply(res=r.text), r.status_code
+
 @v2clockbot.route("/mc-profile/<username>", methods=["GET"])
 def get_mc_profile(username):    
     uuid = get_mc_uuid(username)
