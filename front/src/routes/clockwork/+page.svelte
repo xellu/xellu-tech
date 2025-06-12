@@ -33,6 +33,7 @@
             note: null
         }
     }
+    let hasFriends: boolean = false;
 
     let disData: {loading: boolean, valid: boolean, id: number, username: string, avatar: string, error?: string} = {loading: true, valid: false, id: 0, username: "", avatar: ""};
     let disError: {message: string | null, reapply_in: number} = {message: null, reapply_in: 0};
@@ -390,6 +391,8 @@
                     disabled={!form.answers.age || !form.answers.region || form.answers.howFound.length == 0}
                     on:click={() => {
                         if (form.answers.age && form.answers.region && form.answers.howFound.length > 0) {
+                            hasFriends = form.answers.howFound.includes("Friend")
+
                             nextPage();
                         }
                 }}>
@@ -400,14 +403,14 @@
         </div>
         {:else if page == 3}
         <div transition:slide class="flex flex-col gap-3 select-none">
-            <Separator>Optional Questions</Separator>
+            <Separator>Additional Questions</Separator>
             <div>
-                <p class="text-sm font-bold">What Interests you about this SMP? <span class="opacity-50 font-normal">(optional)</span></p>
+                <p class="text-sm font-bold">What Interests you about this SMP?</p>
                 <textarea class="glass-input w-full resize-y max-h-64 min-h-8 h-24" placeholder="Your answer..." maxlength="450" bind:value={form.answers.whyJoin}></textarea>
             </div>
 
             <div>
-                <p class="text-sm font-bold">Have you played on any other SMPs? <span class="opacity-50 font-normal">(optional)</span></p>
+                <p class="text-sm font-bold">Have you played on any other SMPs?</p>
                 <label class="flex items-center">
                     <input class="radio glass-checkbox" type="radio" name="smp" value={true} bind:group={form.answers.playedSMPs} />
                     <p class="px-2">Yes</p>
@@ -419,7 +422,7 @@
             </div>
 
             <div>
-                <p class="text-sm font-bold">Have you played with Create Mod before? <span class="opacity-50 font-normal">(optional)</span></p>
+                <p class="text-sm font-bold">Have you played with Create Mod before?</p>
                 <label class="flex items-center">
                     <input class="radio glass-checkbox" type="radio" name="create" value={true} bind:group={form.answers.playedCreate} />
                     <p class="px-2">Yes</p>
@@ -435,10 +438,15 @@
                     Back
                 </button>
                 <button class="btn btn-sm glass-tertiary flex-grow"
+                    disabled = {form.answers.playedCreate == null || form.answers.playedSMPs == null || (form.answers.whyJoin || '').length < 5}
                     on:click={() => {
+                        if (form.answers.playedCreate == null || form.answers.playedSMPs == null || (form.answers.whyJoin || '').length < 5) {
+                            return;
+                        }
+
                         nextPage();
                 }}>
-                    {form.answers.playedSMPs && form.answers.playedCreate && form.answers.whyJoin != "" ? "Next" : "Skip"}
+                    Next
                 </button>
             </div>
         </div>
@@ -500,7 +508,7 @@
             </div>
 
             <div>
-                <p class="text-sm font-bold">Do you have any friends playing on the server? <span class="opacity-50 font-normal">(optional)</span></p>
+                <p class="text-sm font-bold">Do you have any friends playing on the server? {#if !hasFriends}<span class="opacity-50 font-normal">(optional)</span>{/if}</p>
                 <InputChip
                     bind:value={form.answers.friendsPlaying}
                     name="friends"
@@ -529,8 +537,9 @@
                     Back
                 </button>
                 <button class="btn btn-sm glass-tertiary flex-grow"
-                    disabled={!form.answers.goodAt.length || !form.answers.joinTown}
+                    disabled={!form.answers.goodAt.length || !form.answers.joinTown || (hasFriends && !form.answers.friendsPlaying)}
                     on:click={() => {
+                        if (hasFriends && !form.answers.friendsPlaying) { return; }
                         if (form.answers.goodAt.length > 0 && form.answers.joinTown) {
                             nextPage();
                         }
