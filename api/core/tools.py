@@ -45,7 +45,7 @@ def get_mc_uuid(username):
         r.raise_for_status()
         data = r.json()
         
-        return data.get("id")
+        return data.get("data", {}).get("id")
     except requests.RequestException as e:
         return None
     
@@ -61,6 +61,7 @@ def get_mc_username(uuid):
         r.raise_for_status()
         data = r.json()
         
-        return data.get("username")
+        return data.get("data", {}).get("username") 
+        # return data.get("username")
     except requests.RequestException as e:
         return None
