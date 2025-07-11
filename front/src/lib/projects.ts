@@ -75,25 +75,46 @@ export type Timeline = {
 
 export const projectTimeline: Timeline[] = [
     {
+        date: "Spring 2025",
+        until: "Present",
+        project: {
+            name: "Clockwork SMP",
+            description: "A Modded Minecraft Survival Server with over 500 members as of July 2025. Featuring a seamless system for managing whitelists, moderation and more.",
+            links: [
+                {
+                    name: "Discord Server",
+                    url: "https://discord.gg/Bk37q2kaEc"
+                }
+            ],
+            tags: ["Java", "Python"]
+        }
+    },
+    {
         date: "Summer 2024",
+        until: "Spring 2025",
         project: {
             name: "Veinyard",
             description: "A Freelancing project, a Roblox Script marketplace.",
-            links: [],
+            links: [
+                {
+                    name: "Website",
+                    url: "https://veinyard.com/"
+                }
+            ],
             tags: ["Svelte", "TypeScript", "TailwindCSS", "Python", "Nginx"]
         }
     },
     {
         date: "Summer 2024",
-        until: "Present",
+        until: "Spring 2025",
         project: {
             name: "Lime",
             description: "A Game Cheat & Mod Marketplace and development, with focus on bypasses and user experience. Featuring a web dashboard for configuring cheat clients over the internet. Over 85 users & 11 paying customers, as of August 2024.",
             links: [
-                {
-                    name: "Website",
-                    url: "https://limeade.cool"
-                }
+                // {
+                //     name: "Website",
+                //     url: "https://limeade.cool"
+                // }
             ],
             tags: ["Svelte", "TypeScript", "TailwindCSS", "Python", "Nginx"]
         }    
