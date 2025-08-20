@@ -126,4 +126,4 @@ def apply_for_whitelist():
         
 @v2clockbot.route("/killswitch", methods=["GET"]) #a kill switch incase icq doesnt pay me
 def cwcore_killswitch():
-    return Reply(), 200
+    return Reply(), 403
