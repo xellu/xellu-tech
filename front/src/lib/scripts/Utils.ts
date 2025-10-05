@@ -47,9 +47,9 @@ export function toIn(timestamp: number): string {
 
 export function MarkdownParser(content: string): string {
     const html: string = marked(content) as string;
-    const clean = DOMPurify.sanitize(html);
+    // const clean = DOMPurify.sanitize(html || "", { USE_PROFILES: { html: true } });
     
-    return clean;
+    return html;
 }
 
 export function toDataUnit(bytes: number): string {
