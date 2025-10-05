@@ -18,6 +18,7 @@
     }
 
     let hide: boolean = false;
+    let showingItems: number = 10;
 
     export let files: FileLookup[] = [];
     
@@ -81,12 +82,14 @@
 
 </script>
 
+<p>showing: {showingItems}</p>
+
 {#if !hide}
 <div class="grid grid-cols-2 gap-3">
     <div class="flex flex-col gap-3">
         {#each files as f, index}
-            {#if index % 2 == 0}
-                <button on:click={(e) => openMenu(e, f)} id="contextMenu-{f.fullName}">
+            {#if index % 2 == 0 && index < showingItems} 
+                <button on:click={(e) => openMenu(e, f)} id="contextMenu-{f.fullName}" transition:slide>
                     <GalleryItem data={f} />
                 </button>
             {/if}
@@ -95,14 +98,21 @@
 
     <div class="flex flex-col gap-3">
         {#each files as f, index}
-            {#if index % 2 != 0}
-                <button on:click={(e) => openMenu(e, f)} id="contextMenu-{f.fullName}">
+            {#if index % 2 != 0 &&  index < showingItems}
+                <button on:click={(e) => openMenu(e, f)} id="contextMenu-{f.fullName}" transition:slide>
                     <GalleryItem data={f} />
                 </button>
             {/if}
         {/each}
     </div>
+
+    <button class="btn glass col-span-2" on:click={() => {
+        showingItems += 10;
+    }}>
+        Load More
+    </button>
 </div>
+
 
 {#if contextMenu.open}
     <div class="fixed z-30" style="top: {contextMenu.y}px; left: {contextMenu.x}px;">
@@ -137,8 +147,8 @@
 <div class="flex flex-col items-center justify-center mt-32 select-none">
 
     <pre class="mr-16 -mb-1" style={`
-        font-size: 3px;
-        line-height: 4px;
+        font-size: 5px;
+        line-height: 6px;
     `}>
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⣿⣿⣿⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⣿⣿⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
