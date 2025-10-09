@@ -76,15 +76,14 @@ export type Timeline = {
 export const projectTimeline: Timeline[] = [
     {
         date: "Spring 2025",
-        until: "Present",
         project: {
             name: "Clockwork SMP",
             description: "A Modded Minecraft Survival Server with over 500 members as of July 2025. Featuring a seamless system for managing whitelists, moderation and more.",
             links: [
-                {
-                    name: "Discord Server",
-                    url: "https://discord.gg/Bk37q2kaEc"
-                }
+                // {
+                //     name: "Discord Server",
+                //     url: "https://discord.gg/Bk37q2kaEc"
+                // }
             ],
             tags: ["Java", "Python"]
         }
