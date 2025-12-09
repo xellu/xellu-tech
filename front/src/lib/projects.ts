@@ -76,6 +76,7 @@ export type Timeline = {
 export const projectTimeline: Timeline[] = [
     {
         date: "Spring 2025",
+        until: "Winter 2025",
         project: {
             name: "Clockwork SMP",
             description: "A Modded Minecraft Survival Server with over 500 members as of July 2025. Featuring a seamless system for managing whitelists, moderation and more.",
@@ -103,35 +104,21 @@ export const projectTimeline: Timeline[] = [
             tags: ["Svelte", "TypeScript", "TailwindCSS", "Python", "Nginx"]
         }
     },
-    {
-        date: "Summer 2024",
-        until: "Spring 2025",
-        project: {
-            name: "Lime",
-            description: "A Game Cheat & Mod Marketplace and development, with focus on bypasses and user experience. Featuring a web dashboard for configuring cheat clients over the internet. Over 85 users & 11 paying customers, as of August 2024.",
-            links: [
-                // {
-                //     name: "Website",
-                //     url: "https://limeade.cool"
-                // }
-            ],
-            tags: ["Svelte", "TypeScript", "TailwindCSS", "Python", "Nginx"]
-        }    
-    },
-    {
-        date: "Spring 2024",
-        project: {
-            name: "MDBB",
-            description: "A Base for Discord Bots, with an Event, Plugin and Command System.",
-            links: [
-                {
-                    name: "Source Code",
-                    url: "https://github.com/xellu/mdbb"
-                }
-            ],
-            tags: ["Python", "Discord API"]
-        }
-    },
+    // {
+    //     date: "Summer 2024",
+    //     until: "Spring 2025",
+    //     project: {
+    //         name: "Lime",
+    //         description: "A Game Cheat & Mod Marketplace and development, with focus on bypasses and user experience. Featuring a web dashboard for configuring cheat clients over the internet. Over 85 users & 11 paying customers, as of August 2024.",
+    //         links: [
+    //             // {
+    //             //     name: "Website",
+    //             //     url: "https://limeade.cool"
+    //             // }
+    //         ],
+    //         tags: ["Svelte", "TypeScript", "TailwindCSS", "Python", "Nginx"]
+    //     }    
+    // },
     {
         date: "Winter 2024",
         until: "Summer 2024",
@@ -164,16 +151,6 @@ export const projectTimeline: Timeline[] = [
                 }
             ],
             tags: ["Java", "Spigot", "Svelte", "TypeScript", "Python"]
-        }
-    },
-    {
-        date: "Summer 2022",
-        until: "Winter 2023",
-        project: {
-            name: "Xello.Blue Image Host",
-            description: "A Simple Image Hosting Service, with a web dashboard and API for uploading and managing images. Originally made for personal use, later made invite-only. Over 8,000 images uploaded, and 75+ users.",
-            links: [],
-            tags: ["Python", "HTML", "CSS", "JavaScript", "Flask"]
         }
     },
     {

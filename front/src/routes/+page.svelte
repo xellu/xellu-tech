@@ -41,7 +41,7 @@
             <br><br>
             <!-- what i do now -->
             Nowadays, I'm working on my projects, and also Freelancing. I'm also learning new tech and improving my skills.
-            Lately, I've been working on a <a href="https://limeade.cool/" target="_blank">game marketplace</a> with a few of my friends.
+            Lately, I've been leading a developer team at a <a href="https://diaworlds.eu/">Minecraft Server</a> and working on PaperMC plugins.
 
             <br><br>
 
@@ -108,7 +108,7 @@
             <p class="text-surface-200 text-sm">
                 Written in <a href="https://vscode.dev/" target="_blank">Visual Studio Code</a>.
                 Built with <a href="https://svelte.dev/" target="_blank">SvelteKit</a>, <a href="https://tailwindcss.com/" target="_blank">Tailwind CSS</a>, and <a href="https://skeleton.dev/" target="_blank">Skeleton</a>.
-                Deployed on <a href="https://cloud.oracle.com/" target="_blank">Oracle Cloud Infrastructure</a>.
+                Deployed on <a href="https://host.xellu.xyz/">XelTekk</a>.
                 Inspired by <a href="https://brittanychiang.com/" target="_blank">Brittany Chiang</a>.
             </p>
         </div>
