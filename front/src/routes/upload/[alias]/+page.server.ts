@@ -1,7 +1,7 @@
 export const load = async ({ params }) => {
     const alias = params.alias;
 
-    const r = await fetch(`http://127.0.0.1/api/v2/files/embed/${alias}`);
+    const r = await fetch(`http://127.0.0.1:5000/api/v2/files/embed/${alias}`);
     let data = null;
     try {
         data = await r.json();

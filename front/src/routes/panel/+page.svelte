@@ -115,7 +115,7 @@
         </div>
     </div>
 
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-2 my-3">
+    <div class="grid grid-cols-2  gap-2 my-3"> <!-- md:grid-cols-3 -->
        {#each tabs as tab, i}
             <button class="btn btn-sm flex items-center justify-center {activeTab == i ? 'glass-tertiary text-tertiary-500' : 'glass'}" on:click={() => activeTab = i}>
                 <span class="material-symbols-outlined">{tab.icon}</span>
