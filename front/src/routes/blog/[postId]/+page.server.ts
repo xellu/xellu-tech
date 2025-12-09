@@ -7,7 +7,7 @@ let error: string | null = null;
 export const load = async ({ params }) => {
     const postId = params.postId;
 
-    const r = await fetch(`http://127.0.0.1:500/api/v2/blog/post/${postId}`);
+    const r = await fetch(`http://127.0.0.1:5000/api/v2/blog/post/${postId}`);
     if (!r.ok) {
         return {
             props: {
