@@ -79,6 +79,13 @@
             </div>
         </div>
 
+        <!-- advertisement -->
+        <a href="https://xeltekk.com/" target="_blank" draggable="false">
+            <div class="glass rounded-lg">
+                <img src="/xeltekk.png" alt="XelTekk hosting" class="max-w-96 select-none" draggable="false">
+            </div>
+        </a>
+
         <!-- bottom -->
         <div class="flex items-center xl:justify-center gap-5">
             <a href={instagram} target="_blank" rel="noopener noreferrer" draggable="false" class="opacity-50 hover:opacity-100 duration-200">

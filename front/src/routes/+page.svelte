@@ -108,7 +108,7 @@
             <p class="text-surface-200 text-sm">
                 Written in <a href="https://vscode.dev/" target="_blank">Visual Studio Code</a>.
                 Built with <a href="https://svelte.dev/" target="_blank">SvelteKit</a>, <a href="https://tailwindcss.com/" target="_blank">Tailwind CSS</a>, and <a href="https://skeleton.dev/" target="_blank">Skeleton</a>.
-                Deployed on <a href="https://host.xellu.xyz/">XelTekk</a>.
+                Deployed on <a href="https://xeltekk.com/">XelTekk</a>.
                 Inspired by <a href="https://brittanychiang.com/" target="_blank">Brittany Chiang</a>.
             </p>
         </div>
