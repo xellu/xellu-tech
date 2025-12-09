@@ -163,12 +163,12 @@
                         {#if settings.title} <p class="font-bold hover:underline cursor-pointer" style="color: {colors.url};">{settings.title}</p> {/if}
                         {#if settings.description} <p class="text-sm">{settings.description}</p> {/if}
 
-                        <img src="/{splash}.png" alt="" class="rounded" draggable="false">
+                        <img src="/{splash}.jpg" alt="" class="rounded" draggable="false">
                     </div>
                 </div>
                 {:else}
                     <img
-                        src="/{splash}.png" alt="" draggable="false"
+                        src="/{splash}.jpg" alt="" draggable="false"
                         class="rounded shadow-sm" 
                         title="{settings.rawUrl ? 'https://xellu.xyz/api/v2/files/7461595e95f347b6bccbb8e10b3760cf-An1iO7WZ.png' : 'https://xellu.xyz/upload/An1iO7WZ'}"
                     >
