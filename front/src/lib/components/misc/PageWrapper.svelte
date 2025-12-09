@@ -18,7 +18,7 @@
                 path: "/blog"
             },
             {
-                name: "File Host",
+                name: "Files",
                 path: "/panel"
             }
         ],
