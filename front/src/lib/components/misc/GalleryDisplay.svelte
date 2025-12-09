@@ -82,7 +82,7 @@
 
 </script>
 
-<p>showing: {showingItems}</p>
+<!-- <p>showing: {showingItems}</p> -->
 
 {#if !hide}
 <div class="grid grid-cols-2 gap-3">

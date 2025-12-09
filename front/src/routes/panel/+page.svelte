@@ -59,11 +59,11 @@
             icon: "home",
             component: Home
         },
-        {
-            label: "Chat",
-            icon: "forum",
-            component: Chat
-        },
+        // {
+        //     label: "Chat",
+        //     icon: "forum",
+        //     component: Chat
+        // },
         {
             label: "Gallery",
             icon: "photo_library",
@@ -79,11 +79,11 @@
             icon: "colors",
             component: EmbedSettings
         },
-        {
-            label: "Account",
-            icon: "person",
-            component: AccountSettings
-        }
+        // {
+        //     label: "Account",
+        //     icon: "person",
+        //     component: AccountSettings
+        // }
     ]
     let activeTab: number = 0;
 
