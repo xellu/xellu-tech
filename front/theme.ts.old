@@ -3,57 +3,57 @@ import type { CustomThemeConfig } from '@skeletonlabs/tw-plugin';
 
 export const appTheme: CustomThemeConfig = {
     name: 'app-theme',
-properties: {
+    properties: {
 		// =~= Theme Properties =~=
-		"--theme-font-family-base": `system-ui`,
-		"--theme-font-family-heading": `system-ui`,
-		"--theme-font-color-base": "0 0 0",
+		"--theme-font-family-base": `"Inter", sans-serif`,
+		"--theme-font-family-heading": `"Plus Jakarta Sans", serif`,
+		"--theme-font-color-base": "255 255 255",
 		"--theme-font-color-dark": "255 255 255",
-		"--theme-rounded-base": "9999px",
+		"--theme-rounded-base": "8px",
 		"--theme-rounded-container": "8px",
 		"--theme-border-base": "1px",
 		// =~= Theme On-X Colors =~=
 		"--on-primary": "0 0 0",
 		"--on-secondary": "0 0 0",
-		"--on-tertiary": "255 255 255",
+		"--on-tertiary": "0 0 0",
 		"--on-success": "0 0 0",
 		"--on-warning": "0 0 0",
 		"--on-error": "0 0 0",
 		"--on-surface": "255 255 255",
 		// =~= Theme Colors  =~=
-		// primary | #988df1 
-		"--color-primary-50": "240 238 253", // #f0eefd
-		"--color-primary-100": "234 232 252", // #eae8fc
-		"--color-primary-200": "229 227 252", // #e5e3fc
-		"--color-primary-300": "214 209 249", // #d6d1f9
-		"--color-primary-400": "183 175 245", // #b7aff5
-		"--color-primary-500": "152 141 241", // #988df1
-		"--color-primary-600": "137 127 217", // #897fd9
-		"--color-primary-700": "114 106 181", // #726ab5
-		"--color-primary-800": "91 85 145", // #5b5591
-		"--color-primary-900": "74 69 118", // #4a4576
-		// secondary | #8a1149 
-		"--color-secondary-50": "237 219 228", // #eddbe4
-		"--color-secondary-100": "232 207 219", // #e8cfdb
-		"--color-secondary-200": "226 196 210", // #e2c4d2
-		"--color-secondary-300": "208 160 182", // #d0a0b6
-		"--color-secondary-400": "173 88 128", // #ad5880
-		"--color-secondary-500": "138 17 73", // #8a1149
-		"--color-secondary-600": "124 15 66", // #7c0f42
-		"--color-secondary-700": "104 13 55", // #680d37
-		"--color-secondary-800": "83 10 44", // #530a2c
-		"--color-secondary-900": "68 8 36", // #440824
-		// tertiary | #e63440 
-		"--color-tertiary-50": "251 225 226", // #fbe1e2
-		"--color-tertiary-100": "250 214 217", // #fad6d9
-		"--color-tertiary-200": "249 204 207", // #f9cccf
-		"--color-tertiary-300": "245 174 179", // #f5aeb3
-		"--color-tertiary-400": "238 113 121", // #ee7179
-		"--color-tertiary-500": "230 52 64", // #e63440
-		"--color-tertiary-600": "207 47 58", // #cf2f3a
-		"--color-tertiary-700": "173 39 48", // #ad2730
-		"--color-tertiary-800": "138 31 38", // #8a1f26
-		"--color-tertiary-900": "113 25 31", // #71191f
+		// primary | #33a4f7 
+		"--color-primary-50": "224 241 254", // #e0f1fe
+		"--color-primary-100": "214 237 253", // #d6edfd
+		"--color-primary-200": "204 232 253", // #cce8fd
+		"--color-primary-300": "173 219 252", // #addbfc
+		"--color-primary-400": "112 191 249", // #70bff9
+		"--color-primary-500": "51 164 247", // #33a4f7
+		"--color-primary-600": "46 148 222", // #2e94de
+		"--color-primary-700": "38 123 185", // #267bb9
+		"--color-primary-800": "31 98 148", // #1f6294
+		"--color-primary-900": "25 80 121", // #195079
+		// secondary | #2ec0c5 
+		"--color-secondary-50": "224 246 246", // #e0f6f6
+		"--color-secondary-100": "213 242 243", // #d5f2f3
+		"--color-secondary-200": "203 239 241", // #cbeff1
+		"--color-secondary-300": "171 230 232", // #abe6e8
+		"--color-secondary-400": "109 211 214", // #6dd3d6
+		"--color-secondary-500": "46 192 197", // #2ec0c5
+		"--color-secondary-600": "41 173 177", // #29adb1
+		"--color-secondary-700": "35 144 148", // #239094
+		"--color-secondary-800": "28 115 118", // #1c7376
+		"--color-secondary-900": "23 94 97", // #175e61
+		// tertiary | #C5E898 
+		"--color-tertiary-50": "246 252 240", // #f6fcf0
+		"--color-tertiary-100": "243 250 234", // #f3faea
+		"--color-tertiary-200": "241 249 229", // #f1f9e5
+		"--color-tertiary-300": "232 246 214", // #e8f6d6
+		"--color-tertiary-400": "214 239 183", // #d6efb7
+		"--color-tertiary-500": "197 232 152", // #C5E898
+		"--color-tertiary-600": "177 209 137", // #b1d189
+		"--color-tertiary-700": "148 174 114", // #94ae72
+		"--color-tertiary-800": "118 139 91", // #768b5b
+		"--color-tertiary-900": "97 114 74", // #61724a
 		// success | #01f349 
 		"--color-success-50": "217 253 228", // #d9fde4
 		"--color-success-100": "204 253 219", // #ccfddb
