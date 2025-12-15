@@ -55,6 +55,10 @@
         "volume_down",
         "volume_off",
         "help",
+        "menu",
+        "arrow_outward",
+        "arrow_back",
+
     ].toSorted();
 
     const toast = getToastStore();

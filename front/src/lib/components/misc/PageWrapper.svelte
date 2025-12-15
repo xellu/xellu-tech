@@ -18,7 +18,7 @@
                 path: "/blog"
             },
             {
-                name: "Files",
+                name: "Panel",
                 path: "/panel"
             }
         ],
@@ -80,11 +80,11 @@
         </div>
 
         <!-- advertisement -->
-        <a href="https://xeltekk.com/" target="_blank" draggable="false">
+        <!-- <a href="https://xeltekk.com/" target="_blank" draggable="false">
             <div class="glass rounded-lg">
                 <img src="/xeltekk.png" alt="XelTekk hosting" class="max-w-96 select-none" draggable="false">
             </div>
-        </a>
+        </a> -->
 
         <!-- bottom -->
         <div class="flex items-center xl:justify-center gap-5">

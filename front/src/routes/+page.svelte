@@ -25,7 +25,7 @@
 
     <Embed
         title = "Xellu"
-        description = "A Personal website, featuring my projects, blog posts and invite-only file hosting."
+        description = "Hi! I'm Xellu, This is a site for my projects, blog posts and invite-only services, such as file hosting, music and media exchange."
         route = "/"
     />
 </svelte:head>

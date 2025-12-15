@@ -27,7 +27,7 @@
 
 <div id="contextMenu-{data.fullName}">
     {#if meta?.format == "image"}
-        <img src={downloadUrl} alt="" title={data.originalName} class="rounded-lg max-h-96 w-full object-cover">
+        <img src={downloadUrl} alt="" title={data.originalName} class="rounded-lg max-h-96 w-full object-cover glass-dark">
 
     {:else if meta?.format == "video"}
         <div class="w-full bg-black rounded-lg aspect-video overflow-hidden select-none">

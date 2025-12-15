@@ -1,6 +1,6 @@
 <script lang="ts">
     import UcHeading from "$lib/components/UCHeading.svelte";
-    import ChangeUsername from "../../lib/components/misc/ChangeUsername.svelte";
+    import ChangeUsername from "$lib/components/misc/ChangeUsername.svelte";
     import UploadBox from "$lib/components/misc/UploadBox.svelte";
 
     import { Account, AuthState, type AuthStateType, type AccountType } from "$lib/scripts/Auth";
