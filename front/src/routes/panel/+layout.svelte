@@ -1,11 +1,12 @@
 <script lang="ts">
     import UCHeading from "$lib/components/UCHeading.svelte";
     import Embed from "$lib/components/Embed.svelte";
+    import Loader from "$lib/components/Loader.svelte";
+
     
     import { Account, type AccountType, AuthState, type AuthStateType } from "$lib/scripts/Auth";
     import { goto } from "$app/navigation";
     import { onMount } from "svelte";
-  import Loader from "$lib/components/Loader.svelte";
 
     let User: AccountType | null;
     let UserState: AuthStateType = { loggedIn: false, loading: true};
@@ -27,6 +28,11 @@
     let greeting: string;
 
     const Links = [
+        {
+            url: "/panel/music",
+            name: "Music",
+            icon: "music_cast"
+        },
         {
             url: "/panel/files",
             name: "Storage",
@@ -95,8 +101,8 @@
             {/each}
         </div>
     </div>
-    <div class="lg:w-1/6"></div>
-    <div class="lg:w-1/2 w-full max-h-screen overflow-y-scroll p-5 {UserState.loading ? 'flex items-center justify-center h-screen' : ''}">
+    <!-- <div class="lg:w-1/6"></div> -->
+    <div class="w-full max-h-screen overflow-y-scroll p-5 {UserState.loading ? 'flex items-center justify-center h-screen' : ''}">
         {#if UserState.loading}
             <Loader />
         {:else}

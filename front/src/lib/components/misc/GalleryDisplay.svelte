@@ -85,10 +85,10 @@
 <!-- <p>showing: {showingItems}</p> -->
 
 {#if !hide}
-<div class="grid grid-cols-2 gap-3">
+<div class="grid grid-cols-3 gap-3">
     <div class="flex flex-col gap-3">
         {#each files as f, index}
-            {#if index % 2 == 0 && index < showingItems} 
+            {#if index % 3 == 0 && index < showingItems} 
                 <button on:click={(e) => openMenu(e, f)} id="contextMenu-{f.fullName}" transition:slide>
                     <GalleryItem data={f} />
                 </button>
@@ -98,7 +98,7 @@
 
     <div class="flex flex-col gap-3">
         {#each files as f, index}
-            {#if index % 2 != 0 &&  index < showingItems}
+            {#if index % 3 == 1 &&  index < showingItems}
                 <button on:click={(e) => openMenu(e, f)} id="contextMenu-{f.fullName}" transition:slide>
                     <GalleryItem data={f} />
                 </button>
@@ -106,7 +106,17 @@
         {/each}
     </div>
 
-    <button class="btn glass col-span-2" on:click={() => {
+    <div class="flex flex-col gap-3">
+        {#each files as f, index}
+            {#if index % 3 == 2 &&  index < showingItems}
+                <button on:click={(e) => openMenu(e, f)} id="contextMenu-{f.fullName}" transition:slide>
+                    <GalleryItem data={f} />
+                </button>
+            {/if}
+        {/each}
+    </div>
+
+    <button class="btn glass col-span-3" on:click={() => {
         showingItems += 10;
     }}>
         Load More

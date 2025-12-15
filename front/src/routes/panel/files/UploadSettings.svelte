@@ -185,7 +185,7 @@
 
 <UcHeading>Preview</UcHeading>
 
-<div class="p-3 rounded-xl mt-1" style="background-color: {colors.bg};">
+<div class="p-3 rounded-xl mt-1 max-w-2xl" style="background-color: {colors.bg};">
     <div class="flex items-start gap-3 select-none">
         <img src="/favicon.png" alt="" class="w-12 rounded-full" draggable="false">
         <div class="overflow-hidden">

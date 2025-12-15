@@ -1,4 +1,9 @@
 <script lang="ts">
+    import UCHeading from "$lib/components/UCHeading.svelte";
+  import ChangePassword from "$lib/components/misc/ChangePassword.svelte";
+    import ChangeUsername from "$lib/components/misc/ChangeUsername.svelte";
+
+    
     import { Account, type AccountType, AuthState, type AuthStateType } from "$lib/scripts/Auth";
     import { onMount } from "svelte";
 
@@ -18,6 +23,12 @@
     })
     let greeting: string;
 
+    const buttonStates = {
+        uuidCopied: false,
+        changeUsername: false,
+        changePassword: false,
+    }
+
     onMount(() => {
         const time = new Date().getHours();
         if (time >= 0 && time < 12) {
@@ -30,20 +41,44 @@
     })
 </script>
 
-<div class="w-full flex flex-col items-center justify-center mt-32 lg:mt-64 text-tertiary-500">
-    <p class="font-bold uppercase">{greeting}, {User?.username}</p>
+<ChangeUsername bind:open={buttonStates.changeUsername} />
+<ChangePassword bind:open={buttonStates.changePassword} />
 
-    <!-- mobile -->
-    <div class="mt-32 mb-8 lg:hidden">
-        <span class="material-symbols-outlined scale-[500%]">arrow_outward</span>
+
+<div class="w-full">
+    <UCHeading>{greeting}, {User?.username}</UCHeading>
+    <div class="flex flex-col gap-1 glass rounded-xl p-3 mt-4 mb-5">
+
+        <p class="uppercase font-bold text-xs">Username</p>
+        <div class="flex items-center justify-between">
+            <p class="font-mono glass p-1 w-48 rounded-lg overflow-hidden text-ellipsis whitespace-nowrap">{User?.username}</p>
+            <button class="btn btn-sm glass-tertiary w-16"
+                on:click={() => { buttonStates.changeUsername = true }}
+            >Edit</button>
+        </div>
+
+        <p class="uppercase font-bold text-xs">UUID</p>
+        <div class="flex items-center justify-between">
+            <p class="font-mono glass p-1 w-48 rounded-lg overflow-hidden text-ellipsis whitespace-nowrap text-xs">{User?._id}</p>
+            <button class="btn btn-sm glass-tertiary w-16"
+                on:click={() => {
+                    navigator.clipboard.writeText(User?._id || "");
+                    buttonStates.uuidCopied = true;
+                    setTimeout(() => {
+                        buttonStates.uuidCopied = false;
+                    }, 1000);
+                }}
+            >
+                {buttonStates.uuidCopied ? '👍' : 'Copy'}
+            </button>
+        </div>
+
+        <div class="mt-3">
+            <button class="btn btn-sm glass-tertiary"
+                    on:click={() => { buttonStates.changePassword = true }}
+            >Change Password</button>
+        </div>
+        
     </div>
-    <p class="lg:hidden text-sm max-w-56 text-center opacity-50">Click on the Menu icon and select a service</p>
-
-    <!-- desktop -->
-    <div class="mt-32 mb-10 max-lg:hidden">
-        <span class="material-symbols-outlined scale-[500%]">arrow_back</span>
-    </div>
-    <p class="max-lg:hidden text-sm text-center opacity-50">Select a service from a list of the left</p>
-
     
 </div>

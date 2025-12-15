@@ -58,6 +58,8 @@
         "menu",
         "arrow_outward",
         "arrow_back",
+        "music_cast",
+        
 
     ].toSorted();
 

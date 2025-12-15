@@ -113,7 +113,7 @@
     }
 </script>
 
-<button class="glass rounded-xl p-3 flex flex-col group items-center justify-center cursor-pointer w-full"
+<button class="glass rounded-xl p-3 flex flex-col group items-center justify-center cursor-pointer w-full h-56"
     on:drop={(e) => {
         if (progress !== -1) return;
         if (!e.dataTransfer?.files) return;
