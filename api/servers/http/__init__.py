@@ -15,12 +15,13 @@ from .services.adapter import Reply
 import threading
 import waitress
 
-import flask
 from flask import request, cli
-from core.tools import RandomStr
+from urllib.parse import urlparse
 
 success_codes = range(100, 399)
 warning_codes = range(400, 499)
+
+allowed_cors_domains = ["nightcube.net", "localhost", "xellu.xyz"]
 
 class HTTPServer:
     def __init__(self):
@@ -70,6 +71,13 @@ class HTTPServer:
     @App.after_request
     def after_request(res):
         res.headers["N-Server"] = "Nautica"
+        
+        origin = request.headers.get("Origin")
+        if origin:
+            domain = urlparse(origin).hostname
+            if domain in allowed_cors_domains:
+                res.headers["Access-Control-Allow-Origin"] = origin
+                res.headers["Vary"] = "Origin"
 
         message = f"{request.remote_addr}: {request.method} -> {request.path} ({res.status_code})"
         if res.status_code in success_codes:
