@@ -15,6 +15,9 @@ from flask import request, send_from_directory
 @Limiter.limit("30/minute")
 def upload_file():
     session = request.headers.get("Authorization") if request.headers.get("Authorization") else request.cookies.get("session")
+    if not session and request.args.get("key"):
+        session = request.args.get("key")
+        
     user = Sessions.get_user(session, scopes=["upload"])
     if not user:
         return Reply(error="Authorization required"), 401
