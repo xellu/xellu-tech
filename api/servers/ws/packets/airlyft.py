@@ -34,9 +34,8 @@ def AircraftTemplate(_id):
 
 Aircrafts = []
 Locations = [
-    {"name": "Point A", "x": 1500, "y": 0, "z": 2000},
-    {"name": "Point B", "x": -1500, "y": 0, "z": 2000},
-    {"name": "Point D", "x": -2000, "y": 0, "z": 2000},
+    {"name": "Spawn", "x": -32, "y": 0, "z": 64},
+    {"name": "The Hive, East Side", "x": -1500, "y": 0, "z": 2000},
 ]
 
 # session_id -> { id, aircraft, status, created }
@@ -125,7 +124,7 @@ async def on_ride_request(client, data):
     sess = _new_session(ac["id"])
     ac["session"] = sess["id"]
     
-    if dist(ac) > 400:
+    if dist(ac) > 200:
         ac["status"] = "enroutePsg"
         ac["goto"] = { "x": px, "y": py, "z": pz, "dist": dist(ac) }
     else:
