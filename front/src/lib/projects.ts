@@ -76,6 +76,18 @@ export type Timeline = {
 export const projectTimeline: Timeline[] = [
     {
         date: "Spring 2025",
+        project: {
+            name: "Nautica 3",
+            description: "A Platform for Backend development. Providing managed runtime, file-based routing, many built-in services, features and its own package ecosystem.",
+            links: [{
+                name: "Source Code",
+                url: "https://github.com/xellu/nautica-api"
+            }],
+            tags: ["Python"]
+        }
+    },
+    {
+        date: "Spring 2025",
         until: "Winter 2025",
         project: {
             name: "Clockwork SMP",

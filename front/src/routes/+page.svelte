@@ -41,7 +41,7 @@
             <br><br>
             <!-- what i do now -->
             Nowadays, I'm working on my projects, and also Freelancing. I'm also learning new tech and improving my skills.
-            Lately, I've been leading a developer team at a <a href="https://diaworlds.eu/">Minecraft Server</a> and working on PaperMC plugins.
+            Lately, I've been making a <a href="https://github.com/xellu/nautica-api">backend development platform</a> in python.
 
             <br><br>
 
