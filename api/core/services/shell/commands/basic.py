@@ -84,3 +84,10 @@ def clear_all_ratelimits(*args, **kwargs):
     Database.get_database("limits").counters.delete_many({})
     Database.get_database("limits").windows.delete_many({})
     logger.success("done")
+    
+@ShellEventBus.on("ram")
+def ram():
+    import psutil
+    
+    p = psutil.Process()
+    logger.info(f"RAM Usage: {p.memory_info().rss/1024/1024:.1f}MB")

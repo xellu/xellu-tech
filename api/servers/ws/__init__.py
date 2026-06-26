@@ -6,7 +6,7 @@ import websockets
 from core.logging import LoggingManager
 from core import Config
 from events import EventBus, WSPacketBus
-from .packets import example, airlyft
+from .packets import example
 
 logger = LoggingManager("Server.WebSocket")
 logger.info("Initializing WebSocket server")
