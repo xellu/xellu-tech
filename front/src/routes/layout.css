@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Ledger&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
+
 @import 'tailwindcss';
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
@@ -5,11 +8,37 @@
 @import '@skeletonlabs/skeleton'; 
 @import '@skeletonlabs/skeleton-svelte'; 
 
+@font-face {
+	font-family: "Moderniz";
+	src: url('/Moderniz.otf');
+	font-weight: bold;
+}
+
+@theme inline {
+	--font-sans: 'Figtree', sans-serif;
+	--font-serif: 'Ledger', serif;
+	--font-mono: 'Jetbrains Mono', monospace;
+	--font-title: 'Moderniz', sans-serif;
+}
+
+.material-symbols-sharp {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
+
+::selection {
+	@apply bg-secondary-500/50;
+}
+
+
 [data-theme='packaged'] {
 	--text-scaling: 1.067;
 	--base-font-color: var(--color-surface-950);
 	--base-font-color-dark: oklch(1 0 0 / 1);
-	--base-font-family: Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif;
+	--base-font-family: 'Figtree', sans-serif;
 	--base-font-size: inherit;
 	--base-line-height: inherit;
 	--base-font-weight: normal;
@@ -17,7 +46,7 @@
 	--base-letter-spacing: 0em;
 	--heading-font-color: inherit;
 	--heading-font-color-dark: inherit;
-	--heading-font-family: inherit;
+	--heading-font-family: "Moderniz", sans-serif;
 	--heading-font-weight: bold;
 	--heading-font-style: normal;
 	--heading-letter-spacing: inherit;

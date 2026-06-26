@@ -1,0 +1,21 @@
+<script lang="ts">
+    import { onMount, type Snippet } from "svelte";
+
+    let {
+        className = "", children
+    }:
+    {
+        className?: string,
+        children: Snippet<[]>
+    
+    } = $props();
+</script>
+
+<div class="grid grid-cols-3 lg:grid-cols-6 relative max-lg:p-5 {className}">
+    
+    <div class="col-span-1 max-lg:hidden"></div>
+    
+    {@render children()}
+
+    <div class="col-span-1 max-lg:hidden"></div>
+</div>
