@@ -19,7 +19,7 @@
             <h2 class="text-5xl lg:text-9xl font-black text-error-500">{page.status}</h2>
         </Grid.Duo>
         <Mesh className="col-span-1 border-y border-l border-surface-800/80 h-full w-full flex justify-center items-center">
-            <p class="border border-surface-800/80 lg:px-3 p-1 bg-black rounded-full lg:font-extrabold lg:uppercase lg:text-lg max-lg:text-xs">{page.error?.message}</p>
+            <p class="border border-surface-800/80 lg:px-3 p-1 bg-black lg:font-extrabold lg:uppercase lg:text-lg max-lg:text-xs">{page.error?.message}</p>
         </Mesh>
     </Grid.Root>
 

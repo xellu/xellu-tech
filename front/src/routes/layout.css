@@ -1,5 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Ledger&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400..700;1,400..700&display=swap');
 
 @import 'tailwindcss';
 @plugin '@tailwindcss/forms';
@@ -16,7 +17,7 @@
 
 @theme inline {
 	--font-sans: 'Figtree', sans-serif;
-	--font-serif: 'Ledger', serif;
+	--font-serif: 'Libre Baskerville', serif;
 	--font-mono: 'Jetbrains Mono', monospace;
 	--font-title: 'Moderniz', sans-serif;
 }
@@ -33,6 +34,9 @@
 	@apply bg-secondary-500/50;
 }
 
+html, body {
+	scroll-behavior: smooth;
+}
 
 [data-theme='packaged'] {
 	--text-scaling: 1.067;

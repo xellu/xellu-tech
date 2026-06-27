@@ -13,6 +13,10 @@
     onMount(() => {
         if (!window.location.pathname.includes("/panel")) { contactButton = true; }
     })
+
+    $effect(() => {
+        document.body.style.overflow = $isOpen ? 'hidden' : '';
+    });
 </script>
 
 <svelte:head>
@@ -30,7 +34,7 @@
     </style>
 </svelte:head>
 
-<Grid.Root className="pt-32 pb-8">
+<Grid.Root className="pt-8 lg:pt-32 pb-8">
     <Grid.Lines.All />
 
     <Grid.Duo className="lg:pr-3 lg:col-span-1! max-lg:col-span-3">
@@ -64,7 +68,7 @@
 {#if $isOpen}
     <div class="fixed w-screen h-screen bg-primary-500 z-50 top-0 left-0" transition:slide={{axis: "x"}}>
     <div transition:fade class="w-screen h-screen">
-        <Grid.Root className="pt-32 pb-8">
+        <Grid.Root className="pt-8 lg:pt-32 pb-8">
             <Grid.Lines.All border="bright" />
 
             <Grid.Duo className="lg:pr-3 lg:col-span-1! max-lg:col-span-3">
@@ -98,7 +102,7 @@
             </Grid.DuoEx>
         </Grid.Root>
 
-        <Grid.Root className="text-black max-lg:-mt-5">
+        <Grid.Root className="text-black">
             <Grid.Lines.Minimal border="bright" />
 
             <Grid.Full className="border-y border-surface-700 w-full flex flex-col">
@@ -121,7 +125,7 @@
             </Grid.Full>
         </Grid.Root>
 
-        <Grid.Root className="max-lg:-mt-8">
+        <Grid.Root>
             <Grid.Lines.Minimal border="bright" />
 
             <Grid.Full className="flex max-lg:px-5 lg:items-center lg:justify-evenly max-lg:flex-col p-5 border-surface-700 border-y duration-150 {$highlightedElement == 'socials' ? 'bg-highlight' : 'text-black'}  gap-3">
@@ -145,10 +149,10 @@
             </Grid.Full>
         </Grid.Root>
 
-        <Grid.Root className="h-full max-lg:-mt-5">
+        <Grid.Root className="h-full">
             <Grid.Lines.All border="bright" />
 
-            <Grid.Full className="max-lg:-mt-5">
+            <Grid.Full>
                 <Mesh className="w-full h-screen"><div></div></Mesh>
             </Grid.Full>
         </Grid.Root>
