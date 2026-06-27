@@ -1,6 +1,5 @@
 <script lang="ts">
     import { Grid } from "$lib/components/Grid";
-    import { Navbar } from "$lib/components/layout/Navbar";
     import Button from "$lib/components/Button.svelte";
     import Footer from "$lib/components/layout/Footer.svelte";
 
@@ -30,7 +29,7 @@
             </div>
         </Grid.Single>
         <Grid.DuoEx className="border-surface-800/80 {index > 0 ? 'lg:border-t' : ''}">
-            <p class="font-serif text-lg p-3">
+            <p class="font-serif text-lg p-5">
                 {p.project.description}
             </p>
         </Grid.DuoEx>

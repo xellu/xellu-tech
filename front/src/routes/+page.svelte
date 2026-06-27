@@ -195,4 +195,20 @@
     <Grid.Trio><div class="aspect-video bg-[url(/landing/cat.jpg)] bg-cover bg-center"></div></Grid.Trio>
 </Grid.Root>
 
+<Grid.Divider variant="alt2" />
+
+<Grid.Root>
+    <Grid.Lines.All className="max-lg:hidden" />
+    <Grid.Lines.Minimal className="lg:hidden" />
+
+    <Grid.Trio><div></div></Grid.Trio>
+    <Grid.Single className="p-5 lg:translate-y-12 z-10">
+        <p class="text-xs italic font-mono text-surface-300">
+            /* Built with <a href="https://svelte.dev/" target="_blank" class="underline">SvelteKit</a>, using <a href="https://skeleton.dev/" target="_blank" class="underline">Skeleton</a>.
+            Deployed on <button onclick={() => Navbar.navigateTo("Services")} class="underline">XelTekk</button>.
+            Inspired by <a href="https://wondermake.xyz/" target="_blank" class="underline">Wondermake</a>. Made by a real person. */
+        </p>
+    </Grid.Single>
+</Grid.Root>
+
 <Footer />
