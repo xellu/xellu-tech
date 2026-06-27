@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Socials } from "$lib/stores/Socials";
+    import { Socials } from "$lib/stores/Bio";
     
     import { Grid } from "../Grid";
     import Button from "../Button.svelte";

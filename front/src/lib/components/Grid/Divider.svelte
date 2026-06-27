@@ -4,7 +4,7 @@
 
     let { variant, label = undefined, height = "h-32" }:
         {
-            variant: "empty" | "alt1" | "alt2" | "alt3" | "breakout"
+            variant: "empty" | "alt1" | "alt2" | "alt3" | "breakout" | "continue"
             height?: string,
             label?: string}
     = $props()
@@ -75,7 +75,7 @@
 </Grid.Root>
 
 {:else if variant == "alt3"}
-<Grid.Root className=h-8>
+<Grid.Root className="h-8">
     <Grid.Lines.All />
 </Grid.Root>
 <Grid.Root className="pb-8">
@@ -107,7 +107,7 @@
 
     <Grid.Single className="flex items-center "><div class="w-full h-px bg-surface-800/80"></div></Grid.Single>
     <Grid.Single className="max-lg:border-t border-surface-800/80">
-        <div class="w-full flex items-center gap-3 group text-xs text-surface-500 font-mono pt-16" id="gallery">
+        <div class="w-full flex items-center gap-3 group text-xs text-surface-500 font-mono pt-16">
             {#if label}
                 <div class="bg-surface-800/80 h-px w-12"></div>
                 <p>{label}</p>
@@ -126,6 +126,14 @@
     <Grid.Single><div></div></Grid.Single>
     <Grid.Single className="border-t border-surface-800/80"><div></div></Grid.Single>
 </Grid.Root>
+{:else if variant == "continue"}
+<Grid.Root>
+    <Grid.Lines.Minimal />
+    {#each [0,0] as _, index}
+        <Grid.Single className="border-t border-l border-surface-800/80 {height}"><div></div></Grid.Single>
+        <Grid.Single className="border-b border-l border-surface-800/80 {height}"><div></div></Grid.Single>
+    {/each}
+</Grid.Root>
 {/if}
 </div>
 
@@ -134,7 +142,7 @@
         <Grid.Lines.Minimal />
         <Grid.Full className="border-t {height} border-surface-800/80">
             {#if label}
-            <div class="w-full flex items-center gap-3 group text-xs text-surface-500 font-mono pt-16" id="gallery">
+            <div class="w-full flex items-center gap-3 group text-xs text-surface-500 font-mono pt-16">
                 <div class="bg-surface-800/80 h-px w-12"></div>
                 <p>{label}</p>
                 <div class="bg-surface-800/80 h-px grow"></div>

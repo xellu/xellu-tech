@@ -9,6 +9,7 @@ import ColSingle from "./ColSingle.svelte";
 import Divider from "./Divider.svelte";
 import LinesAll from "./LinesAll.svelte";
 import LinesMinimal from "./LinesMinimal.svelte";
+import LinesSides from "./LinesSides.svelte";
 
 export const Grid = {
     Root: Container,
@@ -23,6 +24,7 @@ export const Grid = {
     
     Lines: {
         All: LinesAll,
-        Minimal: LinesMinimal
+        Minimal: LinesMinimal,
+        Sides: LinesSides
     }
 }

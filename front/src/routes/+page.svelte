@@ -137,6 +137,7 @@
     <Grid.Lines.All />
 </Grid.Root>
 
+<div id="gallery"></div>
 <Grid.Divider variant="breakout" height="h-32" label="//Gallery" />
 <!-- gallery -->
 

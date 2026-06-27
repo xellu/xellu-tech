@@ -7,7 +7,7 @@
     import { onMount } from "svelte";
     import { fade, slide } from "svelte/transition";
     import Mesh from "../../Mesh.svelte";
-  import { Socials } from "$lib/stores/Socials";
+  import { Socials } from "$lib/stores/Bio";
 
     let contactButton: boolean = $state(false);
 

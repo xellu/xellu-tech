@@ -8,7 +8,7 @@
         variant = "outlined",
         className = "",
 
-        label = "Button",
+        label = "",
         icon = null,
     }: {
         onclick?: Function,

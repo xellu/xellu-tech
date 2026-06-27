@@ -29,6 +29,7 @@ export const Navbar = {
         setTimeout(() => { //close navbar
             highlightedElement.set(null)
             isOpen.set(false)
+            blockInteraction.set(false)
         }, 1000)
     },
 
