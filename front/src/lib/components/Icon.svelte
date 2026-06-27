@@ -4,7 +4,7 @@
     import { addIcon } from "$lib/stores/IconStore";
     import { onMount } from "svelte";
 
-    let { name, className = "" }: {name: string, className?: string} = $props();
+    let { name, className = "", style = "" }: {name: string, className?: string, style?: string} = $props();
 
     onMount(() => {
         if (!name.startsWith("glyph:")) { addIcon(name) }
@@ -31,5 +31,8 @@
 {#if name.startsWith("glyph:")}
     <JBGlyph {className} text={name.replace('glyph:', '')} />
 {:else}
-    <span class="material-symbols-sharp {className} {name == 'waving_hand' ? ' animate-wave' : ''}">{name}</span>
+    <span class="material-symbols-sharp {className}
+            {name == 'waving_hand' ? ' animate-wave' : ''}
+            {name == 'progress_activity' ? 'animate-spin' : ''}
+    " style={style}>{name}</span>
 {/if}

@@ -4,7 +4,7 @@
 
 
 <Grid.Root>
-    <Grid.Left>
+    <Grid.Duo>
         <p>hello world</p>
-    </Grid.Left>
+    </Grid.Duo>
 </Grid.Root>
