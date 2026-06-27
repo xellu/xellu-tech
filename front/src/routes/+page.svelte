@@ -137,29 +137,7 @@
     <Grid.Lines.All />
 </Grid.Root>
 
-<Grid.Root className="pb-8">
-    <Grid.Lines.All className="max-lg:hidden" />
-    <Grid.Lines.Minimal className="lg:hidden" />
-
-    <Grid.Single className="flex items-center max-lg:hidden"><div class="w-full h-px bg-surface-800/80"></div></Grid.Single>
-    <Grid.Single className="max-lg:border-t border-surface-800/80">
-        <div class="w-full flex items-center gap-3 group text-xs text-surface-500 font-mono pt-16" id="gallery">
-            <div class="bg-surface-800/80 h-px w-12"></div>
-            <p>// Gallery</p>
-            <div class="bg-surface-800/80 h-px grow"></div>
-        </div>
-    </Grid.Single>
-    <Grid.Single className="flex items-center max-lg:hidden"><div></div></Grid.Single>
-    <Grid.Single className="border-y border-surface-800/80 flex flex-col max-lg:hidden">
-        <div class="w-full grow bg-[url(/mesh/diagonal-tb.png)] bg-repeat opacity-50"></div>
-    </Grid.Single>
-</Grid.Root>
-<Grid.Root className="pb-24 max-lg:hidden">
-    <Grid.Lines.Minimal />
-    <Grid.Single className="border-t border-surface-800/80"><div></div></Grid.Single>
-    <Grid.Single><div></div></Grid.Single>
-    <Grid.Single className="border-t border-surface-800/80"><div></div></Grid.Single>
-</Grid.Root>
+<Grid.Divider variant="breakout" height="h-32" label="//Gallery" />
 <!-- gallery -->
 
 <!-- snowstorm -->

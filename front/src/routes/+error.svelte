@@ -16,9 +16,10 @@
 
     <Grid.Root>
         <Grid.Lines.Minimal />
-        <Grid.DuoEx className="flex items-center justify-center border-y border-surface-800/80">
+        <Grid.DuoEx className="flex items-center justify-center border-y border-surface-800/80 border-">
             <h2 class="text-9xl font-black text-error-500">{page.status}</h2>
         </Grid.DuoEx>
+        <Grid.Single className="border-surface-800/80 border-l"><div></div></Grid.Single>
         <Grid.Single>
             <Mesh className="col-span-1 border-y border-l border-surface-800/80 h-16 lg:h-48 w-full flex justify-center items-center">
                 <p class="border border-surface-800/80 lg:px-3 p-1 bg-black lg:font-extrabold lg:uppercase lg:text-lg max-lg:text-xs">{page.error?.message}</p>
@@ -31,13 +32,7 @@
         <Grid.Lines.All />
     </Grid.Root>
     
-    <Grid.Root className="h-16">
-        <Grid.Lines.Minimal />
-        <Grid.Full className="border-y border-surface-800/80">
-            <!-- <Mesh direction="none" className="w-full h-16"><div></div></Mesh> -->
-            <div></div>
-        </Grid.Full>
-    </Grid.Root>
+    <Grid.Divider variant="empty" height="h-16" />
 
     <Grid.Root className="grow">
         <Grid.Lines.All />

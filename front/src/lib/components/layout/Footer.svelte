@@ -8,33 +8,12 @@
     import { goto } from "$app/navigation";
 </script>
 
-<Grid.Root className="h-32">
-    <Grid.Lines.All />
-</Grid.Root>
-
-<Grid.Root className="pb-8 max-lg:hidden">
-    <Grid.Lines.All className="max-lg:hidden" />
-    <Grid.Lines.Minimal className="lg:hidden" />
-
-    <Grid.Single className="border-y border-surface-800/80 flex flex-col max-lg:hidden">
-        <div class="w-full grow bg-[url(/mesh/diagonal-tb.png)] bg-repeat opacity-50 h-12"></div>
-    </Grid.Single>
-    <Grid.Single className="flex items-center max-lg:hidden"><div></div></Grid.Single>
-    <Grid.Single className="flex items-center max-lg:hidden"><div class="w-full h-px bg-surface-800/80"></div></Grid.Single>
-    <Grid.Single className="max-lg:border-t h-8 border-surface-800/80"><div></div></Grid.Single>
-    
-</Grid.Root>
-<Grid.Root className="pb-24 max-lg:hidden">
-    <Grid.Lines.All />
-    
-    <Grid.Single><div></div></Grid.Single>
-    <Grid.Single className="border-t border-surface-800/80"><div></div></Grid.Single>
-    <Grid.Single><div></div></Grid.Single>
-    <Grid.Single className="border-t border-surface-800/80"><div></div></Grid.Single>
-</Grid.Root>
+<Grid.Divider variant="alt1" />
 
 <Grid.Root className="pb-8" padding={true}>
-    <Grid.Lines.All />
+    <Grid.Lines.All className="max-lg:hidden" />
+    <Grid.Lines.Minimal className="lg:hidden" />
+    
     <Grid.Single>
         <h2 class="h2 text-center">Xellu</h2>
     </Grid.Single>

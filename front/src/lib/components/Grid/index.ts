@@ -6,6 +6,7 @@ import ColTrio from "./ColTrio.svelte";
 import ColAll from "./ColAll.svelte";
 import ColSingle from "./ColSingle.svelte";
 
+import Divider from "./Divider.svelte";
 import LinesAll from "./LinesAll.svelte";
 import LinesMinimal from "./LinesMinimal.svelte";
 
@@ -17,6 +18,8 @@ export const Grid = {
     DuoEx: ColDuoExpandable,
     Trio: ColTrio,
     Full: ColAll,
+
+    Divider: Divider,
     
     Lines: {
         All: LinesAll,
