@@ -1,26 +1,34 @@
 <script lang="ts">
-    import { Grid } from "../Grid";
-    import Button from "../Button.svelte";
+    import { Grid } from "../../Grid";
+    import Button from "../../Button.svelte";
+    import { isOpen, highlightedElement, blockInteraction, URLS } from "./store";
 
     import { goto } from "$app/navigation";
     import { onMount } from "svelte";
     import { fade, slide } from "svelte/transition";
-  import Mesh from "../Mesh.svelte";
-    
+    import Mesh from "../../Mesh.svelte";
 
-    let isOpen: boolean = $state(false);
     let contactButton: boolean = $state(false);
-
-    const URLS = [
-        {name: "About Me", url: "/"},
-        {name: "My Work", url: "/work"},
-        {name: "Services", url: "/services"}
-    ]
 
     onMount(() => {
         if (!window.location.pathname.includes("/panel")) { contactButton = true; }
     })
 </script>
+
+<svelte:head>
+    <style>
+        @keyframes highlight {
+            0%, 100% { background-color: white; }
+            50% { background-color: var(--color-secondary-300); }
+            
+        }
+        .bg-highlight {
+            animation: highlight 2s infinite;
+            border-left: 1px solid black;
+            color: black;
+        }
+    </style>
+</svelte:head>
 
 <Grid.Root className="pt-32 pb-8">
     <Grid.Lines.All />
@@ -30,7 +38,7 @@
             <div class="w-12">
                 <Button
                     label = "" icon = "menu"
-                    onclick = {() => { isOpen = true }}
+                    onclick = {() => { isOpen.set(true) }}
                 />
             </div>
             <a class="h-12 grow flex justify-center items-center max-lg:text-surface-950 max-lg:bg-primary-500 duration-150" draggable="false" href="/" title="Xellu">
@@ -53,7 +61,7 @@
     </Grid.DuoEx>
 </Grid.Root>
 
-{#if isOpen}
+{#if $isOpen}
     <div class="fixed w-screen h-screen bg-primary-500 z-50 top-0 left-0" transition:slide={{axis: "x"}}>
     <div transition:fade class="w-screen h-screen">
         <Grid.Root className="pt-32 pb-8">
@@ -65,12 +73,12 @@
                         <Button
                             label = "" icon = "close"
                             variant = "filled"
-                            onclick = {() => { isOpen = false }}
+                            onclick = {() => { isOpen.set(false) }}
                         />
                     </div>
                     <button class="h-12 grow flex justify-center items-center max-lg:text-surface-950 duration-150" onclick={() => {
                         goto("/");
-                        isOpen = false;
+                        isOpen.set(false);
                     }}>
                         <h1 class="h2 pl-3 pt-1 text-black">Xellu</h1>
                     </button>
@@ -97,10 +105,10 @@
                 {#each URLS as link, i}
                     <button class="w-full h-24 lg:h-32 group  {i != 0 ? 'border-t border-surface-700' : ''} h1 font-sans font-black flex whitespace-nowrap" onclick={() => { 
                         goto(link.url);
-                        isOpen = false;
+                        isOpen.set(false);
                     }}>
-                        <div class="group-hover:w-0 w-full duration-300 h-24 lg:h-32 flex items-center justify-center overflow-hidden uppercase"><span>{link.name}</span></div>
-                        <div class="group-hover:w-full w-0 duration-300 h-24 lg:h-32 flex items-center justify-center text-white bg-black overflow-hidden uppercase"><span>{link.name}</span></div>
+                        <div class="{$blockInteraction ? ($highlightedElement == link.name ? 'w-0' : 'w-full') : 'group-hover:w-0 w-full'} duration-300 h-24 lg:h-32 flex items-center justify-center overflow-hidden uppercase"><span>{link.name}</span></div>
+                        <div class="{$blockInteraction ? ($highlightedElement == link.name ? 'w-full' : 'w-0') : 'group-hover:w-full w-0'} duration-300 h-24 lg:h-32 flex items-center justify-center text-white bg-black overflow-hidden uppercase"><span>{link.name}</span></div>
                     </button>
                 {/each}
             </Grid.Full>
@@ -116,7 +124,7 @@
         <Grid.Root className="max-lg:-mt-8">
             <Grid.Lines.Minimal border="bright" />
 
-            <Grid.Full className="flex max-lg:px-5 lg:items-center lg:justify-evenly max-lg:flex-col p-5 border-surface-700 border-y text-black gap-3">
+            <Grid.Full className="flex max-lg:px-5 lg:items-center lg:justify-evenly max-lg:flex-col p-5 border-surface-700 border-y duration-150 {$highlightedElement == 'socials' ? 'bg-highlight' : 'text-black'}  gap-3">
                 <a href="https://github.com/xellu/" class="flex gap-3 items-center select-none group" draggable="false" target="_blank">
                     <img src="/brands/github.png" alt="" class="w-5 lg:w-8">
                     <p class="lg:text-xl font-semibold font-mono whitespace-nowrap group-hover:underline">/xellu</p>
@@ -133,14 +141,14 @@
                 </a>
 
                 
-
+                <!-- <p>{$highlightedElement || 'null'}</p> -->
             </Grid.Full>
         </Grid.Root>
 
         <Grid.Root className="h-full max-lg:-mt-5">
             <Grid.Lines.All border="bright" />
 
-            <Grid.Full>
+            <Grid.Full className="max-lg:-mt-5">
                 <Mesh className="w-full h-screen"><div></div></Mesh>
             </Grid.Full>
         </Grid.Root>

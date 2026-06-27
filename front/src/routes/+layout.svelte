@@ -1,11 +1,10 @@
 <script lang="ts">
 	import './layout.css';
 
-	import Navbar from "$lib/components/layout/Navbar.svelte";
+	import { Navbar } from '$lib/components/layout/Navbar';
+	import { Icons } from '$lib/stores/IconStore';
 	
 	let { children } = $props();
-	import { addIcon, Icons } from '$lib/stores/IconStore';
-	
 </script>
 
 <svelte:head>
@@ -15,6 +14,6 @@
     />
 </svelte:head>
 
-<Navbar />
+<Navbar.Root />
 
 {@render children()}
