@@ -195,20 +195,28 @@
     <Grid.Trio><div class="aspect-video bg-[url(/landing/cat.jpg)] bg-cover bg-center"></div></Grid.Trio>
 </Grid.Root>
 
-<Grid.Divider variant="alt2" />
+<Grid.Divider variant="alt1" />
 
 <Grid.Root>
     <Grid.Lines.All className="max-lg:hidden" />
     <Grid.Lines.Minimal className="lg:hidden" />
 
-    <Grid.Trio><div></div></Grid.Trio>
-    <Grid.Single className="p-5 lg:translate-y-12 z-10">
-        <p class="text-xs italic font-mono text-surface-300">
-            /* Built with <a href="https://svelte.dev/" target="_blank" class="underline">SvelteKit</a>, using <a href="https://skeleton.dev/" target="_blank" class="underline">Skeleton</a> and <a href="https://www.bits-ui.com/" target="_blank" class="underline">BitsUI</a>.
-            Deployed on <button onclick={() => Navbar.navigateTo("Services")} class="underline">XelTekk</button>.
-            Inspired by <a href="https://wondermake.xyz/" target="_blank" class="underline">Wondermake</a>. Made by a real person. */
-        </p>
+    <Grid.Single className="max-lg:hidden pl-px">
+        <div class="aspect-square bg-[url(/landing/shoot-for-the-stars.jpg)] bg-center bg-cover border-y border-surface-800/80"></div>
+    </Grid.Single>
+    <Grid.Duo><div></div></Grid.Duo>
+    <Grid.Single className="p-5">
+        <div class="lg:translate-y-12 z-10 flex gap-2">
+            <p class="text-xs italic font-mono text-surface-300 self-start">/*</p>
+            <p class="text-xs italic font-mono text-surface-300 pt-4">
+                Built with <a href="https://svelte.dev/" target="_blank" class="underline">SvelteKit</a>, using <a href="https://skeleton.dev/" target="_blank" class="underline">Skeleton</a> and <a href="https://www.bits-ui.com/" target="_blank" class="underline">BitsUI</a>.
+                Inspired by <a href="https://wondermake.xyz/" target="_blank" class="underline">Wondermake</a>. Made by a real person.
+            </p>
+            <p class="text-xs italic font-mono text-surface-300 self-end">*/</p>
+        </div>
     </Grid.Single>
 </Grid.Root>
+
+<Grid.Divider variant="alt2" />
 
 <Footer />

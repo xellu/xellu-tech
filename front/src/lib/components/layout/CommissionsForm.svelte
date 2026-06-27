@@ -15,6 +15,8 @@
     })
 </script>
 
+<!-- TODO: connect to api -->
+
 <Grid.DuoEx className="p-3 lg:p-8">
     <div id="commissions">
         <span class="text-xs text-surface-50 font-semibold mb-1">I go by...</span>
