@@ -1,12 +1,13 @@
 <script lang="ts">
     import { goto } from "$app/navigation";
   
-    import Button from "$lib/components/Button.svelte";
+    import { Navbar } from "$lib/components/layout/Navbar";
+    import Footer from "$lib/components/layout/Footer.svelte";
+
     import { Grid } from "$lib/components/Grid";
-  import LinesMinimal from "$lib/components/Grid/LinesMinimal.svelte";
+    import Mesh from "$lib/components/Mesh.svelte";
+    import Button from "$lib/components/Button.svelte";
     import Icon from "$lib/components/Icon.svelte";
-  import { Navbar } from "$lib/components/layout/Navbar";
-  import Mesh from "$lib/components/Mesh.svelte";
 </script>
 
 <!-- Quick Links -->
@@ -105,7 +106,7 @@
     </Grid.Single>
     <Grid.DuoEx className="p-5 flex flex-col justify-between">
         <p class="font-serif text-surface-50 lg:pt-5">
-            Hey, I'm <span class="text-white">Xel</span>! <br>
+            Hey, I go by '<span class="text-white">Xel</span>'! <br>
             I've been coding since 2019, starting with Python, since then I took up web development and UI design around 2022, and I've been doing fullstack ever since then.
             <br><br>
 
@@ -172,7 +173,7 @@
     <Grid.Duo className="border-b border-l border-surface-800/80 max-lg:hidden"><div></div></Grid.Duo>
 </Grid.Root>
 
-<Grid.Root className="pt-4">
+<Grid.Root className="pt-4 pl-px">
     <Grid.Lines.Minimal />
     <Grid.DuoEx><div class="aspect-video bg-[url(/landing/bridge1.jpg)] bg-cover"></div></Grid.DuoEx>
     <Grid.Single className="flex flex-col border-black lg:border-x max-lg:border-t">
@@ -181,7 +182,7 @@
     </Grid.Single>
     <Grid.Single><div class="bg-[url(/landing/bridge2.jpg)] bg-cover bg-center h-full max-lg:h-96 max-lg:border-t border-black max-lg:bg-fixed"></div></Grid.Single>
 </Grid.Root>
-<Grid.Root>
+<Grid.Root className="pl-px">
     <Grid.Lines.Minimal />
     <Grid.Full className="border-black border-y">
         <div class="w-full aspect-video bg-[url(/landing/bus-snowstorm.jpg)] bg-cover bg-center lg:bg-fixed"></div>
@@ -203,16 +204,16 @@
     <Grid.Single className="border-b border-l border-surface-800/80 max-lg:hidden"><div></div></Grid.Single>
 </Grid.Root>
 
-<Grid.Root className="pt-4">
+<Grid.Root className="pt-4 pl-px">
     <Grid.Lines.Minimal />
     <Grid.DuoEx><div class="aspect-video bg-[url(/landing/houhai-cat.jpg)] bg-cover bg-center border-b border-black"></div></Grid.DuoEx>
     <Grid.Single><div class="bg-[url(/landing/houhai.jpg)] bg-cover bg-center h-full max-lg:h-96 border-b lg:border-l border-black"></div></Grid.Single>
     <Grid.Single><div class="bg-[url(/landing/shichihai.jpg)] bg-cover bg-center h-full max-lg:h-96 border-b lg:border-l border-black"></div></Grid.Single>
 </Grid.Root>
-<Grid.Root>
+<Grid.Root className="pl-px">
     <Grid.Lines.Minimal />
     <Grid.Single><div class="bg-[url(/landing/building.jpg)] bg-cover bg-center h-full max-lg:h-96 max-lg:border-b lg:border-r border-black"></div></Grid.Single>
     <Grid.Trio><div class="aspect-video bg-[url(/landing/cat.jpg)] bg-cover bg-center"></div></Grid.Trio>
 </Grid.Root>
 
-<div class="h-screen"></div>
+<Footer />

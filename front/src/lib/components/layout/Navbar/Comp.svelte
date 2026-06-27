@@ -7,6 +7,7 @@
     import { onMount } from "svelte";
     import { fade, slide } from "svelte/transition";
     import Mesh from "../../Mesh.svelte";
+  import { Socials } from "$lib/stores/Socials";
 
     let contactButton: boolean = $state(false);
 
@@ -38,15 +39,15 @@
     <Grid.Lines.All />
 
     <Grid.Duo className="lg:pr-3 lg:col-span-1! max-lg:col-span-3">
-        <div class="w-full flex items-center z-40">
-            <div class="w-12">
+        <div class="w-full flex items-center">
+            <div class="w-12 fixed z-40 shadow-xl">
                 <Button
                     label = "" icon = "menu"
                     onclick = {() => { isOpen.set(true) }}
                 />
             </div>
             <a class="h-12 grow flex justify-center items-center max-lg:text-surface-950 max-lg:bg-primary-500 duration-150" draggable="false" href="/" title="Xellu">
-                <h1 class="h2 pl-3 pt-1">Xellu</h1>
+                <h1 class="h2 pl-15 pt-1">Xellu</h1>
             </a>
         </div>
     </Grid.Duo>
@@ -128,18 +129,18 @@
         <Grid.Root>
             <Grid.Lines.Minimal border="bright" />
 
-            <Grid.Full className="flex max-lg:px-5 lg:items-center lg:justify-evenly max-lg:flex-col p-5 border-surface-700 border-y duration-150 {$highlightedElement == 'socials' ? 'bg-highlight' : 'text-black'}  gap-3">
-                <a href="https://github.com/xellu/" class="flex gap-3 items-center select-none group" draggable="false" target="_blank">
+            <Grid.Full className="flex max-lg:px-5 lg:items-center lg:justify-evenly max-lg:flex-col p-5 border-surface-700 lg:border-t border-b duration-150 {$highlightedElement == 'socials' ? 'bg-highlight' : 'text-black'}  gap-3">
+                <a href="{Socials.github}" class="flex gap-3 items-center select-none group" draggable="false" target="_blank">
                     <img src="/brands/github.png" alt="" class="w-5 lg:w-8">
                     <p class="lg:text-xl font-semibold font-mono whitespace-nowrap group-hover:underline">/xellu</p>
                 </a>
 
-                <a href="https://www.instagram.com/xelluuu/" class="flex gap-3 items-center select-none group" draggable="false" target="_blank">
+                <a href="{Socials.instagram}" class="flex gap-3 items-center select-none group" draggable="false" target="_blank">
                     <img src="/brands/instagram.png" alt="" class="w-5 lg:w-8">
                     <p class="lg:text-xl font-semibold font-mono whitespace-nowrap group-hover:underline">@xelluuu</p>
                 </a>
 
-                <a href="https://discord.com/users/923528901219729430" class="flex gap-3 items-center select-none group" draggable="false" target="_blank">
+                <a href="{Socials.discord}" class="flex gap-3 items-center select-none group" draggable="false" target="_blank">
                     <img src="/brands/discord.png" alt="" class="w-5 lg:w-8">
                     <p class="lg:text-xl font-semibold font-mono whitespace-nowrap group-hover:underline">@nejfake</p>
                 </a>

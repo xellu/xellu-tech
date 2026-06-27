@@ -24,12 +24,12 @@ export const Navbar = {
                 if (l.name == value) { url = l.url }
             })
             if (url) { goto(url) }
-        }, 1300)
+        }, 800)
 
         setTimeout(() => { //close navbar
             highlightedElement.set(null)
             isOpen.set(false)
-        }, 2300)
+        }, 1000)
     },
 
     isOpen: isOpen,
