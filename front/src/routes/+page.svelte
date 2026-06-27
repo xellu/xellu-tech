@@ -204,7 +204,7 @@
     <Grid.Trio><div></div></Grid.Trio>
     <Grid.Single className="p-5 lg:translate-y-12 z-10">
         <p class="text-xs italic font-mono text-surface-300">
-            /* Built with <a href="https://svelte.dev/" target="_blank" class="underline">SvelteKit</a>, using <a href="https://skeleton.dev/" target="_blank" class="underline">Skeleton</a>.
+            /* Built with <a href="https://svelte.dev/" target="_blank" class="underline">SvelteKit</a>, using <a href="https://skeleton.dev/" target="_blank" class="underline">Skeleton</a> and <a href="https://www.bits-ui.com/" target="_blank" class="underline">BitsUI</a>.
             Deployed on <button onclick={() => Navbar.navigateTo("Services")} class="underline">XelTekk</button>.
             Inspired by <a href="https://wondermake.xyz/" target="_blank" class="underline">Wondermake</a>. Made by a real person. */
         </p>
