@@ -1,20 +1,34 @@
 <script lang="ts">
     import { Grid } from "../../Grid";
     import Button from "../../Button.svelte";
-    import { isOpen, highlightedElement, blockInteraction, URLS } from "./store";
-
-    import { goto } from "$app/navigation";
-    import { onMount } from "svelte";
-    import { fade, slide } from "svelte/transition";
     import Mesh from "../../Mesh.svelte";
-  import { Socials } from "$lib/stores/Bio";
+    import { Socials } from "$lib/stores/Bio";
+
+
+    import { isOpen, highlightedElement, blockInteraction, URLS, externalUrl } from "./store";
+    import { Navbar } from ".";
+
+    import { goto, preloadData } from "$app/navigation";
+    import { onDestroy, onMount } from "svelte";
+    import { fade, slide } from "svelte/transition";
 
     let contactButton: boolean = $state(false);
+    let navToUrl = $derived(new URL($externalUrl, window.location.origin));
+
 
     onMount(() => {
-        if (!window.location.pathname.includes("/panel")) { contactButton = true; }
-    })
+        if (!window.location.pathname.includes("/panel") && !window.location.pathname.includes("/contact")) { contactButton = true; }
 
+        const preloader = (e: MouseEvent) => {
+            const parent = (e.target as HTMLElement).parentElement;
+            if (!parent) return;
+            const url = parent.getAttribute("data-preload-url");
+            if (url) { preloadData(url); }
+        };
+        document.body.addEventListener("mousemove", preloader);
+        return () => { document.body.removeEventListener("mousemove", preloader); }
+    })
+   
     $effect(() => {
         document.body.style.overflow = $isOpen ? 'hidden' : '';
     });
@@ -59,7 +73,7 @@
         <div class="lg:w-1/2 w-full max-lg:hidden">
             <Button
                 label = "Contact Me" icon = "waving_hand"
-                onclick={() => { goto('/contact') }}
+                url = "/contact"
             />
         </div>
         {/if}
@@ -74,7 +88,7 @@
 
             <Grid.Duo className="lg:pr-3 lg:col-span-1! max-lg:col-span-3">
                 <div class="w-full flex items-center z-40">
-                    <div class="w-12">
+                    <div class="min-w-12">
                         <Button
                             label = "" icon = "close"
                             variant = "filled"
@@ -97,25 +111,35 @@
                     <Button
                         label = "Contact Me" icon = "waving_hand"
                         variant = "filled"
-                        onclick={() => { goto('/contact') }}
+                        onclick={() => { goto('/contact'); isOpen.set(false) }}
                     />
                 </div>
             </Grid.DuoEx>
         </Grid.Root>
 
-        <Grid.Root className="text-black">
+        <Grid.Root className="text-black" padding={true}>
             <Grid.Lines.Minimal border="bright" />
 
-            <Grid.Full className="border-y border-surface-700 w-full flex flex-col">
-                {#each URLS as link, i}
-                    <button class="w-full h-24 lg:h-32 group  {i != 0 ? 'border-t border-surface-700' : ''} h1 font-sans font-black flex whitespace-nowrap" onclick={() => { 
-                        goto(link.url);
-                        isOpen.set(false);
-                    }}>
-                        <div class="{$blockInteraction ? ($highlightedElement == link.name ? 'w-0' : 'w-full') : 'group-hover:w-0 w-full'} duration-300 h-24 lg:h-32 flex items-center justify-center overflow-hidden uppercase"><span>{link.name}</span></div>
-                        <div class="{$blockInteraction ? ($highlightedElement == link.name ? 'w-full' : 'w-0') : 'group-hover:w-full w-0'} duration-300 h-24 lg:h-32 flex items-center justify-center text-white bg-black overflow-hidden uppercase"><span>{link.name}</span></div>
-                    </button>
-                {/each}
+            <Grid.Full className="border-y border-surface-700">
+                {#if $highlightedElement == "url"}
+                    <div class="w-full bg-black text-white flex items-center justify-center text-3xl font-title" style="height: {128*URLS.length}px;" transition:slide>
+                        <span>{window.location.origin == navToUrl.origin ? navToUrl.pathname.split('/')[navToUrl.pathname.split('/').length-1] || 'Home' : navToUrl.hostname}</span>
+                    </div>
+                {:else}
+                    <div class="w-full flex flex-col" transition:slide>
+                    {#each URLS as link, i}
+                        <button class="w-full h-32 group  {i != 0 ? 'border-t border-surface-700' : ''} h1 font-sans font-black flex whitespace-nowrap"
+                            data-preload-url={link.url}
+                            onclick={() => { 
+                                goto(link.url);
+                                isOpen.set(false);
+                        }}>
+                            <div class="{$blockInteraction ? ($highlightedElement == link.name ? 'w-0' : 'w-full') : 'group-hover:w-0 w-full'} duration-300 h-32 flex items-center justify-center overflow-hidden uppercase"><span>{link.name}</span></div>
+                            <div class="{$blockInteraction ? ($highlightedElement == link.name ? 'w-full' : 'w-0') : 'group-hover:w-full w-0'} duration-300 h-32 flex items-center justify-center text-white bg-black overflow-hidden uppercase"><span>{link.name}</span></div>
+                        </button>
+                    {/each}
+                    </div>
+                {/if}
             </Grid.Full>
         </Grid.Root>
         
@@ -129,7 +153,7 @@
         <Grid.Root>
             <Grid.Lines.Minimal border="bright" />
 
-            <Grid.Full className="flex max-lg:px-5 lg:items-center lg:justify-evenly max-lg:flex-col p-5 border-surface-700 lg:border-t border-b duration-150 {$highlightedElement == 'socials' ? 'bg-highlight' : 'text-black'}  gap-3">
+            <Grid.Full className="flex max-lg:px-5 lg:items-center lg:justify-evenly max-lg:flex-col p-5 border-surface-700 lg:border-t border-b duration-150 {$highlightedElement == 'socials' ? 'bg-highlight' : 'text-black'}  lg:gap-3">
                 <a href="{Socials.github}" class="flex gap-3 items-center select-none group" draggable="false" target="_blank">
                     <img src="/brands/github.png" alt="" class="w-5 lg:w-8">
                     <p class="lg:text-xl font-semibold font-mono whitespace-nowrap group-hover:underline">/xellu</p>

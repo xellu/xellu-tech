@@ -3,6 +3,7 @@ import { writable, type Writable } from "svelte/store";
 export const isOpen: Writable<boolean> = writable(false);
 export const blockInteraction: Writable<boolean> = writable(false);
 export const highlightedElement: Writable<NavbarElements> = writable(null); 
+export const externalUrl: Writable<string> = writable("");
 
 export const URLS = [
     {name: "About Me", url: "/"},
@@ -10,5 +11,5 @@ export const URLS = [
     {name: "Services", url: "/services"}
 ]
 
-export type UrlType = typeof URLS[number]['name'];
-export type NavbarElements = UrlType | "socials" | null;
+export type LinkType = typeof URLS[number]['name'];
+export type NavbarElements = LinkType | "url" | "socials" | null;

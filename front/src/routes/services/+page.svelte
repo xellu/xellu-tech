@@ -5,6 +5,7 @@
     import CommissionsForm from "$lib/components/layout/CommissionsForm.svelte";
 
     import { goto } from "$app/navigation";
+  import { Navbar } from "$lib/components/layout/Navbar";
 </script>
 
 <Grid.Divider variant="breakout" height="h-0" />
@@ -36,7 +37,7 @@
         <p class="px-3 pb-1 italic font-mono text-xs text-surface-300">// User Section</p>
         <Button
             label="Log In" icon="login" variant="mesh"
-            onclick={() => { goto("/panel") }}
+            url = "/panel"
         />
     </Grid.Single>
 </Grid.Root>

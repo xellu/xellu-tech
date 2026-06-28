@@ -1,10 +1,11 @@
 <script lang="ts">
-  import Icon from "./Icon.svelte";
-
+    import Icon from "./Icon.svelte";
+    import { Navbar } from "./layout/Navbar";
 
 
     let {
         onclick = () => {},
+        url = undefined,
         variant = "outlined",
         className = "",
 
@@ -12,6 +13,7 @@
         icon = null,
     }: {
         onclick?: Function,
+        url?: string,
         variant?: "outlined" | "filled" | "mesh",
         className?: string,
 
@@ -20,7 +22,15 @@
     } = $props();
 </script>
 
-<button onclick={() => {onclick()}} class="group max-lg:w-full lg:w-[calc(100%+1px)] {className}">
+{#if url} <a href="{url}" title={label} class="absolute -top-full sr-only">{label}</a> {/if}
+
+<button
+    onclick={() => {
+        if (url) { Navbar.navigateTo(url) }
+        onclick()
+    }}
+    class="group max-lg:w-full lg:w-[calc(100%+1px)] {className}"
+>    
     <div class="w-full h-12 {variant == 'filled' ? 'group-hover:bg-surface-700' : 'group-hover:bg-primary-500'} duration-150"></div>
     <div class="flex items-center {label == '' || icon == null ? 'justify-center' : 'justify-between px-4'} gap-5 w-full h-12 -mt-12 group-hover:translate-x-2 group-hover:-translate-y-2 group-hover:shadow-2xl border duration-150 delay-75
         {variant == "outlined" ? 'border-surface-800/80 bg-surface-950' : ''}

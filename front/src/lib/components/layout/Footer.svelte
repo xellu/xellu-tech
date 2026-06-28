@@ -4,8 +4,6 @@
     import { Grid } from "../Grid";
     import Button from "../Button.svelte";
     import { Navbar } from "./Navbar";
-
-    import { goto } from "$app/navigation";
 </script>
 
 <Grid.Divider variant="alt1" />
@@ -30,22 +28,22 @@
     <Grid.Single className="z-10 flex flex-col lg:pt-2">
         <Button
             label = "About Me" icon = "person"
-            onclick = {() => { Navbar.navigateTo("About Me") }}
+            url = "/"
         />
         <Button
             label = "My Work" icon = "design_services" className="-mt-px"
-            onclick = {() => { Navbar.navigateTo("My Work") }}
+            url = "/work"
         />
         <Button
             label = "Services" icon = "apps" className="-mt-px"
-            onclick = {() => { Navbar.navigateTo("Services") }}
+            url = "/services"
         />
         
     </Grid.Single>
     <Grid.Single>
         <Button
             label = "Contact Me" icon = "chat_bubble"
-            variant = "mesh" onclick={() => { goto('/contact') }}
+            variant = "mesh" url = "/contact"
         />        
     </Grid.Single>
 </Grid.Root>

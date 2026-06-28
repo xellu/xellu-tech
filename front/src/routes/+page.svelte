@@ -1,6 +1,4 @@
-<script lang="ts">
-    import { goto } from "$app/navigation";
-  
+<script lang="ts">  
     import { Navbar } from "$lib/components/layout/Navbar";
     import Footer from "$lib/components/layout/Footer.svelte";
 
@@ -59,7 +57,7 @@
     <Grid.Lines.All />
     <Grid.Single><div></div></Grid.Single>
     <Grid.Single className="font-mono text-surface-500 flex items-center gap-3">
-        <button class="w-full flex items-center gap-3 group text-xs" onclick={() => { Navbar.navigateTo("My Work") }}>
+        <button class="w-full flex items-center gap-3 group text-xs" onclick={() => { Navbar.navigateTo("/work") }}>
             <div class="bg-surface-800/80 h-px w-12"></div>
             <p>0x02</p>
             <div class="bg-surface-800/80 h-px w-3"></div>
@@ -121,8 +119,8 @@
             <div class="2xl:hidden">
                 <Button label="My Socials" variant="filled" icon="share" onclick={() => { Navbar.setOpen(true); Navbar.highlight("socials") }} />
             </div>
-            <Button label="My Work" icon="design_services" variant="mesh" onclick={() => { Navbar.navigateTo("My Work") }} />
-            <Button label="Message Me" icon="chat_bubble" onclick={() => { goto("/contact") }} />
+            <Button label="My Work" icon="design_services" variant="mesh" url="/work" />
+            <Button label="Message Me" icon="chat_bubble" url="/contact" />
         </div>
     </Grid.DuoEx>
     <Grid.Single className="lg:border-l border-surface-800/80 flex flex-col">
