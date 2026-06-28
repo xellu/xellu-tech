@@ -39,12 +39,10 @@
             {/if}
             
             {#each p.project.links as link}
-                <a href="{link.url}" title={link.name} class="-mt-px" target="_blank">
-                    <Button
-                        label={link.name} icon="open_in_new"
-                        variant = {p.until ? 'outlined' : 'filled'}
-                    />
-                </a>
+                <Button
+                    label={link.name} icon="open_in_new" className="-mt-px"
+                    variant = {p.until ? 'outlined' : 'filled'} url={link.url}
+                />    
             {/each}
         </Grid.Single>
     </Grid.Root>

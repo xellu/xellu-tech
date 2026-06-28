@@ -44,7 +44,7 @@ export const Navbar = {
             }
         }
 
-        const timeout = (Date.now() - start) > 500 ? 0 : 500 - (Date.now() - start);
+        const timeout = (Date.now() - start) > 700 ? 0 : 700 - (Date.now() - start);
         // console.log(timeout)
         
         if (error) setTimeout(() => { toaster.error({title: "Failed to open page"}) }, 300)

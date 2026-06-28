@@ -96,15 +96,15 @@ export const Projects: Project[] = [
         until: "Winter 2023",
         project: {
             name: "DoorsMC",
-            description: "A Minecraft server network with custom plugins, minigames, and website, including backend systems for managing the network and players. Never released, Source code was lost.",
+            description: "A Minecraft server network with custom plugins, mini-games, and website, including backend systems for managing the network and players. Never released, Source code was lost.",
             links: [
                 {
                     name: "Devlog #1",
-                    url: "https://www.youtube.com/watch?v=fnN9afioqis"
+                    url: "https://youtube.com/watch?v=fnN9afioqis"
                 },
                 {
                     name: "Devlog #2",
-                    url: "https://www.youtube.com/watch?v=cJskgQsoX-0"
+                    url: "https://youtube.com/watch?v=cJskgQsoX-0"
                 }
             ],
             tags: ["Java", "Spigot", "Svelte", "TypeScript", "Python"]

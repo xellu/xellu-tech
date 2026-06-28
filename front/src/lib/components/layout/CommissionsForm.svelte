@@ -3,7 +3,7 @@
     
     import { Grid } from "../Grid";
     import Select from "../Select.svelte";
-  import Button from "../Button.svelte";
+    import Button from "../Button.svelte";
     
     let form = $state({
         name: "",
