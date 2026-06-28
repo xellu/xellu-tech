@@ -24,8 +24,12 @@
             const url = parent.getAttribute("data-preload-url");
             if (url) { preloadData(url); }
         };
+        
         document.body.addEventListener("mousemove", preloader);
-        return () => { document.body.removeEventListener("mousemove", preloader); }
+
+        return () => {
+            document.body.removeEventListener("mousemove", preloader);
+        }
     })
    
     $effect(() => {

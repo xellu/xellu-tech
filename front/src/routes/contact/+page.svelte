@@ -22,18 +22,22 @@
 <Grid.Divider variant="continue" height="h-8" />
 
 <Grid.Root>
-    <Grid.Lines.Sides />
+    <Grid.Lines.Sides className="max-lg:hidden" />
+    <Grid.Lines.Minimal className="lg:hidden" />
 
-    <Grid.Single>
+    <Grid.Single className="lg:-mt-8">
         <Button
             label = "Message Me" icon = "chat_bubble" variant={page == "contact" ? 'filled' : 'outlined'}
-            onclick = {() => { page = "contact"}} className="mt-4"
+            onclick = {() => { page = "contact"}}
         />
-        <Mesh className="h-10!"><div></div></Mesh>
+        <Mesh className="h-10! max-lg:hidden"><div></div></Mesh>
         <Button
-            label = "Commissions" icon = "design_services" variant={page == "commissions" ? 'filled' : 'outlined'}
+            label = "Commissions" icon = "design_services" variant={page == "commissions" ? 'filled' : 'outlined'} className="max-lg:-mt-px"
             onclick = {() => { page = "commissions"}}
         />
+        <Mesh className="h-24! lg:hidden border-b border-surface-800/80 flex items-center justify-center">
+            <p class="capitalize text-center bg-black border border-surface-800/80 {page == 'commissions' ? 'w-26' : 'w-18'} duration-150">{page}</p>
+        </Mesh>
     </Grid.Single>
     <Grid.DuoEx className="w-full flex flex-col">
         {#if page == "commissions"}
@@ -46,8 +50,9 @@
             </div>
         {/if}
     </Grid.DuoEx>
+    <Grid.Single className="max-lg:hidden bg-[url(/landing/bridge1.jpg)] bg-cover bg-center opacity-25 ml-px"><div></div></Grid.Single>
 </Grid.Root>
 
-<Grid.Divider variant="continue" height="h-8" />
+<Grid.Divider variant="continue-alt" height="h-8" />
 
 <Footer />

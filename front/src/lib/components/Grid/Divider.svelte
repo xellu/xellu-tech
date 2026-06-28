@@ -4,7 +4,7 @@
 
     let { variant, label = undefined, height = "h-32" }:
         {
-            variant: "empty" | "alt1" | "alt2" | "alt3" | "breakout" | "continue"
+            variant: "empty" | "alt1" | "alt2" | "alt3" | "breakout" | "continue" | "continue-alt"
             height?: string,
             label?: string}
     = $props()
@@ -132,6 +132,14 @@
     {#each [0,0] as _, index}
         <Grid.Single className="border-t border-l border-surface-800/80 {height}"><div></div></Grid.Single>
         <Grid.Single className="border-b border-l border-surface-800/80 {height}"><div></div></Grid.Single>
+    {/each}
+</Grid.Root>
+{:else if variant == "continue-alt"}
+<Grid.Root>
+    <Grid.Lines.Minimal />
+    {#each [0,0] as _, index}
+        <Grid.Single className="border-b border-l border-surface-800/80 {height}"><div></div></Grid.Single>
+        <Grid.Single className="border-t border-l border-surface-800/80 {height}"><div></div></Grid.Single>
     {/each}
 </Grid.Root>
 {/if}
