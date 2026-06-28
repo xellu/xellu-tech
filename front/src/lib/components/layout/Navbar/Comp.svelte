@@ -6,10 +6,9 @@
 
 
     import { isOpen, highlightedElement, blockInteraction, URLS, externalUrl } from "./store";
-    import { Navbar } from ".";
 
     import { goto, preloadData } from "$app/navigation";
-    import { onDestroy, onMount } from "svelte";
+    import { onMount } from "svelte";
     import { fade, slide } from "svelte/transition";
 
     let contactButton: boolean = $state(false);

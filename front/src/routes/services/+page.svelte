@@ -3,9 +3,6 @@
     import Button from "$lib/components/Button.svelte";
     import Footer from "$lib/components/layout/Footer.svelte";
     import CommissionsForm from "$lib/components/layout/CommissionsForm.svelte";
-
-    import { goto } from "$app/navigation";
-  import { Navbar } from "$lib/components/layout/Navbar";
 </script>
 
 <Grid.Divider variant="breakout" height="h-0" />

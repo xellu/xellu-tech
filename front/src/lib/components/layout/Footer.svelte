@@ -3,7 +3,6 @@
     
     import { Grid } from "../Grid";
     import Button from "../Button.svelte";
-    import { Navbar } from "./Navbar";
 </script>
 
 <Grid.Divider variant="alt1" />
