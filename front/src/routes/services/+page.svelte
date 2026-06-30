@@ -39,7 +39,7 @@
     <CommissionsForm />
     
     <Grid.Single className="max-lg:hidden">
-        <p class="px-3 pb-1 italic font-mono text-xs text-surface-300 flex items-center justify-between">
+        <!-- <p class="px-3 pb-1 italic font-mono text-xs text-surface-300 flex items-center justify-between">
             <span>/* XelTekk Users</span>
             <span>*/</span>
         </p>
@@ -49,7 +49,8 @@
         />
         <div class="pt-4 px-3">
             <a href="#social" class="italic font-mono text-xs text-surface-300 hover:underline w-full">&UpArrow; What's this? Click to learn more.</a>
-        </div>
+        </div> -->
+        <div></div>
     </Grid.Single>
 </Grid.Root>
 
@@ -58,7 +59,7 @@
 <Grid.Root className="h-32"> <Grid.Lines.All /> </Grid.Root>
 <Grid.Divider variant="continue" height="h-8" />
 
-<Grid.Root>
+<!-- <Grid.Root>
     <Grid.Lines.Sides className="max-lg:hidden" />
     <Grid.Lines.Minimal className="lg:hidden" />
 
@@ -92,7 +93,7 @@
     </Grid.DuoEx>
 </Grid.Root>
 
-<Grid.Divider variant="continue" height="h-8" />
+<Grid.Divider variant="continue" height="h-8" /> -->
 
 
 <Footer />
