@@ -23,6 +23,8 @@ async def commissions(ctx: Context):
     if len(ctx.body["content"]) > 1024: raise Error(400)
     if ctx.body["budget"] <= 0: raise Error(400)
     
+    ctx.body['content'] = ctx.body['content'].replace("`", "\\`")
+    
     if customService:
         customService = customService.replace("`", "\\`")
     
@@ -35,7 +37,7 @@ async def commissions(ctx: Context):
 **Service:** {ctx.body['service']} {f'`{customService}`' if ctx.body['service'] == 'other' else ''}
 **Budget:** {ctx.body['budget']}€
 **Message:** ```
-{ctx.body['content'].replace("`", "\\`")}
+{ctx.body['content']}
 ```
         """
     ))
