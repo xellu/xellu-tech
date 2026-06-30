@@ -39,10 +39,14 @@
         />
         
     </Grid.Single>
-    <Grid.Single>
+    <Grid.Single className="flex flex-col gap-4">
         <Button
             label = "Contact Me" icon = "chat_bubble"
             variant = "mesh" url = "/contact"
-        />        
+        />
+        <a href="https://github.com/xellu/xellu-tech" target="_blank" class="group text-surface-50 font-mono px-4 text-xs flex items-center justify-between">
+            <span>/* <span class="group-hover:underline">Available on GitHub</span></span>
+            <span>*/</span>
+        </a>
     </Grid.Single>
 </Grid.Root>
