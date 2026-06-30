@@ -54,6 +54,8 @@ async def contact(ctx: Context):
     if len(ctx.body["email"]) > 128: raise Error(400)
     if len(ctx.body["content"]) > 1024: raise Error(400)
 
+    ctx.body['content'] = ctx.body['content'].replace("`", "\\`")
+
     hook = AsyncDiscordWebhook(url=Config("xyz")["contact.webhookUrl"])
     hook.add_embed(DiscordEmbed(
         title = "New Message",
@@ -61,7 +63,7 @@ async def contact(ctx: Context):
 **Name:** {ctx.body['name']}
 **Email:** {ctx.body['email']}
 **Message:** ```
-{ctx.body['content'].replace("`", "\\`")}
+{ctx.body['content']}
 ```
         """
     ))
