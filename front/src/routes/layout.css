@@ -1,0 +1,245 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400..700;1,400..700&display=swap');
+
+@import 'tailwindcss';
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
+
+@import '@skeletonlabs/skeleton'; 
+@import '@skeletonlabs/skeleton-svelte'; 
+
+@font-face {
+	font-family: "Moderniz";
+	src: url('/Moderniz.otf');
+	font-weight: bold;
+}
+
+@theme inline {
+	--font-sans: 'Figtree', sans-serif;
+	--font-serif: 'Libre Baskerville', serif;
+	--font-mono: 'Jetbrains Mono', monospace;
+	--font-title: 'Moderniz', sans-serif;
+}
+
+.material-symbols-sharp {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
+
+::selection {
+	@apply bg-secondary-500/50;
+}
+
+html, body {
+	scroll-behavior: smooth;
+}
+
+[data-theme='packaged'] {
+	--text-scaling: 1.067;
+	--base-font-color: var(--color-surface-950);
+	--base-font-color-dark: oklch(1 0 0 / 1);
+	--base-font-family: 'Figtree', sans-serif;
+	--base-font-size: inherit;
+	--base-line-height: inherit;
+	--base-font-weight: normal;
+	--base-font-style: normal;
+	--base-letter-spacing: 0em;
+	--heading-font-color: inherit;
+	--heading-font-color-dark: inherit;
+	--heading-font-family: "Moderniz", sans-serif;
+	--heading-font-weight: bold;
+	--heading-font-style: normal;
+	--heading-letter-spacing: inherit;
+	--anchor-font-color: var(--color-primary-500);
+	--anchor-font-color-dark: var(--color-primary-500);
+	--anchor-font-family: inherit;
+	--anchor-font-size: inherit;
+	--anchor-line-height: inherit;
+	--anchor-font-weight: inherit;
+	--anchor-font-style: inherit;
+	--anchor-letter-spacing: inherit;
+	--anchor-text-decoration: none;
+	--anchor-text-decoration-hover: underline;
+	--anchor-text-decoration-active: none;
+	--anchor-text-decoration-focus: none;
+	--spacing: 0.28rem;
+	--radius-base: 0rem;
+	--radius-container: 0rem;
+	--default-border-width: 1px;
+	--default-divide-width: 1px;
+	--default-ring-width: 1px;
+	--body-background-color: var(--color-surface-50);
+	--body-background-color-dark: var(--color-surface-950);
+	--color-primary-50: oklch(100% 0 none);
+	--color-primary-100: oklch(100% 0 none);
+	--color-primary-200: oklch(100% 0 none);
+	--color-primary-300: oklch(100% 0 none);
+	--color-primary-400: oklch(100% 0 none);
+	--color-primary-500: oklch(100% 0 none);
+	--color-primary-600: oklch(92.49% 0 none);
+	--color-primary-700: oklch(85.14% 0 none);
+	--color-primary-800: oklch(77.31% 0 none);
+	--color-primary-900: oklch(69.6% 0 none);
+	--color-primary-950: oklch(61.33% 0 none);
+	--color-primary-contrast-dark: oklch(0 0 0 / 1);
+	--color-primary-contrast-light: var(--color-primary-50);
+	--color-primary-contrast-50: var(--color-primary-contrast-dark);
+	--color-primary-contrast-100: var(--color-primary-contrast-dark);
+	--color-primary-contrast-200: var(--color-primary-contrast-dark);
+	--color-primary-contrast-300: var(--color-primary-contrast-dark);
+	--color-primary-contrast-400: var(--color-primary-contrast-dark);
+	--color-primary-contrast-500: var(--color-primary-contrast-dark);
+	--color-primary-contrast-600: var(--color-primary-contrast-dark);
+	--color-primary-contrast-700: var(--color-primary-contrast-dark);
+	--color-primary-contrast-800: var(--color-primary-contrast-dark);
+	--color-primary-contrast-900: var(--color-primary-contrast-dark);
+	--color-primary-contrast-950: var(--color-primary-contrast-light);
+	--color-secondary-50: oklch(93.01% 0.05 215deg);
+	--color-secondary-100: oklch(85.66% 0.08 231.71deg);
+	--color-secondary-200: oklch(78.46% 0.11 240.55deg);
+	--color-secondary-300: oklch(71.35% 0.14 247.16deg);
+	--color-secondary-400: oklch(64.87% 0.17 251.58deg);
+	--color-secondary-500: oklch(59.03% 0.2 256.04deg);
+	--color-secondary-600: oklch(53.13% 0.19 257.54deg);
+	--color-secondary-700: oklch(47.1% 0.18 259.16deg);
+	--color-secondary-800: oklch(40.83% 0.18 261.02deg);
+	--color-secondary-900: oklch(34.59% 0.17 262.55deg);
+	--color-secondary-950: oklch(28.34% 0.16 263.75deg);
+	--color-secondary-contrast-dark: var(--color-secondary-950);
+	--color-secondary-contrast-light: var(--color-secondary-50);
+	--color-secondary-contrast-50: var(--color-secondary-contrast-dark);
+	--color-secondary-contrast-100: var(--color-secondary-contrast-dark);
+	--color-secondary-contrast-200: var(--color-secondary-contrast-dark);
+	--color-secondary-contrast-300: var(--color-secondary-contrast-dark);
+	--color-secondary-contrast-400: var(--color-secondary-contrast-dark);
+	--color-secondary-contrast-500: var(--color-secondary-contrast-light);
+	--color-secondary-contrast-600: var(--color-secondary-contrast-light);
+	--color-secondary-contrast-700: var(--color-secondary-contrast-light);
+	--color-secondary-contrast-800: var(--color-secondary-contrast-light);
+	--color-secondary-contrast-900: var(--color-secondary-contrast-light);
+	--color-secondary-contrast-950: var(--color-secondary-contrast-light);
+	--color-tertiary-50: oklch(76.77% 0.14 299.75deg);
+	--color-tertiary-100: oklch(69.46% 0.14 298.24deg);
+	--color-tertiary-200: oklch(61.84% 0.14 297.57deg);
+	--color-tertiary-300: oklch(54.18% 0.14 295.6deg);
+	--color-tertiary-400: oklch(46.18% 0.14 294.3deg);
+	--color-tertiary-500: oklch(38.13% 0.14 291.08deg);
+	--color-tertiary-600: oklch(33.51% 0.12 289.44deg);
+	--color-tertiary-700: oklch(28.65% 0.11 287.53deg);
+	--color-tertiary-800: oklch(23.5% 0.1 284.86deg);
+	--color-tertiary-900: oklch(18.17% 0.08 280.57deg);
+	--color-tertiary-950: oklch(10.82% 0.07 264.05deg);
+	--color-tertiary-contrast-dark: var(--color-tertiary-950);
+	--color-tertiary-contrast-light: var(--color-tertiary-50);
+	--color-tertiary-contrast-50: var(--color-tertiary-contrast-dark);
+	--color-tertiary-contrast-100: var(--color-tertiary-contrast-dark);
+	--color-tertiary-contrast-200: var(--color-tertiary-contrast-dark);
+	--color-tertiary-contrast-300: var(--color-tertiary-contrast-light);
+	--color-tertiary-contrast-400: var(--color-tertiary-contrast-light);
+	--color-tertiary-contrast-500: var(--color-tertiary-contrast-light);
+	--color-tertiary-contrast-600: var(--color-tertiary-contrast-light);
+	--color-tertiary-contrast-700: var(--color-tertiary-contrast-light);
+	--color-tertiary-contrast-800: var(--color-tertiary-contrast-light);
+	--color-tertiary-contrast-900: var(--color-tertiary-contrast-light);
+	--color-tertiary-contrast-950: var(--color-tertiary-contrast-light);
+	--color-success-50: oklch(97.45% 0.07 122.38deg);
+	--color-success-100: oklch(93.94% 0.1 131.73deg);
+	--color-success-200: oklch(90.67% 0.14 135.93deg);
+	--color-success-300: oklch(87.55% 0.17 138.37deg);
+	--color-success-400: oklch(84.74% 0.2 139.8deg);
+	--color-success-500: oklch(82.16% 0.22 140.85deg);
+	--color-success-600: oklch(75.03% 0.21 141.29deg);
+	--color-success-700: oklch(67.76% 0.2 141.64deg);
+	--color-success-800: oklch(60.64% 0.19 142.07deg);
+	--color-success-900: oklch(53.12% 0.17 142.34deg);
+	--color-success-950: oklch(45.43% 0.15 142.5deg);
+	--color-success-contrast-dark: var(--color-success-950);
+	--color-success-contrast-light: var(--color-success-50);
+	--color-success-contrast-50: var(--color-success-contrast-dark);
+	--color-success-contrast-100: var(--color-success-contrast-dark);
+	--color-success-contrast-200: var(--color-success-contrast-dark);
+	--color-success-contrast-300: var(--color-success-contrast-dark);
+	--color-success-contrast-400: var(--color-success-contrast-dark);
+	--color-success-contrast-500: var(--color-success-contrast-dark);
+	--color-success-contrast-600: var(--color-success-contrast-dark);
+	--color-success-contrast-700: var(--color-success-contrast-dark);
+	--color-success-contrast-800: var(--color-success-contrast-dark);
+	--color-success-contrast-900: var(--color-success-contrast-light);
+	--color-success-contrast-950: var(--color-success-contrast-light);
+	--color-warning-50: oklch(95.67% 0.05 84.56deg);
+	--color-warning-100: oklch(92.83% 0.06 82.16deg);
+	--color-warning-200: oklch(90.12% 0.08 80.33deg);
+	--color-warning-300: oklch(87.59% 0.1 80.01deg);
+	--color-warning-400: oklch(85.03% 0.12 78.35deg);
+	--color-warning-500: oklch(82.46% 0.14 76.71deg);
+	--color-warning-600: oklch(76.34% 0.13 72.25deg);
+	--color-warning-700: oklch(70.34% 0.13 68.09deg);
+	--color-warning-800: oklch(63.99% 0.13 63.18deg);
+	--color-warning-900: oklch(57.91% 0.13 57.97deg);
+	--color-warning-950: oklch(51.69% 0.13 51.44deg);
+	--color-warning-contrast-dark: var(--color-warning-950);
+	--color-warning-contrast-light: var(--color-warning-50);
+	--color-warning-contrast-50: var(--color-warning-contrast-dark);
+	--color-warning-contrast-100: var(--color-warning-contrast-dark);
+	--color-warning-contrast-200: var(--color-warning-contrast-dark);
+	--color-warning-contrast-300: var(--color-warning-contrast-dark);
+	--color-warning-contrast-400: var(--color-warning-contrast-dark);
+	--color-warning-contrast-500: var(--color-warning-contrast-dark);
+	--color-warning-contrast-600: var(--color-warning-contrast-light);
+	--color-warning-contrast-700: var(--color-warning-contrast-light);
+	--color-warning-contrast-800: var(--color-warning-contrast-light);
+	--color-warning-contrast-900: var(--color-warning-contrast-light);
+	--color-warning-contrast-950: var(--color-warning-contrast-light);
+	--color-error-50: oklch(88.13% 0.07 47.93deg);
+	--color-error-100: oklch(82.71% 0.1 37.55deg);
+	--color-error-200: oklch(77.44% 0.12 32.24deg);
+	--color-error-300: oklch(72.55% 0.15 28.53deg);
+	--color-error-400: oklch(68.19% 0.18 27.59deg);
+	--color-error-500: oklch(64.67% 0.21 27.63deg);
+	--color-error-600: oklch(58.47% 0.2 27.86deg);
+	--color-error-700: oklch(52.08% 0.18 27.66deg);
+	--color-error-800: oklch(45.65% 0.17 28.04deg);
+	--color-error-900: oklch(39.06% 0.15 28.08deg);
+	--color-error-950: oklch(32.27% 0.13 29.23deg);
+	--color-error-contrast-dark: var(--color-error-950);
+	--color-error-contrast-light: var(--color-error-50);
+	--color-error-contrast-50: var(--color-error-contrast-dark);
+	--color-error-contrast-100: var(--color-error-contrast-dark);
+	--color-error-contrast-200: var(--color-error-contrast-dark);
+	--color-error-contrast-300: var(--color-error-contrast-dark);
+	--color-error-contrast-400: var(--color-error-contrast-dark);
+	--color-error-contrast-500: var(--color-error-contrast-dark);
+	--color-error-contrast-600: var(--color-error-contrast-light);
+	--color-error-contrast-700: var(--color-error-contrast-light);
+	--color-error-contrast-800: var(--color-error-contrast-light);
+	--color-error-contrast-900: var(--color-error-contrast-light);
+	--color-error-contrast-950: var(--color-error-contrast-light);
+	--color-surface-50: oklch(80.15% 0 none);
+	--color-surface-100: oklch(72.84% 0 none);
+	--color-surface-200: oklch(65.34% 0 none);
+	--color-surface-300: oklch(57.61% 0 none);
+	--color-surface-400: oklch(49.62% 0 none);
+	--color-surface-500: oklch(41.28% 0 none);
+	--color-surface-600: oklch(35.62% 0 none);
+	--color-surface-700: oklch(29.72% 0 none);
+	--color-surface-800: oklch(23.5% 0 none);
+	--color-surface-900: oklch(16.84% 0 none);
+	--color-surface-950: oklch(0% 0 none);
+	--color-surface-contrast-dark: var(--color-surface-950);
+	--color-surface-contrast-light: var(--color-surface-50);
+	--color-surface-contrast-50: var(--color-surface-contrast-dark);
+	--color-surface-contrast-100: var(--color-surface-contrast-dark);
+	--color-surface-contrast-200: var(--color-surface-contrast-dark);
+	--color-surface-contrast-300: var(--color-surface-contrast-dark);
+	--color-surface-contrast-400: var(--color-surface-contrast-dark);
+	--color-surface-contrast-500: var(--color-surface-contrast-light);
+	--color-surface-contrast-600: var(--color-surface-contrast-light);
+	--color-surface-contrast-700: var(--color-surface-contrast-light);
+	--color-surface-contrast-800: var(--color-surface-contrast-light);
+	--color-surface-contrast-900: var(--color-surface-contrast-light);
+	--color-surface-contrast-950: var(--color-surface-contrast-light);
+}

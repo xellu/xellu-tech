@@ -1,117 +1,230 @@
-<script lang="ts">
-    import Separator from "$lib/components/Separator.svelte";
-    import Embed from "$lib/components/Embed.svelte";
-    import PageWrapper from "$lib/components/misc/PageWrapper.svelte";
+<script lang="ts">  
+    import { Navbar } from "$lib/components/layout/Navbar";
+    import Footer from "$lib/components/layout/Footer.svelte";
 
-    import { projectTimeline } from "$lib/projects";
-    import { discord, email } from "$lib/socials";
+    import { Grid } from "$lib/components/Grid";
+    import Mesh from "$lib/components/Mesh.svelte";
+    import Button from "$lib/components/Button.svelte";
+    import Icon from "$lib/components/Icon.svelte";
+    import Embed from "$lib/components/Embed.svelte";
 </script>
 
 
-<style lang="postcss">
-    p a {
-        @apply font-semibold;
-        @apply text-surface-50;
-    }
-
-    p a:hover {
-        @apply underline;
-    }
-
-</style>
-
 <svelte:head>
-    <title>Xellu</title>
-
     <Embed
         title = "Xellu"
-        description = "Hi! I'm Xellu, This is a site for my projects, blog posts and invite-only services, such as file hosting, music and media exchange."
-        route = "/"
+        description = "Hey I go by 'Xel'! I've been coding since 2019, starting with Python, since then I took up web development and UI design around 2022..."
+        icon="customLarge" iconUrl="https://xellu.xyz/landing/preview.png"
     />
 </svelte:head>
 
-<PageWrapper>
-    <div>
-        <Separator> <span id="about">About Me</span> </Separator>
-        <p class="text-surface-200 pl-3">
-            <!-- how i started -->
-            In 2019, I tried coding in Python, and I liked it. I started learning web development around 2022, and I've been doing it since then.
-            I also worked on the backend side of things, using Python and Node.js.
+<!-- Quick Links -->
+<Grid.Root className="pt-8">
+    <Grid.Lines.All />
 
-            <br><br>
-            <!-- what i do now -->
-            Nowadays, I'm working on my projects, and also Freelancing. I'm also learning new tech and improving my skills.
-            Lately, I've been making a <a href="https://github.com/xellu/nautica-api">backend development platform</a> in python.
-
-            <br><br>
-
-            <!-- what i want to do -->
-            I'm looking for any opportunities to work on interesting projects, and to learn new things. I'm also open to collaborations.
-            <br><br>
-            If you want work with me, or just chat, hit me up on <a href={discord} target="_blank">Discord</a>.
-        </p>
-
-        <div class="h-5"></div>
-
-        <!-- my projects -->
-        <Separator> <span id="projects">My Projects</span> </Separator>
-        <div class="flex flex-col">
-            {#each projectTimeline as entry, i}
-                <div class="flex gap-3 group">
-                    <!-- timeline -->
-                    <div class="flex flex-col gap-1 items-center justify-center max-sm:w-1/4 w-56">
-                        <div class="w-px min-h-5 flex-grow {i == 0 ? 'bg-gradient-to-t from-white/50 via-transparent to-transparent' : 'bg-white/50'}"></div>
-                        <div class="max-md:text-center font-heading-token">
-                            <p class="text-sm font-black uppercase group-hover:text-tertiary-500 duration-300">{entry.until ? `From ${entry.date}` : entry.date}</p>
-                            {#if entry.until}
-                                <p class="text-xs font-bold uppercase opacity-50 group-hover:text-tertiary-500 duration-300">To {entry.until}</p>
-                            {/if}
-                        </div>
-                        <div class="w-px min-h-5 flex-grow {i == projectTimeline.length-1 ? 'bg-gradient-to-b from-white/50 via-transparent to-transparent': 'bg-white/50'}"></div>
-                    </div>
-
-                    <!-- project card -->
-                    <div class="p-3 rounded-xl w-full my-3 glass-group flex flex-col">
-                        <h2 class="text-lg font-semibold group-hover:text-tertiary-500 duration-300 font-heading-token">{entry.project.name}</h2>
-                        <p class="text-surface-200 w-4/5 mt-3 text-sm mb-5">{entry.project.description}</p>
-
-                        {#if entry.project.links.length > 0}
-                        <div class="flex gap-3 flex-wrap mb-3">
-                            {#each entry.project.links as link}
-                                <a href="{link.url}" target="_blank" class="flex gap-2 items-center opacity-70 hover:opacity-100 hover:text-primary-400 duration-150 text-xs uppercase font-bold">
-                                    <span class="material-symbols-outlined text-sm">open_in_new</span>
-                                    <span>{link.name}</span>
-                                </a>
-                            {/each}
-                        </div>
-                        {/if}
-
-                        <div class="flex gap-3 flex-wrap">
-                            {#each entry.project.tags as tag}
-                                <span class="chip variant-soft-tertiary">{tag}</span>
-                            {/each}
-                        </div>
-                    </div>
-                </div>
-            {/each}
+    <Grid.Single className="max-lg:hidden font-mono text-surface-500 text-xs">
+        <a href="#about" class="w-full flex items-center gap-3 group">
+            <div class="bg-surface-800/80 h-px w-12"></div>
+            <p>0x01</p>
+            <div class="bg-surface-800/80 h-px w-3"></div>
+            <p class="italic group-hover:underline">About Me</p>
+            <div class="bg-surface-800/80 h-px grow"></div>
+        </a>
+    </Grid.Single>
+    
+    <Grid.Single>
+        <div class="flex items-center justify-between gap-5 px-5">
+            <Icon name="waving_hand" style="font-size: 3rem;" />
+            <h2 class="text-2xl font-semibold lg:text-end">Hey!<br> I'm Xel</h2>
         </div>
-        <div class="h-5"></div>
+    </Grid.Single>
 
-        <!-- contact info -->
-        <Separator> <span id="contact">Get in Touch</span> </Separator>
+    <Grid.Single className="max-lg:hidden font-mono text-xs text-surface-500 flex items-center gap-3">
+        <a href="#gallery" class="w-full flex items-center gap-3 group">
+            <div class="bg-surface-800/80 h-px w-12"></div>
+            <p>0x03</p>
+            <div class="bg-surface-800/80 h-px w-3"></div>
+            <p class="italic group-hover:underline">Gallery</p>
+            <div class="bg-surface-800/80 h-px grow"></div>
+        </a>
+    </Grid.Single>
+    
+    <Grid.Single className="max-lg:hidden font-mono text-xs text-surface-500 flex items-center gap-3">
+        <button class="w-full flex items-center gap-3 group" onclick={() => {
+            Navbar.setOpen(true);
+            Navbar.highlight("socials")
+        }}>
+            <div class="bg-surface-800/80 h-px w-12"></div>
+            <p>0x04</p>
+            <div class="bg-surface-800/80 h-px w-3"></div>
+            <p class="italic group-hover:underline">Socials</p>
+            <div class="bg-surface-800/80 h-px grow"></div>
+        </button>
+    </Grid.Single>
+</Grid.Root>
 
-        <p class="text-surface-200">
-            If you want to work with me, or just chat, feel free to <a href={discord} target="_blank">reach out to me on Discord</a>, or <a href={email} target="_blank">send me an email</a>.
+<Grid.Root className="max-lg:hidden pt-5 pb-8">
+    <Grid.Lines.All />
+    <Grid.Single><div></div></Grid.Single>
+    <Grid.Single className="font-mono text-surface-500 flex items-center gap-3">
+        <button class="w-full flex items-center gap-3 group text-xs" onclick={() => { Navbar.navigateTo("/work") }}>
+            <div class="bg-surface-800/80 h-px w-12"></div>
+            <p>0x02</p>
+            <div class="bg-surface-800/80 h-px w-3"></div>
+            <p class="italic group-hover:underline">My Work</p>
+            <div class="bg-surface-800/80 h-px grow"></div>
+        </button>
+    </Grid.Single>
+</Grid.Root>
+
+<!-- About Me -->
+<Grid.Root>
+    <Grid.Lines.All className="max-lg:hidden" />
+    <Grid.Lines.Minimal className="lg:hidden" />
+
+    <Grid.Single className="flex flex-col gap-3 max-lg:border-t border-surface-800/80">
+        <div class="w-full flex items-center gap-3 group text-xs text-surface-500 font-mono pt-16" id="about">
+            <div class="bg-surface-800/80 h-px grow"></div>
+            <p>// About Me</p>
+            <div class="bg-surface-800/80 h-px w-12"></div>
+        </div>
+
+    </Grid.Single>
+
+    <Grid.Single className="max-lg:hidden border-b border-surface-800/80"><div></div></Grid.Single>
+
+    <Grid.Single  className="max-lg:hidden border-y border-l border-surface-800/80 flex flex-col">
+        <div class="w-full grow bg-[url(/landing/cernobilej-svet.jpg)] bg-center bg-cover opacity-25"></div>
+    </Grid.Single>
+    
+    <Grid.Single className="max-lg:hidden border-y border-surface-800/80">
+        <Mesh className="w-full h-24 opacity-50"><div></div></Mesh>
+    </Grid.Single>
+</Grid.Root>
+
+<Grid.Root>
+    <Grid.Lines.Minimal />
+
+    <Grid.Single className="pt-5 -mr-px border-r border-surface-800/80">
+        <div class="border-y border-surface-800/80">
+            <Mesh className="w-full p-5" direction="diagonal-tb">
+                <div class="p-1.5 bg-black border border-surface-700"><img src="/landing/avatar.jpg" alt="" class="w-full select-none" draggable="false"></div>
+            </Mesh>
+        </div>
+    </Grid.Single>
+    <Grid.DuoEx className="p-5 flex flex-col justify-between">
+        <p class="font-serif text-surface-50 lg:pt-5">
+            Hey, I go by '<span class="text-white">Xel</span>'! <br>
+            I've been coding since 2019, starting with Python, since then I took up web development and UI design around 2022, and I've been doing fullstack ever since then.
+            <br><br>
+
+            Fast-forward to now, and I'm freelancing and making a <a href="https://github.com/xellu/nautica-api" target="_blank" class="hover:underline font-bold text-white">backend development platform</a>.
+            I've also taken up photography, you can check my pics in <a href="#gallery" class="hover:underline text-white font-bold">the gallery</a> below.
+            <br><br>
+            
+
+            With that being said, I'm always looking for any opportunities to work on interesting projects, to learn new things and collaborations. So if you need something done, hit me up!
         </p>
+        <div class="flex gap-5 mt-5 max-2xl:flex-col">
+            <div class="2xl:hidden">
+                <Button label="My Socials" variant="filled" icon="share" onclick={() => { Navbar.setOpen(true); Navbar.highlight("socials") }} />
+            </div>
+            <Button label="My Work" icon="design_services" variant="mesh" url="/work" />
+            <Button label="Message Me" icon="chat_bubble" url="/contact" />
+        </div>
+    </Grid.DuoEx>
+    <Grid.Single className="lg:border-l border-surface-800/80 flex flex-col">
+        <div class="w-full grow bg-[url(/landing/billboard.jpg)] bg-center bg-cover opacity-25"></div>
+    </Grid.Single>
+</Grid.Root>
 
-        <div class="mt-32">
-            <p class="text-surface-200 text-sm">
-                Written in <a href="https://vscode.dev/" target="_blank">Visual Studio Code</a>.
-                Built with <a href="https://svelte.dev/" target="_blank">SvelteKit</a>, <a href="https://tailwindcss.com/" target="_blank">Tailwind CSS</a>, and <a href="https://skeleton.dev/" target="_blank">Skeleton</a>.
-                Deployed on <a href="https://xeltekk.com/">XelTekk</a>.
-                Inspired by <a href="https://brittanychiang.com/" target="_blank">Brittany Chiang</a>.
+<Grid.Root> <Grid.Full className="border-t border-surface-800/80"><div></div></Grid.Full> </Grid.Root>
+
+<!-- padding -->
+<Grid.Root className="h-32">
+    <Grid.Lines.All />
+</Grid.Root>
+
+<div id="gallery"></div>
+<Grid.Divider variant="breakout" height="h-32" label="//Gallery" />
+<!-- gallery -->
+
+<!-- snowstorm -->
+<Grid.Root>
+    <Grid.Lines.Minimal />
+    <Grid.Single className="border-b border-surface-800/80 max-lg:hidden"><div></div></Grid.Single>
+    <Grid.Single className="border-t border-l h-8 border-surface-800/80 flex items-center justify-between px-2 text-surface-500 font-mono text-sm">
+        <p>01</p>
+        <p class="text-xs">novosibirsk snowstorm</p>
+    </Grid.Single>
+    <Grid.Duo className="border-b border-l border-surface-800/80 max-lg:hidden"><div></div></Grid.Duo>
+</Grid.Root>
+
+<Grid.Root className="pt-4 pl-px">
+    <Grid.Lines.Minimal />
+    <Grid.DuoEx><div class="aspect-video bg-[url(/landing/bridge1.jpg)] bg-cover"></div></Grid.DuoEx>
+    <Grid.Single className="flex flex-col border-black lg:border-x max-lg:border-t">
+        <div class="w-full grow bg-[url(/landing/pole1.jpg)] bg-cover bg-center border-black border-b aspect-video"></div>
+        <div class="w-full grow bg-[url(/landing/pole2.jpg)] bg-cover bg-center aspect-video"></div>
+    </Grid.Single>
+    <Grid.Single><div class="bg-[url(/landing/bridge2.jpg)] bg-cover bg-center h-full max-lg:h-96 max-lg:border-t border-black max-lg:bg-fixed"></div></Grid.Single>
+</Grid.Root>
+<Grid.Root className="pl-px">
+    <Grid.Lines.Minimal />
+    <Grid.Full className="border-black border-y">
+        <div class="w-full aspect-video bg-[url(/landing/bus-snowstorm.jpg)] bg-cover bg-center lg:bg-fixed"></div>
+    </Grid.Full>
+</Grid.Root>
+<Grid.Root>
+    <Grid.Lines.Minimal />
+    <Grid.Full><div class="w-full h-px bg-surface-800/80"></div></Grid.Full>
+</Grid.Root>
+
+<!-- beijing -->
+<Grid.Root className="pt-16">
+    <Grid.Lines.Minimal />
+    <Grid.Duo className="border-b border-surface-800/80 max-lg:hidden"><div></div></Grid.Duo>
+    <Grid.Single className="border-t border-l h-8 border-surface-800/80 flex items-center justify-between px-2 text-surface-500 font-mono text-sm">
+        <p>02</p>
+        <p class="text-xs">beijing</p>
+    </Grid.Single>
+    <Grid.Single className="border-b border-l border-surface-800/80 max-lg:hidden"><div></div></Grid.Single>
+</Grid.Root>
+
+<Grid.Root className="pt-4 pl-px">
+    <Grid.Lines.Minimal />
+    <Grid.DuoEx><div class="aspect-video bg-[url(/landing/houhai-cat.jpg)] bg-cover bg-center border-b border-black"></div></Grid.DuoEx>
+    <Grid.Single><div class="bg-[url(/landing/houhai.jpg)] bg-cover bg-center h-full max-lg:h-96 border-b lg:border-l border-black"></div></Grid.Single>
+    <Grid.Single><div class="bg-[url(/landing/shichihai.jpg)] bg-cover bg-center h-full max-lg:h-96 border-b lg:border-l border-black"></div></Grid.Single>
+</Grid.Root>
+<Grid.Root className="pl-px">
+    <Grid.Lines.Minimal />
+    <Grid.Single><div class="bg-[url(/landing/building.jpg)] bg-cover bg-center h-full max-lg:h-96 max-lg:border-b lg:border-r border-black"></div></Grid.Single>
+    <Grid.Trio><div class="aspect-video bg-[url(/landing/cat.jpg)] bg-cover bg-center"></div></Grid.Trio>
+</Grid.Root>
+
+<Grid.Divider variant="alt1" />
+
+<Grid.Root>
+    <Grid.Lines.All className="max-lg:hidden" />
+    <Grid.Lines.Minimal className="lg:hidden" />
+
+    <Grid.Single className="max-lg:hidden pl-px">
+        <div class="aspect-square bg-[url(/landing/shoot-for-the-stars.jpg)] bg-center bg-cover border-y border-surface-800/80"></div>
+    </Grid.Single>
+    <Grid.Duo><div></div></Grid.Duo>
+    <Grid.Single className="p-5">
+        <div class="lg:translate-y-12 z-10 flex gap-2">
+            <p class="text-xs italic font-mono text-surface-300 self-start">/*</p>
+            <p class="text-xs italic font-mono text-surface-300 pt-4">
+                Built with <a href="https://svelte.dev/" target="_blank" class="underline">SvelteKit</a>, using <a href="https://skeleton.dev/" target="_blank" class="underline">Skeleton</a> and <a href="https://www.bits-ui.com/" target="_blank" class="underline">BitsUI</a>.
+                Inspired by <a href="https://wondermake.xyz/" target="_blank" class="underline">Wondermake</a>. Made by a real person.
             </p>
+            <p class="text-xs italic font-mono text-surface-300 self-end">*/</p>
         </div>
+    </Grid.Single>
+</Grid.Root>
 
-    </div>
-</PageWrapper>
+<Grid.Divider variant="alt2" />
+
+<Footer />

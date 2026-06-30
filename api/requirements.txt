@@ -1,5 +1,0 @@
-colorama
-"pymongo[srv]"
-flask
-flask-limiter
-waitress
