@@ -3,6 +3,7 @@
     import { Grid } from "$lib/components/Grid";
     import Mesh from "$lib/components/Mesh.svelte";
     import Footer from "$lib/components/layout/Footer.svelte";
+    import Embed from "$lib/components/Embed.svelte";
 
     import CommissionsForm from "$lib/components/layout/CommissionsForm.svelte";
     import ContactForm from "$lib/components/layout/ContactForm.svelte";
@@ -18,6 +19,12 @@
         }
     })
 </script>
+
+<svelte:head>
+    <Embed
+        title = "Contact Me | Xellu" route="/contact"
+    />
+</svelte:head>
 
 <Grid.Divider variant="continue" height="h-8" />
 

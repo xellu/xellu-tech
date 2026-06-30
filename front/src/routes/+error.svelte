@@ -1,11 +1,19 @@
 <script lang="ts">
     import { page } from "$app/state";
-  import Button from "$lib/components/Button.svelte";
+    import Button from "$lib/components/Button.svelte";
 
     import { Grid } from "$lib/components/Grid";
     import Mesh from "$lib/components/Mesh.svelte";
     import Footer from "$lib/components/layout/Footer.svelte";
+
+    import Embed from "$lib/components/Embed.svelte";
 </script>
+
+<svelte:head>
+    <Embed
+        title = "{page.status} {page.error?.message}"
+    />
+</svelte:head>
 
 <Grid.Divider variant="continue" height="h-8" />
 

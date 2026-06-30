@@ -2,9 +2,16 @@
     import { Grid } from "$lib/components/Grid";
     import Button from "$lib/components/Button.svelte";
     import Footer from "$lib/components/layout/Footer.svelte";
+    import Embed from "$lib/components/Embed.svelte";
 
     import { Projects } from "$lib/stores/Bio";
 </script>
+
+<svelte:head>
+    <Embed
+        title = "My Work | Xellu" route="/work"
+    />
+</svelte:head>
 
 <Grid.Divider variant="alt3" height="h-0" />
 <Grid.Root>

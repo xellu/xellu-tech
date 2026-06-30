@@ -3,8 +3,15 @@
     import Button from "$lib/components/Button.svelte";
     import Footer from "$lib/components/layout/Footer.svelte";
     import CommissionsForm from "$lib/components/layout/CommissionsForm.svelte";
-  import Icon from "$lib/components/Icon.svelte";
+    import Icon from "$lib/components/Icon.svelte";
+    import Embed from "$lib/components/Embed.svelte";
 </script>
+
+<svelte:head>
+    <Embed
+        title = "Services | Xellu" route="/services"
+    />
+</svelte:head>
 
 <Grid.Divider variant="breakout" height="h-0" />
 

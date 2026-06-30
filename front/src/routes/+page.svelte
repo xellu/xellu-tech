@@ -6,7 +6,17 @@
     import Mesh from "$lib/components/Mesh.svelte";
     import Button from "$lib/components/Button.svelte";
     import Icon from "$lib/components/Icon.svelte";
+    import Embed from "$lib/components/Embed.svelte";
 </script>
+
+
+<svelte:head>
+    <Embed
+        title = "Xellu"
+        description = "Hey I go by 'Xel'! I've been coding since 2019, starting with Python, since then I took up web development and UI design around 2022..."
+        icon="customLarge" iconUrl="https://xellu.xyz/landing/preview.png"
+    />
+</svelte:head>
 
 <!-- Quick Links -->
 <Grid.Root className="pt-8">
