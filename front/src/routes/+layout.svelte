@@ -15,6 +15,10 @@
         rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names={$Icons}"
     />
+
+	<script>
+		document.documentElement.setAttribute('data-mode', 'dark');
+	</script>
 </svelte:head>
 
 <Navbar.Root />
