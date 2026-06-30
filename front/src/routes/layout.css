@@ -15,6 +15,8 @@
 	font-weight: bold;
 }
 
+@custom-variant dark (&:where([data-mode="dark"], [data-mode="dark"] *));
+
 @theme inline {
 	--font-sans: 'Figtree', sans-serif;
 	--font-serif: 'Libre Baskerville', serif;
